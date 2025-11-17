@@ -49,9 +49,6 @@ public class CardAdapter  extends RecyclerView.Adapter<CardAdapter.CardViewHolde
             binding.expireDate.setText(paymentCard.getExpiryDate());
             binding.textCardNumber.setText(paymentCard.getCardNumber());
             binding.textCardHolder.setText(paymentCard.getCardHolderName());
-
-
-
         }
     }
 }
