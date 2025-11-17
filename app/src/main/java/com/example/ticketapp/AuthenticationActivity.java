@@ -1,18 +1,10 @@
-package com.example.ticketapp.viewmodel.;
+package com.example.ticketapp.;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ticketapp.databinding.ActivityAuthenticationBinding;
 import com.example.ticketapp.databinding.FragmentLoginBinding;
