@@ -1,4 +1,4 @@
-package com.example.ticketapp.viewmodel.;
+package com.example.ticketapp.;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,22 +6,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 
 import com.example.ticketapp.databinding.ActivitySplashBinding;
 import com.example.ticketapp.utils.Resource;
-import com.example.ticketapp.view.LoginFragment;
 import com.example.ticketapp.viewmodel.CinemaViewModel;
 import com.example.ticketapp.viewmodel.ProfileViewModel;
-
-import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
