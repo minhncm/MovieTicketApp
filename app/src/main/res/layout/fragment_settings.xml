@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_color_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAvatarContainer"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avt"
+                    tools:ignore="ContentDescription" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_miles_morales"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"/>
+
+                <TextView
+                    android:id="@+id/tvRole"
+                    android:text="@string/txt_film_hunter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_account"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"/>
+
+        <LinearLayout
+            style="@style/SettingItemStyle">
+
+            <ImageView
+                android:src="@drawable/ic_personal"
+                style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/txt_personal_data"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/SettingItemStyle">
+
+            <ImageView
+                android:src="@drawable/ic_email"
+                style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/email_payment"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/SettingItemStyle">
+
+            <ImageView
+                android:src="@drawable/ic_deactivate"
+                style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/txt_deactivate_account"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_app_settings"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/languageSettings"
+            style="@style/SettingItemStyle">
+
+            <ImageView
+                android:src="@drawable/ic_notification"
+                style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/txt_language"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_policy"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"/>
+
+        <LinearLayout
+            style="@style/SettingItemStyle">
+
+            <ImageView
+                android:src="@drawable/ic_notification"
+                style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/txt_notification"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/myTicket"
+            style="@style/SettingItemStyle">
+
+            <ImageView
+                android:src="@drawable/ic_ticket"
+                style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/txt_your_ticket"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/logout"
+            style="@style/SettingItemStyle"
+            android:paddingBottom="32dp"> <ImageView
+            android:src="@drawable/ic_logout"
+            style="@style/SettingIconStyle"/>
+
+            <TextView
+                android:text="@string/txt_logout"
+                style="@style/SettingTextStyle"/>
+        </LinearLayout>
+
+    </LinearLayout> </ScrollView>
