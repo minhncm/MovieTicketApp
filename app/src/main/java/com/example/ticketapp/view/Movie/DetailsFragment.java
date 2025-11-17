@@ -40,7 +40,7 @@ public class DetailsFragment extends Fragment {
 
     private void initView(Movie movie) {
         binding.tvTitle.setText(movie.getTitle());
-        binding.tvDirector.setText("Director: " + movie.getDirector());
+        binding.tvDirector.setText(getString(R.string.txt_director_format, movie.getDirector()));
         for ( String genre : movie.getGenres()) {
             TextView genreView = new TextView(binding.getRoot().getContext());
 
