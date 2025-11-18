@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_overlay"
+    android:fitsSystemWindows="false"
+    tools:context=".view.LoginFragment">
+
+    <!-- Welcome Back -->
+
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="M"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="64sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.199" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_welcome_back"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white_blur"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Nút Facebook -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFacebook"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_continue_facebook"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="24dp"
+        app:icon="@drawable/ic_facebook"
+        app:iconTint="@null"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:backgroundTint="@color/white_blur"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <!-- Nút Google -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGoogle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_continue_google"
+        app:iconTint="@null"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
+        app:icon="@drawable/ic_google"
+
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:backgroundTint="@color/white_blur"
+        app:layout_constraintTop_toBottomOf="@id/btnFacebook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Nút Apple -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnApple"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_continue_apple"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="24dp"
+        app:icon="@drawable/ic_apple"
+        app:iconTint="@null"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:backgroundTint="@color/white_blur"
+        app:layout_constraintTop_toBottomOf="@id/btnGoogle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Divider -->
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="or"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/btnApple"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Log in with password -->
+    <Button
+        android:id="@+id/btnPasswordLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_login_with_password"
+        android:backgroundTint="@color/light_blue"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvOr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="24dp"/>
+
+    <!-- Register link -->
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don’t have an account? Register"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/btnPasswordLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
