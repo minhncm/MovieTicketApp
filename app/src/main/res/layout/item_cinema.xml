@@ -1,0 +1,55 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_color_bg"
+
+    android:layout_marginBottom="8dp">
+
+    <ImageView
+        android:id="@+id/ivCinemaLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/img_cinema"
+
+
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvCinemaName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Viva Cinema"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivCinemaLogo"
+        app:layout_constraintTop_toTopOf="@id/ivCinemaLogo"
+        app:layout_constraintEnd_toStartOf="@id/tvCinemaRating"
+        android:layout_marginStart="12dp"/>
+
+    <TextView
+        android:id="@+id/tvCinemaInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="5.2 Km • Closed 10:00 PM"
+        android:textColor="#AAAAAA"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tvCinemaName"
+        app:layout_constraintTop_toBottomOf="@id/tvCinemaName"
+        app:layout_constraintEnd_toEndOf="@id/tvCinemaName"/>
+
+    <TextView
+        android:id="@+id/tvCinemaRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="★ 4.9"
+        android:textColor="#FF9800"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/ivCinemaLogo"
+        app:layout_constraintBottom_toBottomOf="@id/ivCinemaLogo"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
