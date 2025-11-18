@@ -63,7 +63,6 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
             // Hiển thị tên ghế (A1, A2...)
             seatCheckBox.setText(seat.getSeatId());
 
-            // Tự động đổi màu dựa trên trạng thái
             if ("available".equals(seat.getStatus().toString())) {
                 seatCheckBox.setEnabled(true); // Cho phép bấm
                 seatCheckBox.setChecked(false); // Bỏ chọn (nếu đang được tái sử dụng)
