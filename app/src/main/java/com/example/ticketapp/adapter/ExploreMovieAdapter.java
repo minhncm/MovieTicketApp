@@ -16,12 +16,12 @@ import java.util.List;
 public class ExploreMovieAdapter extends RecyclerView.Adapter<ExploreMovieAdapter.MovieViewHolder> {
     private List<Movie> movieList  ;
     private ItemMovieHorizontalBinding binding;
-    private com.example.ticketapp.adapter.MovieAdapter.OnItemClickListener onItemClickListener;
+    private MovieAdapter.OnItemClickListener onItemClickListener;
     public  ExploreMovieAdapter( ){
         movieList = new ArrayList<>();
 
     }
-    public void setOnItemClickListener(com.example.ticketapp.adapter.MovieAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(MovieAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
     public void updateListMovie(List<Movie> _movieList){

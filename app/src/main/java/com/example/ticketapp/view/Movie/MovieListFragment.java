@@ -32,7 +32,7 @@ import java.util.stream.Collectors; // Cần Java 8+
 
 @AndroidEntryPoint
 public class MovieListFragment extends Fragment {
-    public    interface  OnMovieSelectListener {
+ public    interface  OnMovieSelectListener {
         void onMovieSelect(Movie movie);
     }
 
@@ -98,11 +98,11 @@ public class MovieListFragment extends Fragment {
         movieViewModel = new ViewModelProvider(requireActivity()).get(MovieViewModel.class);
         observeMovies();
     }
-    private  void setUpNavigation(Movie movie){
+private  void setUpNavigation(Movie movie){
         movieViewModel.setSelectMovie(movie);
         NavController navController = NavHostFragment.findNavController(MovieListFragment.this);
 
-    }
+}
     private void observeMovies() {
         movieViewModel.movies.observe(getViewLifecycleOwner(), resource -> {
             if (resource.getStatus() == Resource.Status.SUCCESS) {

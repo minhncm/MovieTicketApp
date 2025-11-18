@@ -1,15 +1,22 @@
-package com.example.ticketapp.;
+package com.example.ticketapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Space;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.ticketapp.databinding.ActivityOnBoardingBinding;
+import com.example.ticketapp.utils.LocaleHelper;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -17,6 +24,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class OnBoarding extends AppCompatActivity {
     private ActivityOnBoardingBinding binding;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase, LocaleHelper.getPersistedLanguage(newBase)));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

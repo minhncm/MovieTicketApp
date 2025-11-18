@@ -28,7 +28,6 @@ import com.example.ticketapp.viewmodel.CinemaViewModel;
 import com.example.ticketapp.viewmodel.MovieViewModel;
 import com.example.ticketapp.viewmodel.ProfileViewModel;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.firestore.auth.User;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

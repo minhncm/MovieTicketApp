@@ -1,0 +1,262 @@
+<resources>
+    <!-- Tên Ứng Dụng -->
+    <string name="app_name">TicketApp</string>
+    
+    <!-- Thanh Điều Hướng -->
+    <string name="txt_home">Trang Chủ</string>
+    <string name="txt_cinema">Rạp Chiếu</string>
+    <string name="txt_ticket">Vé</string>
+    <string name="txt_profile">Hồ Sơ</string>
+    <string name="txt_explore">Khám Phá</string>
+    
+    <!-- Xác Thực -->
+    <string name="hint_username">Tên đăng nhập</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="hint_confirm_password">Xác nhận mật khẩu</string>
+    <string name="hint_email_example">example@gmail.com</string>
+    <string name="hint_full_name_card">Tên đầy đủ trên thẻ</string>
+    <string name="hint_card_number">**** **** **** ****</string>
+    <string name="hint_cvv">123</string>
+    <string name="content_desc_facebook">Facebook</string>
+    <string name="content_desc_google">Google</string>
+    <string name="content_desc_apple">Apple</string>
+    
+    <!-- Cài Đặt -->
+    <string name="txt_account">Tài Khoản</string>
+    <string name="txt_personal_data">Thông Tin Cá Nhân</string>
+    <string name="txt_deactivate_account">Vô Hiệu Hóa Tài Khoản</string>
+    <string name="txt_notification">Thông Báo</string>
+    <string name="txt_your_ticket">Vé Của Bạn</string>
+    <string name="txt_logout">Đăng Xuất</string>
+    <string name="txt_miles_morales">Miles Morales</string>
+    <string name="txt_film_hunter">Thợ Săn Phim</string>
+    <string name="txt_language">Ngôn Ngữ</string>
+    <string name="txt_app_settings">Cài Đặt Ứng Dụng</string>
+    <string name="privacy_policy"><![CDATA[Chính Sách & Quyền Riêng Tư]]></string>
+    <string name="email_payment"><![CDATA[Email & Thanh Toán]]></string>
+    
+    <!-- Tùy Chọn Ngôn Ngữ -->
+    <string name="txt_english">English</string>
+    <string name="txt_vietnamese">Tiếng Việt</string>
+    <string name="txt_select_language">Chọn Ngôn Ngữ</string>
+    <string name="txt_language_changed">Đã đổi ngôn ngữ. Vui lòng khởi động lại ứng dụng.</string>
+    <string name="txt_restart_app">Khởi Động Lại</string>
+    <string name="txt_restart_later">Để Sau</string>
+    
+    <!-- Chọn Ghế -->
+    <string name="txt_date">Ngày</string>
+    <string name="txt_city">Thành Phố</string>
+    <string name="txt_cinema_label">Rạp Chiếu</string>
+    <string name="txt_showtime">Suất Chiếu</string>
+    <string name="txt_checkout">Thanh Toán</string>
+    <string name="txt_available">Còn Trống</string>
+    <string name="txt_reserved">Đã Đặt</string>
+    <string name="txt_selected">Đã Chọn</string>
+    <string name="txt_vip">VIP</string>
+    <string name="txt_regular">Thường</string>
+    
+    <!-- Vé -->
+    <string name="txt_label">Nhãn</string>
+    <string name="txt_value">Giá Trị</string>
+    <string name="txt_movie_title_sample">Múa Đỏ</string>
+    <string name="txt_status_used">Đã Sử Dụng</string>
+    <string name="txt_date_sample">22 Tháng 8, 2025 5:50 chiều</string>
+    <string name="txt_cinema_sample">CGV Vincom Đà Nẵng</string>
+    <string name="txt_price_sample">331.500 đ</string>
+    <string name="txt_reward_points">17 Điểm Thưởng</string>
+    <string name="txt_rate">Đánh Giá</string>
+    <string name="txt_no_tickets">Bạn chưa có vé nào trong mục này.</string>
+    
+    <!-- Thanh Toán -->
+    <string name="txt_master_card">Thẻ Master</string>
+    <string name="txt_card_expiry">22/09</string>
+    <string name="txt_card_holder">Chủ Thẻ</string>
+    <string name="txt_card_holder_name">Miles Morales</string>
+    <string name="txt_card_number_masked">**** **** **** 51446</string>
+    
+    <!-- Phim -->
+    <string name="txt_movie_title">Tên Phim</string>
+    <string name="txt_rating_sample">★★★★☆</string>
+    <string name="txt_search_hint">Tìm kiếm phim yêu thích của bạn</string>
+    <string name="txt_now_showing">Đang Chiếu</string>
+    <string name="txt_coming_soon">Sắp Chiếu</string>
+    <string name="txt_popular">Phổ Biến</string>
+    <string name="txt_top_rated">Đánh Giá Cao</string>
+    <string name="txt_genres">Thể Loại</string>
+    <string name="txt_duration">Thời Lượng</string>
+    <string name="txt_director">Đạo Diễn</string>
+    <string name="txt_cast">Diễn Viên</string>
+    <string name="txt_synopsis">Tóm Tắt</string>
+    <string name="txt_book_now">Đặt Vé Ngay</string>
+    <string name="txt_watch_trailer">Xem Trailer</string>
+    
+    <!-- Rạp Chiếu -->
+    <string name="txt_cinema_name_sample">Rạp Viva</string>
+    <string name="txt_cinema_info_sample">5.2 Km • Đóng cửa 10:00 tối</string>
+    <string name="txt_cinema_rating_sample">★ 4.9</string>
+    <string name="txt_select_cinema">Chọn Rạp</string>
+    <string name="txt_select_showtime">Chọn Suất Chiếu</string>
+    
+    <!-- Kế Hoạch Đã Lưu -->
+    <string name="saved_plan">Kế Hoạch Đã Lưu</string>
+    <string name="txt_saved_date_sample">1. 02 Tháng 11, 2025</string>
+    <string name="txt_action">Hành Động</string>
+    <string name="txt_no_time_to_die">Không Thời Gian Để Chết</string>
+    <string name="txt_duration_sample">2 giờ 43 phút</string>
+    <string name="txt_rating_value_sample">5.0</string>
+    
+    <!-- Chung -->
+    <string name="txt_item">Mục</string>
+    <string name="txt_cancel">Hủy</string>
+    <string name="txt_confirm">Xác Nhận</string>
+    <string name="txt_save">Lưu</string>
+    <string name="txt_delete">Xóa</string>
+    <string name="txt_edit">Sửa</string>
+    <string name="txt_add">Thêm</string>
+    <string name="txt_back">Quay Lại</string>
+    <string name="txt_next">Tiếp Theo</string>
+    <string name="txt_skip">Bỏ Qua</string>
+    <string name="txt_done">Hoàn Tất</string>
+    <string name="txt_loading">Đang tải...</string>
+    <string name="txt_error">Lỗi</string>
+    <string name="txt_success">Thành Công</string>
+    <string name="txt_total">Tổng Cộng</string>
+    <string name="txt_subtotal">Tạm Tính</string>
+    <string name="txt_tax">Thuế</string>
+    <string name="txt_discount">Giảm Giá</string>
+    
+    <!-- Thanh Toán Thành Công -->
+    <string name="txt_payment_success">Thanh Toán Thành Công!</string>
+    <string name="txt_payment_success_message">Vé của bạn đã được đặt thành công</string>
+    <string name="txt_view_ticket">Xem Vé</string>
+    <string name="txt_back_to_home">Về Trang Chủ</string>
+    
+    <!-- Đăng Nhập -->
+    <string name="txt_login">Đăng Nhập</string>
+    <string name="txt_register">Đăng Ký</string>
+    <string name="txt_forgot_password">Quên Mật Khẩu?</string>
+    <string name="txt_or_continue_with">Hoặc tiếp tục với</string>
+    <string name="txt_dont_have_account">Chưa có tài khoản?</string>
+    <string name="txt_already_have_account">Đã có tài khoản?</string>
+    <string name="txt_sign_up">Đăng Ký</string>
+    <string name="txt_sign_in">Đăng Nhập</string>
+    
+    <!-- Giới Thiệu -->
+    <string name="txt_onboarding_title_1">Chào Mừng Đến TicketApp</string>
+    <string name="txt_onboarding_desc_1">Đặt vé phim yêu thích dễ dàng</string>
+    <string name="txt_onboarding_title_2">Chọn Ghế Của Bạn</string>
+    <string name="txt_onboarding_desc_2">Chọn ghế ngồi tốt nhất cho phim của bạn</string>
+    <string name="txt_onboarding_title_3">Thưởng Thức Phim</string>
+    <string name="txt_onboarding_desc_3">Xuất trình vé điện tử và thưởng thức</string>
+    
+    <!-- Vé Điện Tử -->
+    <string name="txt_e_ticket">Vé Điện Tử</string>
+    <string name="txt_ticket_id">Mã Vé</string>
+    <string name="txt_seat_number">Số Ghế</string>
+    <string name="txt_screen">Màn Hình</string>
+    <string name="txt_time">Thời Gian</string>
+    <string name="txt_barcode">Mã Vạch</string>
+    
+    <!-- Trạng Thái Vé -->
+    <string name="txt_upcoming">Sắp Tới</string>
+    <string name="txt_watched">Đã Xem</string>
+    
+    <!-- Nhãn Điều Hướng -->
+    <string name="nav_home">Trang Chủ</string>
+    <string name="nav_explore">Khám Phá</string>
+    <string name="nav_saved_plans">Kế Hoạch Đã Lưu</string>
+    <string name="nav_settings">Cài Đặt</string>
+    <string name="nav_details_movie">Chi Tiết Phim</string>
+    <string name="nav_select_seat">Chọn Ghế</string>
+    <string name="nav_payment_method">Phương Thức Thanh Toán</string>
+    <string name="nav_payment_success">Thanh Toán Thành Công</string>
+    <string name="nav_my_ticket">Vé Của Tôi</string>
+    <string name="nav_upcoming_tickets">Vé Sắp Tới</string>
+    <string name="nav_watched_tickets">Vé Đã Xem</string>
+    
+    <!-- Thanh Toán -->
+    <string name="txt_payment_method">Phương Thức Thanh Toán</string>
+    <string name="txt_payment_details">Chi Tiết Thanh Toán</string>
+    <string name="txt_your_email">Email Của Bạn</string>
+    <string name="txt_cardholder_name">Tên Chủ Thẻ</string>
+    <string name="txt_card_number_label">Số Thẻ</string>
+    <string name="txt_cvv_label">CVV</string>
+    <string name="txt_date_label">Ngày</string>
+    <string name="txt_change">Thay Đổi</string>
+    <string name="txt_pay_now">Thanh Toán</string>
+    <string name="txt_save_card">Lưu Thẻ</string>
+    <string name="txt_set_default_payment">Đặt làm phương thức thanh toán mặc định</string>
+    <string name="txt_seats">Ghế</string>
+    <string name="txt_person">Người</string>
+    
+    <!-- Đăng Nhập -->
+    <string name="txt_welcome_back">Chào Mừng Trở Lại</string>
+    <string name="txt_create_account">Tạo Tài Khoản</string>
+    <string name="txt_sign_to_account">Đăng Nhập Tài Khoản</string>
+    <string name="txt_continue_facebook">Tiếp tục với Facebook</string>
+    <string name="txt_continue_google">Tiếp tục với Google</string>
+    <string name="txt_continue_apple">Tiếp tục với Apple</string>
+    <string name="txt_login_with_password">Đăng nhập bằng mật khẩu</string>
+    
+    <!-- Thông Báo -->
+    <string name="msg_no_movies">Hiện tại chưa có phim nào trong mục này.</string>
+    <string name="msg_booking_missing">Thiếu dữ liệu đặt vé</string>
+    <string name="msg_error">Lỗi: %s</string>
+    <string name="msg_failed">Thất bại: %s</string>
+    
+    <!-- Đạo Diễn -->
+    <string name="txt_director_format">Đạo diễn: %s</string>
+    <string name="txt_see_more">Xem thêm</string>
+    <string name="txt_top_movie">Phim hàng đầu</string>
+    <string name="txt_recommended">Được đề xuất</string>
+    
+    <!-- Placeholder -->
+    <string name="hello_blank_fragment">Xin chào fragment trống</string>
+    <string name="txt_note_location">Vui lòng bật dịch vụ định vị</string>
+    <string name="welcome_back">Chào mừng trở lại,</string>
+    <string name="cinema_near_you">Rạp Chiếu Phim Gần Bạn</string>
+    <string name="btn_book_ticket">Đặt Vé</string>
+    <string name="txt_read_more">Đọc Thêm</string>
+    <string name="txt_instruction">Hướng Dẫn</string>
+    <string name="content_instruction">Đến rạp chiếu phim, xuất trình và quét mã vạch vào khu vực được chỉ định. Tiếp tục tuân thủ các quy tắc về sức khỏe.</string>
+    <string name="txt_download_e_ticket">Tải E-Ticket</string>
+    <string name="txt_content_welcome">Trải Nghiệm Rạp Chiếu Phim Của Bạn</string>
+    <!-- Danh Sách Thành Phố -->
+    <string-array name="cities_array">
+        <item>An Giang</item>
+        <item>Bà Rịa - Vũng Tàu</item>
+        <item>Bắc Giang</item>
+        <item>Bắc Kạn</item>
+        <item>Bạc Liêu</item>
+        <item>Bắc Ninh</item>
+        <item>Bến Tre</item>
+        <item>Bình Định</item>
+        <item>Bình Dương</item>
+        <item>Bình Phước</item>
+        <item>Bình Thuận</item>
+        <item>Cà Mau</item>
+        <item>Hồ Chí Minh</item>
+        <item>Cần Thơ</item>
+        <item>Cao Bằng</item>
+        <item>Đà Nẵng</item>
+        <item>Đắk Lắk</item>
+        <item>Đắk Nông</item>
+        <item>Điện Biên</item>
+        <item>Đồng Nai</item>
+        <item>Đồng Tháp</item>
+        <item>Gia Lai</item>
+        <item>Hà Giang</item>
+        <item>Hà Nam</item>
+        <item>Hà Nội</item>
+        <item>Hà Tĩnh</item>
+        <item>Hải Dương</item>
+        <item>Hải Phòng</item>
+        <item>Hậu Giang</item>
+        <item>Hòa Bình</item>
+        <item>Hưng Yên</item>
+        <item>Khánh Hòa</item>
+        <item>Kiên Giang</item>
+    </string-array>
+
+</resources>

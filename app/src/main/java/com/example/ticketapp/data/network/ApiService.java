@@ -29,7 +29,7 @@ public interface ApiService {
 
     @GET("getShowtimes")
     Call<List<Showtimes>> getShowTimes(@Query("date") String date, @Query("cinemaId") String cinemaID
-            , @Query("movieId") String movieID);
+    , @Query("movieId") String movieID);
     @POST("bookTicket")
     Call<BookingRes> bookTicket(@Body BookingData body);
     @GET("getBookingsByUserId")

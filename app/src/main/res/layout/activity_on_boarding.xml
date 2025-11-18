@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/onboardingLayout"
+        android:id="@+id/onboardingLayout"
     android:fitsSystemWindows="true"
 
     android:background="#1A1A1A">

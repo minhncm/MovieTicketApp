@@ -21,7 +21,7 @@ public class MovieTabAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         String filterType = tabTitles.get(position);
-        return MovieListFragment.newInstance(filterType); // Tạo Fragment mới
+            return MovieListFragment.newInstance(filterType); // Tạo Fragment mới
     }
 
     @Override

@@ -41,25 +41,25 @@ public class Room {
     }
 
     private int totalRows;
-    public static class RowType{
-        private List<String> rows;
-        private String type;
+public static class RowType{
+    private List<String> rows;
+    private String type;
 
-        public List<String> getRows() {
-            return rows;
-        }
-
-        public void setRows(List<String> rows) {
-            this.rows = rows;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
+    public List<String> getRows() {
+        return rows;
     }
+
+    public void setRows(List<String> rows) {
+        this.rows = rows;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+}
 }
 

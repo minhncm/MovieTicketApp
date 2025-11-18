@@ -44,12 +44,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        holder.bind(movieList.get(position));
-        holder.itemView.setOnClickListener(v -> {
-            if (onItemClickListener != null) {
+       holder.bind(movieList.get(position));
+       holder.itemView.setOnClickListener(v -> {
+              if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(movieList.get(position));
-            }
-        });
+              }
+         });
 
     }
 
@@ -61,9 +61,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     static class MovieViewHolder extends RecyclerView.ViewHolder {
         private  ItemMovieBinding binding;
         public MovieViewHolder ( ItemMovieBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
+           super(binding.getRoot());
+           this.binding = binding;
+         }
         void bind(Movie movie) {
             if (movie == null) return;
 
