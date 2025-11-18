@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1C1E2A"
-    >
+  >
 
     <LinearLayout
         android:id="@+id/layout_date_city"
@@ -47,7 +47,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_calendar"
-                />
+               />
         </LinearLayout>
 
         <LinearLayout

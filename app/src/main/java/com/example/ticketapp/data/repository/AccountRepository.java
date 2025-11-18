@@ -37,7 +37,7 @@ public class AccountRepository {
     public void clearUser() {
         this.currentUser = null;
     }
-    @Inject
+@Inject
     public AccountRepository() {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();

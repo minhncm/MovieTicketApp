@@ -24,7 +24,7 @@ import retrofit2.Response;
 @Singleton
 public class CinemaRepositoryImpl implements CinemaRepository {
     private final ApiService apiService;
-    @Inject
+@Inject
     public CinemaRepositoryImpl(ApiService apiService) {
         this.apiService = apiService;
     }

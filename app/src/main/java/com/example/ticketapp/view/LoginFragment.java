@@ -19,8 +19,8 @@ import com.example.ticketapp.viewmodel.ProfileViewModel;
 
 
 public class LoginFragment extends Fragment {
-    private FragmentLoginBinding binding;
-    private ProfileViewModel profileViewModel;
+        private FragmentLoginBinding binding;
+        private ProfileViewModel profileViewModel;
 
 
     @Override
@@ -37,14 +37,14 @@ public class LoginFragment extends Fragment {
         setUpViewModel();
 
         binding.tvRegister.setOnClickListener(view1 ->{
-                    RegisterFragment registerFragment = new RegisterFragment();
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragmentAuthenticationView, registerFragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
+            RegisterFragment registerFragment = new RegisterFragment();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentAuthenticationView, registerFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
 
-        );
+    );
         binding.btnPasswordLogin.setOnClickListener(view1 -> {
             LoginWithPasswordFragment loginWithPasswordFragment = new LoginWithPasswordFragment();
             getActivity().getSupportFragmentManager().beginTransaction()

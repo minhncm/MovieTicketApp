@@ -8,5 +8,5 @@
     android:textColor="#FFF"
     android:textSize="16sp"
     android:gravity="center_vertical|start"
-
+    
     android:background="@drawable/spinner_item_selector" />

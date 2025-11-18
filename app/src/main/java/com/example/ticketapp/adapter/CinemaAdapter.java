@@ -19,7 +19,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.CinemaView
     private ItemCinemaBinding binding;
 
     public  CinemaAdapter(){
-        cinemaList = new ArrayList<>();
+cinemaList = new ArrayList<>();
     }
     public  void updateListCinema (List<Cinema> _listCinema){
         cinemaList.addAll(_listCinema);

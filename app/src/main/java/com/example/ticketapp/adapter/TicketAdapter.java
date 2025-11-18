@@ -49,7 +49,7 @@ public class TicketAdapter extends ListAdapter<Ticket, TicketAdapter.TicketViewH
         // Logic xử lý UI và sự kiện click khác nhau dựa trên isUpcoming
         if (isUpcoming) {
             // Vé Sắp tới (Upcoming)
-            holder.binding.textStatusTag.setText("Sắp tới");
+            holder.binding.textStatusTag.setText(holder.itemView.getContext().getString(com.example.ticketapp.R.string.txt_upcoming));
             // Ẩn nút Đánh giá (Giả sử ID là textRateAction)
             holder.binding.textRateAction.setVisibility(View.GONE);
             binding.getRoot().setOnClickListener(v -> listener.onTicketClick(currentTicket));
@@ -57,7 +57,7 @@ public class TicketAdapter extends ListAdapter<Ticket, TicketAdapter.TicketViewH
 
         } else {
             // Vé Đã xem (Watched)
-            holder.binding.textStatusTag.setText("Đã sử dụng");
+            holder.binding.textStatusTag.setText(holder.itemView.getContext().getString(com.example.ticketapp.R.string.txt_status_used));
             holder.binding.textRateAction.setVisibility(View.VISIBLE);
             // Xử lý sự kiện Đánh giá
             binding.getRoot().setOnClickListener(v -> listener.onTicketClick(currentTicket));
