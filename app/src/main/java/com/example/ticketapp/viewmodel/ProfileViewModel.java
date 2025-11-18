@@ -30,11 +30,11 @@ public class ProfileViewModel extends ViewModel {
 
     public  LiveData<AuthResult> login(String email, String password){
 
-        return accountRepository.login(email,password);
+   return accountRepository.login(email,password);
 
     }
     public LiveData<AuthResult>  register(String name, String email, String password){
-        return         accountRepository.register(name, email, password);
+return         accountRepository.register(name, email, password);
 
 
 
@@ -54,7 +54,7 @@ public class ProfileViewModel extends ViewModel {
         userData.setValue(user.getValue());
     }
     public LiveData<Resource<Account>> geUserById(){
-        return accountRepository.getUserData();
+         return accountRepository.getUserData();
     }
     public  void logout(){
         accountRepository.logout();
@@ -62,7 +62,7 @@ public class ProfileViewModel extends ViewModel {
     public  Boolean isUserLoggedIn(){
         return accountRepository.isUserLoggedIn();
     }
-    public LiveData<Boolean> observerAuthState(){
-        return accountRepository.observeAuthState();}
+public LiveData<Boolean> observerAuthState(){
+    return accountRepository.observeAuthState();}
 
 }

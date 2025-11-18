@@ -7,10 +7,10 @@ public class Cinema {
     private  String name;
     private String logoUrl;
     private double rating;
-    private String info;
-    private  String address;
-    private String city;
-    private List<Room> rooms;
+   private String info;
+   private  String address;
+   private String city;
+   private List<Room> rooms;
     public Cinema(String id,String name, String logoUrl, double rating, String info, String address, String city, List<Room> rooms) {
         this.name = name;
         this.logoUrl = logoUrl;

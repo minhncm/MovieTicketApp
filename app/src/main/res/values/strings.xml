@@ -1,3 +1,261 @@
 <resources>
-    <string name="app_name">MovieTicketApp</string>
+    <!-- App Name -->
+    <string name="app_name">TicketApp</string>
+    
+    <!-- Bottom Navigation -->
+    <string name="txt_home">Home</string>
+    <string name="txt_cinema">Cinemas</string>
+    <string name="txt_ticket">Tickets</string>
+    <string name="txt_profile">Profile</string>
+    <string name="txt_explore">Explore</string>
+    
+    <!-- Authentication -->
+    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_email_example">example@gmail.com</string>
+    <string name="hint_full_name_card">Full Name on Card</string>
+    <string name="hint_card_number">**** **** **** ****</string>
+    <string name="hint_cvv">123</string>
+    <string name="content_desc_facebook">Facebook</string>
+    <string name="content_desc_google">Google</string>
+    <string name="content_desc_apple">Apple</string>
+    
+    <!-- Settings -->
+    <string name="txt_account">Account</string>
+    <string name="txt_personal_data">Personal Data</string>
+    <string name="txt_deactivate_account">Deactivate Account</string>
+    <string name="txt_notification">Notification</string>
+    <string name="txt_your_ticket">Your Ticket</string>
+    <string name="txt_logout">Logout</string>
+    <string name="txt_miles_morales">Miles Morales</string>
+    <string name="txt_film_hunter">Film Hunter</string>
+    <string name="txt_language">Language</string>
+    <string name="txt_app_settings">App Settings</string>
+    <string name="privacy_policy"><![CDATA[Privacy & Policy]]></string>
+    <string name="email_payment"><![CDATA[Email & Payment]]></string>
+    
+    <!-- Language Options -->
+    <string name="txt_english">English</string>
+    <string name="txt_vietnamese">Tiếng Việt</string>
+    <string name="txt_select_language">Select Language</string>
+    <string name="txt_language_changed">Language changed. Please restart the app.</string>
+    <string name="txt_restart_app">Restart App</string>
+    <string name="txt_restart_later">Later</string>
+    
+    <!-- Seat Selection -->
+    <string name="txt_date">Date</string>
+    <string name="txt_city">City</string>
+    <string name="txt_cinema_label">Cinema</string>
+    <string name="txt_showtime">Showtime</string>
+    <string name="txt_checkout">Checkout</string>
+    <string name="txt_available">Available</string>
+    <string name="txt_reserved">Reserved</string>
+    <string name="txt_selected">Selected</string>
+    <string name="txt_vip">VIP</string>
+    <string name="txt_regular">Regular</string>
+    
+    <!-- Ticket -->
+    <string name="txt_label">Label</string>
+    <string name="txt_value">Value</string>
+    <string name="txt_movie_title_sample">Múa Đỏ</string>
+    <string name="txt_status_used">Used</string>
+    <string name="txt_date_sample">22 August, 2025 5:50 pm</string>
+    <string name="txt_cinema_sample">CGV Vincom Da Nang</string>
+    <string name="txt_price_sample">331,500 đ</string>
+    <string name="txt_reward_points">17 Reward Points</string>
+    <string name="txt_rate">Rate</string>
+    <string name="txt_no_tickets">You don\'t have any tickets yet.</string>
+    
+    <!-- Payment -->
+    <string name="txt_master_card">Master Card</string>
+    <string name="txt_card_expiry">22/09</string>
+    <string name="txt_card_holder">Card Holder</string>
+    <string name="txt_card_holder_name">Miles Morales</string>
+    <string name="txt_card_number_masked">**** **** **** 51446</string>
+    
+    <!-- Movie -->
+    <string name="txt_movie_title">Movie Title</string>
+    <string name="txt_rating_sample">★★★★☆</string>
+    <string name="txt_search_hint">Search your favourite movie</string>
+    <string name="txt_now_showing">Now Showing</string>
+    <string name="txt_coming_soon">Coming Soon</string>
+    <string name="txt_popular">Popular</string>
+    <string name="txt_top_rated">Top Rated</string>
+    <string name="txt_genres">Genres</string>
+    <string name="txt_duration">Duration</string>
+    <string name="txt_director">Director</string>
+    <string name="txt_cast">Cast</string>
+    <string name="txt_synopsis">Synopsis</string>
+    <string name="txt_book_now">Book Now</string>
+    <string name="txt_watch_trailer">Watch Trailer</string>
+    
+    <!-- Cinema -->
+    <string name="txt_cinema_name_sample">Viva Cinema</string>
+    <string name="txt_cinema_info_sample">5.2 Km • Closed 10:00 PM</string>
+    <string name="txt_cinema_rating_sample">★ 4.9</string>
+    <string name="txt_select_cinema">Select Cinema</string>
+    <string name="txt_select_showtime">Select Showtime</string>
+    
+    <!-- Saved Plan -->
+    <string name="saved_plan">Saved Plan</string>
+    <string name="txt_saved_date_sample">1. 02 November 2025</string>
+    <string name="txt_action">Action</string>
+    <string name="txt_no_time_to_die">No Time To Die</string>
+    <string name="txt_duration_sample">2h 43m</string>
+    <string name="txt_rating_value_sample">5.0</string>
+    
+    <!-- Common -->
+    <string name="txt_item">Item</string>
+    <string name="txt_cancel">Cancel</string>
+    <string name="txt_confirm">Confirm</string>
+    <string name="txt_save">Save</string>
+    <string name="txt_delete">Delete</string>
+    <string name="txt_edit">Edit</string>
+    <string name="txt_add">Add</string>
+    <string name="txt_back">Back</string>
+    <string name="txt_next">Next</string>
+    <string name="txt_skip">Skip</string>
+    <string name="txt_done">Done</string>
+    <string name="txt_loading">Loading...</string>
+    <string name="txt_error">Error</string>
+    <string name="txt_success">Success</string>
+    <string name="txt_total">Total</string>
+    <string name="txt_subtotal">Subtotal</string>
+    <string name="txt_tax">Tax</string>
+    <string name="txt_discount">Discount</string>
+    
+    <!-- Payment Success -->
+    <string name="txt_payment_success">Payment Successful!</string>
+    <string name="txt_payment_success_message">Your ticket has been booked successfully</string>
+    <string name="txt_view_ticket">View Ticket</string>
+    <string name="txt_back_to_home">Back to Home</string>
+    
+    <!-- Login -->
+    <string name="txt_login">Login</string>
+    <string name="txt_register">Register</string>
+    <string name="txt_forgot_password">Forgot Password?</string>
+    <string name="txt_or_continue_with">Or continue with</string>
+    <string name="txt_dont_have_account">Don\'t have an account?</string>
+    <string name="txt_already_have_account">Already have an account?</string>
+    <string name="txt_sign_up">Sign Up</string>
+    <string name="txt_sign_in">Sign In</string>
+    
+    <!-- OnBoarding -->
+    <string name="txt_onboarding_title_1">Welcome to TicketApp</string>
+    <string name="txt_onboarding_desc_1">Book your favorite movies easily</string>
+    <string name="txt_onboarding_title_2">Choose Your Seat</string>
+    <string name="txt_onboarding_desc_2">Select the best seats for your movie</string>
+    <string name="txt_onboarding_title_3">Enjoy Your Movie</string>
+    <string name="txt_onboarding_desc_3">Show your e-ticket and enjoy</string>
+    
+    <!-- E-Ticket -->
+    <string name="txt_e_ticket">E-Ticket</string>
+    <string name="txt_ticket_id">Ticket ID</string>
+    <string name="txt_seat_number">Seat Number</string>
+    <string name="txt_screen">Screen</string>
+    <string name="txt_time">Time</string>
+    <string name="txt_barcode">Barcode</string>
+    
+    <!-- Ticket Status -->
+    <string name="txt_upcoming">Upcoming</string>
+    <string name="txt_watched">Watched</string>
+    
+    <!-- Payment -->
+    <string name="txt_payment_method">Payment Method</string>
+    <string name="txt_payment_details">Payment Details</string>
+    <string name="txt_your_email">Your Email</string>
+    <string name="txt_cardholder_name">Cardholder Name</string>
+    <string name="txt_card_number_label">Card Number</string>
+    <string name="txt_cvv_label">CVV</string>
+    <string name="txt_date_label">Date</string>
+    <string name="txt_change">Change</string>
+    <string name="txt_pay_now">Pay Now</string>
+    <string name="txt_save_card">Save Card</string>
+    <string name="txt_set_default_payment">Set as default payment method</string>
+    <string name="txt_seats">Seats</string>
+    <string name="txt_person">Person</string>
+    
+    <!-- Login -->
+    <string name="txt_welcome_back">Welcome Back</string>
+    <string name="txt_create_account">Create Your Account</string>
+    <string name="txt_sign_to_account">Sign to Your Account</string>
+    <string name="txt_continue_facebook">Continue with Facebook</string>
+    <string name="txt_continue_google">Continue with Google</string>
+    <string name="txt_continue_apple">Continue with Apple</string>
+    <string name="txt_login_with_password">Login with Password</string>
+    
+    <!-- Messages -->
+    <string name="msg_no_movies">No movies available in this category.</string>
+    <string name="msg_booking_missing">Booking data is missing</string>
+    <string name="msg_error">Error: %s</string>
+    <string name="msg_failed">Failed: %s</string>
+    
+    <!-- Director -->
+    <!-- Nhãn Điều Hướng -->
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_saved_plans">Saved Plans</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_details_movie">Movie Details</string>
+    <string name="nav_select_seat">Select Seat</string>
+    <string name="nav_payment_method">Payment Method</string>
+    <string name="nav_payment_success">Payment Success</string>
+    <string name="nav_my_ticket">My Tickets</string>
+    <string name="nav_upcoming_tickets">Upcoming Tickets</string>
+    <string name="nav_watched_tickets">Watched Tickets</string>
+
+    <!-- Placeholder -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_see_more">See more</string>
+    <string name="txt_top_movie">Top Movies</string>
+    <string name="txt_recommended">Recommended</string>
+    <string name="txt_director_format">Director: %s</string>
+    <string name="welcome_back">Welcome Back,</string>
+    <string name="cinema_near_you">Cinema Near You</string>
+    <string name="txt_note_location">Please turn on location services</string>
+    <string name="btn_book_ticket">Book Ticket</string>
+    <string name="txt_read_more">Read More</string>
+    <string name="txt_instruction">Instruction</string>
+    <string name="content_instruction">Come to the cinema, show and scan the barcode to the space provided. Continue to comply with health protocols.</string>
+    <string name="txt_download_e_ticket">Download E-Ticket</string>
+    <string name="txt_content_welcome">Your Cinema Experience</string>
+    <!-- Cities Array -->
+    <string-array name="cities_array">
+        <item>An Giang</item>
+        <item>Bà Rịa - Vũng Tàu</item>
+        <item>Bắc Giang</item>
+        <item>Bắc Kạn</item>
+        <item>Bạc Liêu</item>
+        <item>Bắc Ninh</item>
+        <item>Bến Tre</item>
+        <item>Bình Định</item>
+        <item>Bình Dương</item>
+        <item>Bình Phước</item>
+        <item>Bình Thuận</item>
+        <item>Cà Mau</item>
+        <item>Hồ Chí Minh</item>
+        <item>Cần Thơ</item>
+        <item>Cao Bằng</item>
+        <item>Đà Nẵng</item>
+        <item>Đắk Lắk</item>
+        <item>Đắk Nông</item>
+        <item>Điện Biên</item>
+        <item>Đồng Nai</item>
+        <item>Đồng Tháp</item>
+        <item>Gia Lai</item>
+        <item>Hà Giang</item>
+        <item>Hà Nam</item>
+        <item>Hà Nội</item>
+        <item>Hà Tĩnh</item>
+        <item>Hải Dương</item>
+        <item>Hải Phòng</item>
+        <item>Hậu Giang</item>
+        <item>Hòa Bình</item>
+        <item>Hưng Yên</item>
+        <item>Khánh Hòa</item>
+        <item>Kiên Giang</item>
+    </string-array>
+
 </resources>

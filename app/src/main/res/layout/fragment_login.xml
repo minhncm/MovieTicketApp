@@ -26,18 +26,18 @@
         app:layout_constraintVertical_bias="0.199" />
 
     <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_welcome_back"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/white_blur"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/tvLogo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+android:id="@+id/tvWelcome"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/txt_welcome_back"
+android:textSize="20sp"
+android:textStyle="bold"
+    android:backgroundTint="@color/white_blur"
+android:textColor="@android:color/white"
+app:layout_constraintTop_toBottomOf="@id/tvLogo"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:layout_marginTop="8dp"/>
 
     <!-- Nút Facebook -->
     <com.google.android.material.button.MaterialButton
@@ -94,43 +94,43 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Divider -->
-    <TextView
-        android:id="@+id/tvOr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="or"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/btnApple"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+<TextView
+android:id="@+id/tvOr"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="or"
+android:textColor="@android:color/white"
+android:textSize="14sp"
+app:layout_constraintTop_toBottomOf="@id/btnApple"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:layout_marginTop="16dp"/>
 
     <!-- Log in with password -->
-    <Button
-        android:id="@+id/btnPasswordLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_login_with_password"
-        android:backgroundTint="@color/light_blue"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/tvOr"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="24dp"/>
+<Button
+android:id="@+id/btnPasswordLogin"
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:text="@string/txt_login_with_password"
+android:backgroundTint="@color/light_blue"
+android:textColor="@android:color/white"
+app:layout_constraintTop_toBottomOf="@id/tvOr"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:layout_marginTop="16dp"
+android:layout_marginHorizontal="24dp"/>
 
     <!-- Register link -->
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don’t have an account? Register"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/btnPasswordLogin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+<TextView
+android:id="@+id/tvRegister"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Don’t have an account? Register"
+android:textColor="@android:color/white"
+android:textSize="14sp"
+app:layout_constraintTop_toBottomOf="@id/btnPasswordLogin"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+android:layout_marginTop="16dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

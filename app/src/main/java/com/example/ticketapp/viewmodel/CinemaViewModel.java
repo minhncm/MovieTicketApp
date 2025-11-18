@@ -111,10 +111,10 @@ public class CinemaViewModel extends ViewModel {
     }
     public  MutableLiveData<Resource<List<Cinema>>>  getAllCinema(int limit){
         repository.getAllCinemas(limit).observeForever(resource ->{
-                    if(resource.getData() != null)
-                        listAllCinema.postValue(resource);
-                }
-        );
+            if(resource.getData() != null)
+                listAllCinema.postValue(resource);
+        }
+       );
         return  listAllCinema;
 
     }

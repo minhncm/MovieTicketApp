@@ -60,10 +60,10 @@ public class ExploreFragment extends Fragment {
                     break;
                 case SUCCESS:
                     List<Movie> upComingMovie  = movie.getData().stream().filter
-                                    (movie1 -> Objects.equals(movie1.getStatus(), "COMING_SOON"))
+                            (movie1 -> Objects.equals(movie1.getStatus(), "COMING_SOON"))
                             .collect(Collectors.toList());
                     List<Movie> nowShowingMovie  = movie.getData().stream().filter
-                                    (movie1 -> Objects.equals(movie1.getStatus(), "NOW_SHOWING"))
+                            (movie1 -> Objects.equals(movie1.getStatus(), "NOW_SHOWING"))
                             .collect(Collectors.toList());
                     nowShowingAdapter.updateListMovie(nowShowingMovie);
                     upComingAdapter.updateListMovie(upComingMovie);
@@ -99,10 +99,10 @@ public class ExploreFragment extends Fragment {
         nowShowingList.setAdapter(nowShowingAdapter);
         upComingList.setAdapter(upComingAdapter);
     }
-    private  void handleClick(Movie movie)
-    {
-        movieViewModel.setSelectMovie(movie);
-        NavController navController = NavHostFragment.findNavController(ExploreFragment.this);
-        navController.navigate(ExploreFragmentDirections.actionNavDiscoveryToDetailsFragment());
-    }
+  private  void handleClick(Movie movie)
+  {
+      movieViewModel.setSelectMovie(movie);
+      NavController navController = NavHostFragment.findNavController(ExploreFragment.this);
+      navController.navigate(ExploreFragmentDirections.actionNavDiscoveryToDetailsFragment());
+  }
 }

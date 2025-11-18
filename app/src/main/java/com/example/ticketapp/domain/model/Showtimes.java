@@ -11,11 +11,11 @@ import java.util.List;
 public class Showtimes {
     private String id;
     private String movieId;
-    private  String roomName;
+private  String roomName;
     private String cinemaId;
     private Date startTime;
     private Date endTime;
-    private List<Seat> seats;
+private List<Seat> seats;
 
     public Showtimes() {
     }
@@ -38,7 +38,7 @@ public class Showtimes {
         this.roomName = roomName;
 
 
-        this.seats  = seats; }
+this.seats  = seats; }
 
     public String getId() {
         return id;

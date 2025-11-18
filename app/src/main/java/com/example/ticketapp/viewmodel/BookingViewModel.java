@@ -60,8 +60,8 @@ public class BookingViewModel extends ViewModel {
     }
     private void fetchTicketsByUid(String userId,String type) {
         if(Objects.equals(type, "upcoming"))
-            bookingRepository.fetchTickets(type, userId).observeForever
-                    (ticketsUpcomingResultLiveData::setValue);
+         bookingRepository.fetchTickets(type, userId).observeForever
+                (ticketsUpcomingResultLiveData::setValue);
         else {
             bookingRepository.fetchTickets(type, userId).observeForever
                     (ticketsWatchedResultLiveData::setValue);
@@ -83,7 +83,7 @@ public class BookingViewModel extends ViewModel {
     }
 
     public LiveData<Resource<BookingRes>> bookingTicket(BookingData bookingData) {
-        return bookingRepository.bookingTicket(bookingData);
+          return bookingRepository.bookingTicket(bookingData);
 
     }
 

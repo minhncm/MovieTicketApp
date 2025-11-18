@@ -25,8 +25,8 @@ import retrofit2.Response;
 
 @Singleton
 public class BookingRepositoryImpl implements BookingRepository {
-    private  final ApiService apiService;
-    @Inject
+private  final ApiService apiService;
+@Inject
     public BookingRepositoryImpl(ApiService apiService) {
         this.apiService = apiService;
     }
@@ -71,7 +71,7 @@ public class BookingRepositoryImpl implements BookingRepository {
                 if (response.isSuccessful()) {
                     TicketRes bookingResponse = response.body();
                     if (bookingResponse != null)
-                        data.setValue(Resource.success(bookingResponse.getBookingsList()));
+                     data.setValue(Resource.success(bookingResponse.getBookingsList()));
                 } else {
                     data.setValue(Resource.error("Lỗi: " + response.message()));
                     Log.d("BookingRepositoryImpl", "Response error: " + response.message());

@@ -83,6 +83,7 @@ public class SelectSeatFragment extends Fragment {
                 bookingData.setSelectedSeats(selectdSeats);
                 bookingData.setShowTimeId(selectedShowtime.getUid());
                 bookingViewModel.setBookingData(bookingData);
+                selectdSeats.clear();
                 NavController navController = NavHostFragment.findNavController(SelectSeatFragment.this);
                 navController.navigate(R.id.action_selectSeatFragment_to_paymentMethod);
             }

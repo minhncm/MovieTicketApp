@@ -37,7 +37,7 @@ public class LoginWithPasswordFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setUpViewModel();
+setUpViewModel();
         binding.btnSignIn.setOnClickListener(v -> {
             String email = Objects.requireNonNull(binding.edtEmail.getText()).toString();
             String password = Objects.requireNonNull(binding.edtPassword.getText()).toString();

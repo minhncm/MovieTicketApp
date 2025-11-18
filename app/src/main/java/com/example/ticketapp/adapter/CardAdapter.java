@@ -30,7 +30,7 @@ public class CardAdapter  extends RecyclerView.Adapter<CardAdapter.CardViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        holder.onBind(cardList.get(position));
+         holder.onBind(cardList.get(position));
     }
 
     @Override
@@ -39,13 +39,12 @@ public class CardAdapter  extends RecyclerView.Adapter<CardAdapter.CardViewHolde
     }
 
     public  static  class  CardViewHolder extends RecyclerView.ViewHolder {
-
         private final ItemPaymentCardBinding binding;
         public CardViewHolder( ItemPaymentCardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
-        public   void onBind (PaymentCard paymentCard){
+        public void onBind (PaymentCard paymentCard){
             binding.expireDate.setText(paymentCard.getExpiryDate());
             binding.textCardNumber.setText(paymentCard.getCardNumber());
             binding.textCardHolder.setText(paymentCard.getCardHolderName());
