@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_personalDataFragment_to_updatePhone"
             app:destination="@id/updatePhoneFragment" />
+        <action
+            android:id="@+id/action_personalDataFragment_to_updateAddress"
+            app:destination="@id/updateAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -96,6 +99,11 @@
         android:name="com.example.ticketapp.view.UpdatePhoneFragment"
         android:label="Cập Nhật Số Điện Thoại"
         tools:layout="@layout/fragment_update_phone" />
+    <fragment
+        android:id="@+id/updateAddressFragment"
+        android:name="com.example.ticketapp.view.UpdateAddressFragment"
+        android:label="Cập Nhật Địa Chỉ"
+        tools:layout="@layout/fragment_update_address" />
     <fragment
         android:id="@+id/detailsFragment"
 

@@ -74,7 +74,8 @@ public class PersonalDataFragment extends Fragment {
             binding.tvPhoneNumber.setText(phoneNumber);
             binding.tvDateOfBirth.setText("15/03/1995");
             binding.tvGender.setText("Nam");
-            binding.tvAddress.setText("123 Đường ABC, Quận 1, TP.HCM");
+            String address = user.getAddress() != null ? user.getAddress() : "123 Đường ABC, Quận 1, TP.HCM";
+            binding.tvAddress.setText(address);
             binding.tvMemberSince.setText(formatMemberSince());
             binding.tvTotalTickets.setText("25 vé");
             binding.tvRewardPoints.setText("1,250 điểm");
@@ -116,8 +117,8 @@ public class PersonalDataFragment extends Fragment {
 
         // Update Address
         binding.layoutUpdateAddress.setOnClickListener(v -> {
-            // TODO: Navigate to update address screen
-            Toast.makeText(getContext(), "Chức năng cập nhật địa chỉ đang phát triển", Toast.LENGTH_SHORT).show();
+            NavController navController = NavHostFragment.findNavController(PersonalDataFragment.this);
+            navController.navigate(R.id.action_personalDataFragment_to_updateAddress);
         });
 
         // View Ticket History
