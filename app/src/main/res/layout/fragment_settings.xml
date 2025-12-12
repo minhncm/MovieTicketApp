@@ -71,6 +71,7 @@
             android:paddingBottom="8dp"/>
 
         <LinearLayout
+            android:id="@+id/personalDataSettings"
             style="@style/SettingItemStyle">
 
             <ImageView
