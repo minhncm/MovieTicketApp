@@ -4,7 +4,9 @@ public class Account {
         private String uid;
         private String username;
         private String email;
-        private  String posterUrl;
+        private String posterUrl;
+        private String phoneNumber;
+    
     public Account() {
     }
 
@@ -50,5 +52,11 @@ public class Account {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

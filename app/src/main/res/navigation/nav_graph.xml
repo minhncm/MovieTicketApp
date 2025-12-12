@@ -82,12 +82,20 @@
         <action
             android:id="@+id/action_personalDataFragment_to_changePassword"
             app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_personalDataFragment_to_updatePhone"
+            app:destination="@id/updatePhoneFragment" />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.ticketapp.view.ChangePasswordFragment"
         android:label="Đổi Mật Khẩu"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/updatePhoneFragment"
+        android:name="com.example.ticketapp.view.UpdatePhoneFragment"
+        android:label="Cập Nhật Số Điện Thoại"
+        tools:layout="@layout/fragment_update_phone" />
     <fragment
         android:id="@+id/detailsFragment"
 
