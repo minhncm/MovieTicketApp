@@ -57,6 +57,11 @@ public class SettingsFragment extends Fragment {
         });
         
         binding.languageSettings.setOnClickListener(v -> showLanguageDialog());
+        
+        binding.personalDataSettings.setOnClickListener(v -> {
+            NavController navController = NavHostFragment.findNavController(SettingsFragment.this);
+            navController.navigate(SettingsFragmentDirections.actionNavSettingsToPersonalData());
+        });
     }
     
     private void initView(Account user) {
