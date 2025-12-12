@@ -1,19 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
     id("com.google.gms.google-services")
-    id ("androidx.navigation.safeargs")
-
+    id("androidx.navigation.safeargs")
 }
 
 android {
     namespace = "com.example.ticketapp"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.ticketapp"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -59,13 +58,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.lifecycle.runtime)
     // Hilt core
-    implementation ("com.google.dagger:hilt-android:2.44")
-    annotationProcessor ("com.google.dagger:hilt-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.44")
+    annotationProcessor("com.google.dagger:hilt-compiler:2.44")
 
 
     //glide
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     implementation("com.google.android.material:material:1.11.0")
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))

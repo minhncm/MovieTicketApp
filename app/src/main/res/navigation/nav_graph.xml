@@ -41,12 +41,44 @@
         android:label="@string/nav_saved_plans"
         tools:layout="@layout/fragment_saved_plan" />
     <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.ticketapp.view.ProfileFragment"
+        android:label="@string/txt_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_myTicket"
+            app:destination="@id/myTicket" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_settings"
+            app:destination="@id/nav_settings" />
+        <action
+            android:id="@+id/action_nav_profile_to_editProfile"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.ticketapp.view.SettingsFragment"
         android:label="@string/nav_settings" >
         <action
             android:id="@+id/action_nav_settings_to_myTicket"
             app:destination="@id/myTicket" />
+        <action
+            android:id="@+id/action_nav_settings_to_personalData"
+            app:destination="@id/personalDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.ticketapp.view.EditProfileFragment"
+        android:label="Chỉnh sửa hồ sơ"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/personalDataFragment"
+        android:name="com.example.ticketapp.view.PersonalDataFragment"
+        android:label="@string/txt_personal_data"
+        tools:layout="@layout/fragment_personal_data" >
+        <action
+            android:id="@+id/action_personalDataFragment_to_editProfile"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
