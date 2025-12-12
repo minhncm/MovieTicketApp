@@ -37,7 +37,7 @@
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Movir"
+        android:text="Welcome to Movie"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"

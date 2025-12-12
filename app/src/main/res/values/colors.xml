@@ -7,4 +7,5 @@
     <color name="light_blue">#54A8E5</color>
     <color name="white_blur">#20FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="card_bg_color">#252A34</color>
 </resources>
