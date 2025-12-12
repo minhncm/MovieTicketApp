@@ -49,6 +49,14 @@ public class PersonalDataFragment extends Fragment {
     }
 
     private void setupObservers() {
+        // Load data từ Firestore
+        profileViewModel.geUserById().observe(getViewLifecycleOwner(), resource -> {
+            if (resource != null && resource.getData() != null) {
+                updateUserInfo(resource.getData());
+            }
+        });
+        
+        // Observe getUserProfile để cập nhật real-time
         profileViewModel.getUserProfile().observe(getViewLifecycleOwner(), this::updateUserInfo);
     }
 
@@ -61,8 +69,9 @@ public class PersonalDataFragment extends Fragment {
             binding.tvUserEmail.setText(user.getEmail());
             binding.tvUserId.setText(user.getUid());
             
-            // Additional Info (placeholder data)
-            binding.tvPhoneNumber.setText("+84 123 456 789");
+            // Additional Info
+            String phoneNumber = user.getPhoneNumber() != null ? user.getPhoneNumber() : "+84 123 456 789";
+            binding.tvPhoneNumber.setText(phoneNumber);
             binding.tvDateOfBirth.setText("15/03/1995");
             binding.tvGender.setText("Nam");
             binding.tvAddress.setText("123 Đường ABC, Quận 1, TP.HCM");
@@ -101,8 +110,8 @@ public class PersonalDataFragment extends Fragment {
 
         // Update Phone
         binding.layoutUpdatePhone.setOnClickListener(v -> {
-            // TODO: Navigate to update phone screen
-            Toast.makeText(getContext(), "Chức năng cập nhật số điện thoại đang phát triển", Toast.LENGTH_SHORT).show();
+            NavController navController = NavHostFragment.findNavController(PersonalDataFragment.this);
+            navController.navigate(R.id.action_personalDataFragment_to_updatePhone);
         });
 
         // Update Address
