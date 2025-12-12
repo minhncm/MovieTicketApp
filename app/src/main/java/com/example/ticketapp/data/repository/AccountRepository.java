@@ -200,13 +200,15 @@ public class AccountRepository {
                 .addOnSuccessListener(documentSnapshot -> {
 
                     if (documentSnapshot.exists()) {
-                        String posterUrl = documentSnapshot.getString("posterUrl")  ;
+                        String posterUrl = documentSnapshot.getString("posterUrl");
+                        String phoneNumber = documentSnapshot.getString("phoneNumber");
                         Account user = documentSnapshot.toObject(Account.class);
                         if (user != null) {
                             user.setUid(userId);
                             user.setEmail(email);
                             user.setUsername(userName);
                             user.setPosterUrl(posterUrl);
+                            user.setPhoneNumber(phoneNumber);
                         }
                         // 3. Phát ra trạng thái SUCCESS
                         resultLiveData.setValue(Resource.success(user));
