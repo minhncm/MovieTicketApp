@@ -95,8 +95,8 @@ public class PersonalDataFragment extends Fragment {
 
         // Change Password
         binding.layoutChangePassword.setOnClickListener(v -> {
-            // TODO: Navigate to change password screen
-            Toast.makeText(getContext(), "Chức năng đổi mật khẩu đang phát triển", Toast.LENGTH_SHORT).show();
+            NavController navController = NavHostFragment.findNavController(PersonalDataFragment.this);
+            navController.navigate(R.id.action_personalDataFragment_to_changePassword);
         });
 
         // Update Phone

@@ -79,7 +79,15 @@
         <action
             android:id="@+id/action_personalDataFragment_to_editProfile"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_personalDataFragment_to_changePassword"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.ticketapp.view.ChangePasswordFragment"
+        android:label="Đổi Mật Khẩu"
+        tools:layout="@layout/fragment_change_password" />
     <fragment
         android:id="@+id/detailsFragment"
 
