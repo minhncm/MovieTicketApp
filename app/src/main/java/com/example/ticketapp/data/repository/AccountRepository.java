@@ -202,6 +202,7 @@ public class AccountRepository {
                     if (documentSnapshot.exists()) {
                         String posterUrl = documentSnapshot.getString("posterUrl");
                         String phoneNumber = documentSnapshot.getString("phoneNumber");
+                        String address = documentSnapshot.getString("address");
                         Account user = documentSnapshot.toObject(Account.class);
                         if (user != null) {
                             user.setUid(userId);
@@ -209,6 +210,7 @@ public class AccountRepository {
                             user.setUsername(userName);
                             user.setPosterUrl(posterUrl);
                             user.setPhoneNumber(phoneNumber);
+                            user.setAddress(address);
                         }
                         // 3. Phát ra trạng thái SUCCESS
                         resultLiveData.setValue(Resource.success(user));
