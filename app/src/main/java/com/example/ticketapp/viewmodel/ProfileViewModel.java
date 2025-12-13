@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.ticketapp.domain.model.Account;
 import com.example.ticketapp.domain.model.Res.AuthResult;
-import com.example.ticketapp.data.repository.AccountRepository;
+import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.utils.Resource;
 
 
@@ -29,16 +29,10 @@ public class ProfileViewModel extends ViewModel {
 
 
     public  LiveData<AuthResult> login(String email, String password){
-
-   return accountRepository.login(email,password);
-
+        return accountRepository.login(email,password);
     }
     public LiveData<AuthResult>  register(String name, String email, String password){
-return         accountRepository.register(name, email, password);
-
-
-
-
+        return accountRepository.register(name, email, password);
     }
     public LiveData<Account> getUserProfile() {
         loadUserProfile();
@@ -62,7 +56,11 @@ return         accountRepository.register(name, email, password);
     public  Boolean isUserLoggedIn(){
         return accountRepository.isUserLoggedIn();
     }
-public LiveData<Boolean> observerAuthState(){
+    public LiveData<Boolean> observerAuthState(){
     return accountRepository.observeAuthState();}
+
+    public LiveData<Resource<Account>> getUserProfileDetails(String uid) {
+        return accountRepository.getUserProfileFromApi(uid);
+    }
 
 }
