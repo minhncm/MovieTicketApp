@@ -17,12 +17,14 @@ import java.util.List;
 public class SavedPlanViewModel extends AndroidViewModel {
 
     private final SavedPlanRepository repository;
-
+    private final LiveData<List<SavedPlanEntity>> allPlans;
+    private final LiveData<Integer> plansCount;
 
     public SavedPlanViewModel(@NonNull Application application) {
         super(application);
         repository = new SavedPlanRepository(application);
-
+        allPlans = repository.getAllPlans();
+        plansCount = repository.getPlansCount();
     }
 
     public void insert(SavedPlanEntity plan) {
@@ -37,8 +39,13 @@ public class SavedPlanViewModel extends AndroidViewModel {
         repository.delete(plan);
     }
 
+    public LiveData<List<SavedPlanEntity>> getAllPlans() {
+        return allPlans;
+    }
 
-
+    public LiveData<Integer> getPlansCount() {
+        return plansCount;
+    }
 
     public SavedPlanEntity createPlan(String movieId, String movieTitle, String moviePoster,
                                       String genre, double rating, String duration) {
