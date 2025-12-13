@@ -111,31 +111,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!-- User ID -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="ID người dùng:"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvUserId"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="UID123456"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
                 <!-- Email -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -182,31 +157,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:text="+84 123 456 789"
-                        android:textColor="@android:color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <!-- Date of Birth -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Ngày sinh:"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvDateOfBirth"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="15/03/1995"
                         android:textColor="@android:color/white"
                         android:textSize="14sp" />
                 </LinearLayout>
