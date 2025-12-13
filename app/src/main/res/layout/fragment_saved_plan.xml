@@ -5,358 +5,75 @@
     android:layout_height="match_parent"
     android:background="#1E2128"
     android:orientation="vertical"
-    android:id="@+id/savedPlanFragment"
-    android:padding="16dp">
+    android:id="@+id/savedPlanFragment">
 
-    <!-- Booking Item 1 -->
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="24dp">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
 
-        <!-- Header -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="1. 02 November 2025"
+            android:text="@string/txt_saved_plans"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            android:textStyle="bold" />
 
-        <!-- Movie Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvPlanCount"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:text="0 plans"
+            android:textColor="#8A8A8A"
+            android:textSize="14sp" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/sample_movie"
-                android:scaleType="centerCrop"
-                android:background="#2A2D35"
-                android:layout_marginEnd="12dp" />
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="32dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_empty_plan"
+            android:alpha="0.5"
+            android:layout_marginBottom="24dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_action"
-                    android:textColor="#6C9EE5"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_no_time_to_die"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_duration_sample"
-                    android:textColor="#8A8A8A"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/star"
-                    android:layout_marginEnd="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_rating_value_sample"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Cinema Label -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_cinema_label"
+            android:text="@string/txt_no_saved_plans"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
-        <!-- Cinema Spinner -->
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/spinner_background"
-            android:entries="@array/cities_array"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Date and Time Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginEnd="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_date"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="8dp" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/spinner_background"
-                    android:entries="@array/cities_array"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_time"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="8dp" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/spinner_background"
-                    android:entries="@array/cities_array"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Seats and Person Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginEnd="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_seats"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="8dp" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/spinner_background"
-                    android:entries="@array/cities_array"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_person"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/spinner_background"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp">
-
-                    <ImageButton
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_min"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:padding="4dp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:gravity="center" />
-
-                    <ImageButton
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_plus"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:padding="4dp" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Checkout and Delete Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="56dp"
-                android:text="@string/txt_checkout"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:backgroundTint="@color/light_blue"
-                android:layout_marginEnd="12dp" />
-            <ImageButton
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_delete"
-                android:background="@drawable/delete_button_background"
-                android:scaleType="fitCenter"
-                android:padding="16dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Booking Item 2 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <!-- Header -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. 17 December 2025"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Movie Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/sample_movie"
-                android:scaleType="centerCrop"
-                android:background="#2A2D35"
-                android:layout_marginEnd="12dp" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Crime"
-                    android:textColor="#6C9EE5"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Money Heist"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5 Season, 50 Episode"
-                    android:textColor="#8A8A8A"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/star"
-                    android:layout_marginEnd="4dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/txt_rating_value_sample"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
+            android:text="@string/txt_no_saved_plans_desc"
+            android:textColor="#8A8A8A"
+            android:textSize="14sp"
+            android:gravity="center" />
     </LinearLayout>
+
+    <!-- RecyclerView for Plans -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPlans"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="16dp" />
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.ticketapp.data.db;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -10,7 +11,7 @@ import androidx.room.Update;
 import com.example.ticketapp.domain.model.SavedPlanEntity;
 
 import java.util.List;
-
+@Dao
 public interface SavedPlanDao  {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(SavedPlanEntity plan);
