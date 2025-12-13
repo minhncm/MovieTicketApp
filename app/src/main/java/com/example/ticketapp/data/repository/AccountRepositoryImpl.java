@@ -3,12 +3,12 @@ package com.example.ticketapp.data.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.ticketapp.domain.model.Res.AuthResult;
+import com.example.ticketapp.data.network.ApiService;
 import com.example.ticketapp.domain.model.Account;
-
+import com.example.ticketapp.domain.model.Res.AuthResult;
+import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.utils.Resource;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,31 +19,41 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 @Singleton
-public class AccountRepository {
+public class AccountRepositoryImpl implements AccountRepository {
 
     private final FirebaseAuth mAuth;
     private final FirebaseFirestore db;
+    private final ApiService apiService;
     private MutableLiveData<Account> currentUser = new MutableLiveData<>();
 
-    public MutableLiveData<Account> getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(Account _currentUser) {
-        currentUser.setValue(_currentUser);
-    }
-
-    public void clearUser() {
-        this.currentUser = null;
-    }
-@Inject
-    public AccountRepository() {
+    @Inject
+    public AccountRepositoryImpl(ApiService apiService) {
+        this.apiService = apiService;
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
     }
 
-    // Đăng nhập
+    @Override
+    public LiveData<Account> getCurrentUser() {
+        return currentUser;
+    }
+
+    @Override
+    public void setCurrentUser(Account _currentUser) {
+        currentUser.setValue(_currentUser);
+    }
+
+    @Override
+    public void clearUser() {
+        this.currentUser = null;
+    }
+
+    @Override
     public LiveData<AuthResult> login(String email, String password) {
         MutableLiveData<AuthResult> result = new MutableLiveData<>();
 
@@ -56,7 +66,6 @@ public class AccountRepository {
                                     firebaseUser.getUid(),
                                     firebaseUser.getDisplayName(),
                                     firebaseUser.getEmail()
-
                             );
                             result.setValue(new AuthResult(true, "Đăng nhập thành công", user));
                         }
@@ -71,7 +80,7 @@ public class AccountRepository {
         return result;
     }
 
-    // Đăng ký
+    @Override
     public LiveData<AuthResult> register(String name, String email, String password) {
         MutableLiveData<AuthResult> result = new MutableLiveData<>();
 
@@ -80,7 +89,6 @@ public class AccountRepository {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         if (firebaseUser != null) {
-                            // Cập nhật tên người dùng
                             UserProfileChangeRequest profileUpdates =
                                     new UserProfileChangeRequest.Builder()
                                             .setDisplayName(name)
@@ -89,11 +97,9 @@ public class AccountRepository {
                             firebaseUser.updateProfile(profileUpdates)
                                     .addOnCompleteListener(updateTask -> {
                                         if (updateTask.isSuccessful()) {
-                                            // Lưu vào Firestore
                                             saveUserToFirestore(firebaseUser.getUid(), name, email, result);
                                         } else {
-                                            result.setValue(new AuthResult(false,
-                                                    "Lỗi cập nhật thông tin"));
+                                            result.setValue(new AuthResult(false, "Lỗi cập nhật thông tin"));
                                         }
                                     });
                         }
@@ -109,7 +115,7 @@ public class AccountRepository {
     }
 
     private void saveUserToFirestore(String userId, String name, String email,
-                                     MutableLiveData<AuthResult> result) {
+                                      MutableLiveData<AuthResult> result) {
         Map<String, Object> userData = new HashMap<>();
         userData.put("name", name);
         userData.put("email", email);
@@ -123,20 +129,18 @@ public class AccountRepository {
                     result.setValue(new AuthResult(true, "Đăng ký thành công", user));
                 })
                 .addOnFailureListener(e -> {
-                    result.setValue(new AuthResult(false,
-                            "Lỗi lưu thông tin: " + e.getMessage()));
+                    result.setValue(new AuthResult(false, "Lỗi lưu thông tin: " + e.getMessage()));
                 });
     }
 
-    // Đặt lại mật khẩu
+    @Override
     public LiveData<AuthResult> resetPassword(String email) {
         MutableLiveData<AuthResult> result = new MutableLiveData<>();
 
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        result.setValue(new AuthResult(true,
-                                "Email đặt lại mật khẩu đã được gửi"));
+                        result.setValue(new AuthResult(true, "Email đặt lại mật khẩu đã được gửi"));
                     } else {
                         String errorMessage = task.getException() != null
                                 ? task.getException().getMessage()
@@ -148,16 +152,17 @@ public class AccountRepository {
         return result;
     }
 
-    // Đăng xuất
+    @Override
     public void logout() {
         mAuth.signOut();
     }
 
-    // Lấy user hiện tại
-
+    @Override
     public boolean isUserLoggedIn() {
         return mAuth.getCurrentUser() != null;
     }
+
+    @Override
     public LiveData<Boolean> observeAuthState() {
         MutableLiveData<Boolean> authState = new MutableLiveData<>();
 
@@ -166,26 +171,20 @@ public class AccountRepository {
             authState.setValue(user != null);
         };
 
-        // Đăng ký listener
         mAuth.addAuthStateListener(authStateListener);
-
-        // Set giá trị ban đầu
         authState.setValue(mAuth.getCurrentUser() != null);
 
         return authState;
     }
 
-    // Lấy thông tin user từ Firestore
+    @Override
     public LiveData<Resource<Account>> getUserData() {
         MutableLiveData<Resource<Account>> resultLiveData = new MutableLiveData<>();
-
-        // 1. Phát ra trạng thái LOADING
         resultLiveData.setValue(Resource.loading());
 
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         if (firebaseUser == null) {
-            // 2. Phát ra trạng thái ERROR nếu chưa đăng nhập
             resultLiveData.setValue(Resource.error("Người dùng chưa đăng nhập."));
             return resultLiveData;
         }
@@ -198,7 +197,6 @@ public class AccountRepository {
                 .document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-
                     if (documentSnapshot.exists()) {
                         String posterUrl = documentSnapshot.getString("posterUrl");
                         String phoneNumber = documentSnapshot.getString("phoneNumber");
@@ -212,18 +210,41 @@ public class AccountRepository {
                             user.setPhoneNumber(phoneNumber);
                             user.setAddress(address);
                         }
-                        // 3. Phát ra trạng thái SUCCESS
                         resultLiveData.setValue(Resource.success(user));
                     } else {
-                        // Tài liệu không tồn tại
                         resultLiveData.setValue(Resource.error("Không tìm thấy dữ liệu người dùng."));
                     }
                 })
                 .addOnFailureListener(e -> {
-                    // 4. Phát ra trạng thái ERROR khi truy vấn thất bại
-                    String errorMessage = e.getLocalizedMessage() != null ? e.getLocalizedMessage() : "Lỗi truy vấn dữ liệu.";
+                    String errorMessage = e.getLocalizedMessage() != null ? 
+                            e.getLocalizedMessage() : "Lỗi truy vấn dữ liệu.";
                     resultLiveData.setValue(Resource.error(errorMessage));
                 });
 
         return resultLiveData;
-    }}
+    }
+
+    @Override
+    public LiveData<Resource<Account>> getUserProfileFromApi(String uid) {
+        MutableLiveData<Resource<Account>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+
+        apiService.getUserProfile(uid).enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(Call<Account> call, Response<Account> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(Resource.success(response.body()));
+                } else {
+                    result.setValue(Resource.error("Không thể tải thông tin người dùng"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Account> call, Throwable t) {
+                result.setValue(Resource.error("Lỗi kết nối: " + t.getMessage()));
+            }
+        });
+
+        return result;
+    }
+}
