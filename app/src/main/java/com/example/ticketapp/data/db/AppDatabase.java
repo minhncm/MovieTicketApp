@@ -16,7 +16,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
     private static final String DATABASE_NAME = "ticket_app_db";
-
+    public abstract SavedPlanDao savedPlanDao();
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
