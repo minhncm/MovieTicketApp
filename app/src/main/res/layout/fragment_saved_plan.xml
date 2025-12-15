@@ -103,6 +103,7 @@
 
         <!-- Cinema Spinner -->
         <Spinner
+            android:id="@+id/spinnerCinema"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/spinner_background"
@@ -134,6 +135,7 @@
                     android:layout_marginBottom="8dp" />
 
                 <Spinner
+                    android:id="@+id/spinnerDate"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/spinner_background"
@@ -158,6 +160,7 @@
                     android:layout_marginBottom="8dp" />
 
                 <Spinner
+                    android:id="@+id/spinnerTime"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/spinner_background"
@@ -190,6 +193,7 @@
                     android:layout_marginBottom="8dp" />
 
                 <Spinner
+                    android:id="@+id/spinnerSeats"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/spinner_background"
