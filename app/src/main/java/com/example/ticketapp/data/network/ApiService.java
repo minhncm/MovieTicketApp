@@ -39,5 +39,8 @@ public interface ApiService {
     @GET("getUserProfile")
     Call<Account> getUserProfile(@Query("uid") String uid);
 
+    @POST("updateUserProfile")
+    Call<Account> updateUserProfile(@Body Account account);
+
 }
 

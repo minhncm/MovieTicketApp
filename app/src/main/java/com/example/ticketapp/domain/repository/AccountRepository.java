@@ -28,4 +28,6 @@ public interface AccountRepository {
     void setCurrentUser(Account user);
     
     void clearUser();
+    
+    LiveData<Resource<Account>> updateUserProfile(Account account);
 }
