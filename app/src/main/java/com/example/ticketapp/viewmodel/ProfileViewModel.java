@@ -64,5 +64,4 @@ return         accountRepository.register(name, email, password);
     }
 public LiveData<Boolean> observerAuthState(){
     return accountRepository.observeAuthState();}
-
-}
+} 
