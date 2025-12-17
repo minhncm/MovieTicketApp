@@ -77,7 +77,8 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
         cinemaAdapter = new CinemaAdapter();
         cinemaRecyclerView = binding.rvCinemas;
         cinemaRecyclerView.setAdapter(cinemaAdapter);
-        setupMovieTabsViewPager(); // Hợp nhất logic setup vào đây
+        setupMovieTabsViewPager();
+        setupSearchFeature();
     }
 
     private void initView( Account user) {
@@ -202,9 +203,14 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
     public void onMovieSelect(Movie movie) {
         if (movie != null) {
             movieViewModel.setSelectMovie(movie);
-
             navController.navigate(HomeFragmentDirections.actionNavHomeToDetailsFragment());
         }
+    }
+    
+    private void setupSearchFeature() {
+        binding.etSearch.setOnClickListener(v -> {
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
+        });
     }
 }
 
