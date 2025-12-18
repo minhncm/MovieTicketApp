@@ -1,10 +1,38 @@
 package com.example.ticketapp.domain.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Account {
+        @SerializedName("uid")
         private String uid;
+        
+        @SerializedName("username")
         private String username;
+        
+        @SerializedName("email")
         private String email;
-        private  String posterUrl;
+        
+        @SerializedName("posterUrl")
+        private String posterUrl;
+        
+        @SerializedName("sdt")
+        private String phoneNumber;
+        
+        @SerializedName("diaChi")
+        private String address;
+        
+        @SerializedName("gioiTinh")
+        private String gender;
+        
+        @SerializedName("thanhVienTu")
+        private String memberSince;
+        
+        @SerializedName("tongVeDaMua")
+        private int totalTickets;
+        
+        @SerializedName("diemThuong")
+        private int rewardPoints;
+    
     public Account() {
     }
 
@@ -50,5 +78,51 @@ public class Account {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getMemberSince() {
+        return memberSince;
+    }
+
+    public void setMemberSince(String memberSince) {
+        this.memberSince = memberSince;
+    }
+
+    public int getTotalTickets() {
+        return totalTickets;
+    }
+
+    public void setTotalTickets(int totalTickets) {
+        this.totalTickets = totalTickets;
+    }
+
+    public int getRewardPoints() {
+        return rewardPoints;
+    }
+
+    public void setRewardPoints(int rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
 }
