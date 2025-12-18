@@ -79,10 +79,10 @@
             android:layout_marginTop="24dp"/>
 
         <TextView
-            android:id="@+id/tvCinemaInfo"
+            android:id="@+id/tvCinemaAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/txt_cinema_info_sample"
+            android:text="@string/txt_cinema_address_sample"
             android:textColor="#AAAAAA"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/tvInfoLabel"
@@ -91,54 +91,16 @@
             android:layout_marginTop="8dp"/>
 
         <TextView
-            android:id="@+id/tvAddressLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_cinema_address_label"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tvCinemaInfo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/tvCinemaAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_cinema_address_sample"
-            android:textColor="#AAAAAA"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvAddressLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tvRoomsLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_cinema_rooms_label"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tvCinemaAddress"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
             android:id="@+id/tvRoomsCount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/txt_cinema_rooms_count"
             android:textColor="#AAAAAA"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvRoomsLabel"
+            app:layout_constraintTop_toBottomOf="@id/tvCinemaAddress"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="4dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
