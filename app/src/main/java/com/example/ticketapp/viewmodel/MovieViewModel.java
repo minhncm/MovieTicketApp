@@ -22,6 +22,14 @@ public class MovieViewModel extends ViewModel {
     public LiveData<Resource<List<Movie>>> movies = _movies;
     private final MutableLiveData<Movie> _selectedMovie = new MutableLiveData<>();
     public LiveData<Movie> selectedMovie = _selectedMovie;
+    
+    // LiveData cho kết quả tìm kiếm
+    private final MutableLiveData<List<Movie>> _searchResults = new MutableLiveData<>();
+    public LiveData<List<Movie>> searchResults = _searchResults;
+    
+    // Lưu danh sách phim gốc để search
+    private List<Movie> allMovies = new ArrayList<>();
+    
     @Inject
     public MovieViewModel(MovieRepository repository) {
         this.repository = repository;
@@ -31,15 +39,80 @@ public class MovieViewModel extends ViewModel {
         _movies.setValue(Resource.loading());
         repository.getMovies().observeForever(resource -> {
             if (resource.getStatus() == Resource.Status.SUCCESS) {
+                allMovies = resource.getData() != null ? resource.getData() : new ArrayList<>();
                 _movies.setValue(Resource.success(resource.getData()));
             } else if (resource.getStatus() == Resource.Status.ERROR) {
                 _movies.setValue(Resource.error(resource.getMessage()));
             }
         });
     }
-    public  void setSelectMovie(Movie movie) {
+    
+    public void setSelectMovie(Movie movie) {
         _selectedMovie.setValue(movie);
     }
-
-
+    
+    public void searchMovies(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            _searchResults.setValue(new ArrayList<>());
+            return;
+        }
+        
+        String searchQuery = query.toLowerCase().trim();
+        List<Movie> results = new ArrayList<>();
+        
+        for (Movie movie : allMovies) {
+            boolean found = false;
+            
+            // Tìm theo tên phim (có dấu và không dấu)
+            if (movie.getTitle() != null) {
+                String title = movie.getTitle().toLowerCase();
+                // Tìm kiếm thông thường
+                if (title.contains(searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
+                // Tìm kiếm không dấu (tiếng Việt)
+                if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getTitle(), searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
+            }
+            
+            // Tìm theo đạo diễn (có dấu và không dấu)
+            if (movie.getDirector() != null) {
+                String director = movie.getDirector().toLowerCase();
+                if (director.contains(searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
+                if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getDirector(), searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
+            }
+            
+            // Tìm theo thể loại (có dấu và không dấu)
+            if (movie.getGenres() != null) {
+                for (String genre : movie.getGenres()) {
+                    if (genre.toLowerCase().contains(searchQuery)) {
+                        results.add(movie);
+                        found = true;
+                        break;
+                    }
+                    if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(genre, searchQuery)) {
+                        results.add(movie);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        _searchResults.setValue(results);
+    }
+    
+    // Clear kết quả tìm kiếm
+    public void clearSearch() {
+        _searchResults.setValue(new ArrayList<>());
+    }
 }
