@@ -22,6 +22,7 @@ import com.example.ticketapp.adapter.CinemaAdapter;
 import com.example.ticketapp.adapter.MovieTabAdapter; // Adapter mới
 import com.example.ticketapp.databinding.FragmentHomeBinding;
 import com.example.ticketapp.domain.model.Account;
+import com.example.ticketapp.domain.model.Cinema;
 import com.example.ticketapp.domain.model.Movie;
 import com.example.ticketapp.view.Movie.MovieListFragment;
 import com.example.ticketapp.viewmodel.CinemaViewModel;
@@ -74,7 +75,7 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
                     navController.navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment());
                 }
         );
-        cinemaAdapter = new CinemaAdapter();
+        cinemaAdapter = new CinemaAdapter(this::onCinemaClick);
         cinemaRecyclerView = binding.rvCinemas;
         cinemaRecyclerView.setAdapter(cinemaAdapter);
         setupMovieTabsViewPager(); // Hợp nhất logic setup vào đây
@@ -204,6 +205,13 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
             movieViewModel.setSelectMovie(movie);
 
             navController.navigate(HomeFragmentDirections.actionNavHomeToDetailsFragment());
+        }
+    }
+
+    private void onCinemaClick(Cinema cinema) {
+        if (cinema != null) {
+            cinemaViewModel.setSelectedCinema(cinema);
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToCinemaDetailFragment());
         }
     }
 }
