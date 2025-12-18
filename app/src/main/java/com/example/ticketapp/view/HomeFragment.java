@@ -175,6 +175,24 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        // Remove listener khi Fragment bị pause để tránh conflict
+        if (binding != null && binding.etSearch != null) {
+            binding.etSearch.setOnEditorActionListener(null);
+        }
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Setup lại listener khi Fragment được resume
+        if (binding != null && binding.etSearch != null) {
+            setupSearchFeature();
+        }
+    }
+    
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         showToolbar();
@@ -235,7 +253,12 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
-                navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
+                // Navigate với try-catch để tránh crash khi đã ở SearchResultFragment
+                try {
+                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
+                } catch (Exception e) {
+                    // Đã ở SearchResultFragment rồi, không làm gì
+                }
                 return true;
             }
             return false;
