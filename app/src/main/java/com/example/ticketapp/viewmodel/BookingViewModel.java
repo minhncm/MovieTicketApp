@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.ticketapp.data.repository.AccountRepository;
+import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.domain.model.Account;
 import com.example.ticketapp.domain.model.Res.BookingData;
 import com.example.ticketapp.domain.model.Res.BookingRes;
