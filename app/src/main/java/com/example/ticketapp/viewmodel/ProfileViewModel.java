@@ -58,7 +58,7 @@ public class ProfileViewModel extends ViewModel {
     }
     public LiveData<Boolean> observerAuthState(){
     return accountRepository.observeAuthState();}
-
+} 
     public LiveData<Resource<Account>> getUserProfileDetails(String uid) {
         return accountRepository.getUserProfileFromApi(uid);
     }
