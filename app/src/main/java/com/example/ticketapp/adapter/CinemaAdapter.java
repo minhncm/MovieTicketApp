@@ -60,8 +60,6 @@ public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.CinemaView
     static class CinemaViewHolder extends RecyclerView.ViewHolder {
 
         private  final  ItemCinemaBinding binding;
-
-
         CinemaViewHolder(@NonNull ItemCinemaBinding binding ) {
             super(binding.getRoot());
             this.binding = binding;
