@@ -46,22 +46,24 @@ public class CinemaDetailFragment extends Fragment {
 
     private void displayCinemaDetails(Cinema cinema) {
         binding.tvCinemaName.setText(cinema.getName());
-        binding.tvCinemaInfo.setText(cinema.getInfo());
         binding.tvCinemaRating.setText(String.valueOf(cinema.getRating()));
         
+        // Hiển thị địa chỉ
         if (cinema.getAddress() != null && !cinema.getAddress().isEmpty()) {
             binding.tvCinemaAddress.setText(cinema.getAddress());
         } else {
             binding.tvCinemaAddress.setText(getString(R.string.txt_cinema_address_sample));
         }
         
-        if (cinema.getRooms() != null) {
+        // Hiển thị số phòng chiếu
+        if (cinema.getRooms() != null && !cinema.getRooms().isEmpty()) {
             String roomsText = getString(R.string.txt_cinema_rooms_count, cinema.getRooms().size());
             binding.tvRoomsCount.setText(roomsText);
         } else {
             binding.tvRoomsCount.setText(getString(R.string.txt_cinema_rooms_count, 0));
         }
         
+        // Load logo
         Glide.with(requireContext())
                 .load(cinema.getLogoUrl())
                 .error(R.drawable.img_cinema)
