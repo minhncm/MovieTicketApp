@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_settings"
             app:destination="@id/nav_settings" />
+        <action
+            android:id="@+id/action_homeFragment_to_cinemaDetailFragment"
+            app:destination="@id/cinemaDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_discovery"
@@ -160,5 +163,10 @@
         android:id="@+id/watchedTicketsFragment"
         android:name="com.example.ticketapp.view.Ticket.WatchedTicketsFragment"
         android:label="@string/nav_watched_tickets" />
+    <fragment
+        android:id="@+id/cinemaDetailFragment"
+        android:name="com.example.ticketapp.view.CinemaDetailFragment"
+        android:label="@string/txt_cinema_label"
+        tools:layout="@layout/fragment_cinema_detail" />
 
 </navigation>

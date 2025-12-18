@@ -97,6 +97,11 @@
     <string name="txt_cinema_rating_sample">★ 4.9</string>
     <string name="txt_select_cinema">Select Cinema</string>
     <string name="txt_select_showtime">Select Showtime</string>
+    <string name="txt_cinema_info_label">Thông tin</string>
+    <string name="txt_cinema_address_label">Địa chỉ</string>
+    <string name="txt_cinema_address_sample">123 Đường ABC, Quận XYZ</string>
+    <string name="txt_cinema_rooms_label">Phòng chiếu</string>
+    <string name="txt_cinema_rooms_count">%d phòng</string>
     
     <!-- Saved Plan -->
     <string name="saved_plan">Saved Plan</string>
