@@ -17,9 +17,15 @@ import java.util.List;
 public class CinemaAdapter extends RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder> {
     private List<Cinema> cinemaList;
     private ItemCinemaBinding binding;
+    private OnCinemaClickListener listener;
 
-    public  CinemaAdapter(){
-cinemaList = new ArrayList<>();
+    public interface OnCinemaClickListener {
+        void onCinemaClick(Cinema cinema);
+    }
+
+    public CinemaAdapter(OnCinemaClickListener listener) {
+        this.cinemaList = new ArrayList<>();
+        this.listener = listener;
     }
     public  void updateListCinema (List<Cinema> _listCinema){
         cinemaList.addAll(_listCinema);
@@ -36,7 +42,13 @@ cinemaList = new ArrayList<>();
 
     @Override
     public void onBindViewHolder(@NonNull CinemaViewHolder holder, int position) {
-        holder.bind(cinemaList.get(position) );
+        Cinema cinema = cinemaList.get(position);
+        holder.bind(cinema);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onCinemaClick(cinema);
+            }
+        });
     }
 
     @Override
