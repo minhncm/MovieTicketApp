@@ -180,6 +180,8 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
         // Remove listener khi Fragment bị pause để tránh conflict
         if (binding != null && binding.etSearch != null) {
             binding.etSearch.setOnEditorActionListener(null);
+            // Xóa text trong search box khi rời khỏi HomeFragment
+            binding.etSearch.setText("");
         }
     }
     
