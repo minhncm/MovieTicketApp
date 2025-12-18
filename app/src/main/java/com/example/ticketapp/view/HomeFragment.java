@@ -208,8 +208,37 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
     }
     
     private void setupSearchFeature() {
+        // Click vào search box → Chuyển sang màn hình tìm kiếm
         binding.etSearch.setOnClickListener(v -> {
+            String query = binding.etSearch.getText().toString();
+            if (!query.trim().isEmpty()) {
+                movieViewModel.searchMovies(query);
+            }
+            // Clear focus và ẩn bàn phím
+            binding.etSearch.clearFocus();
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
+        });
+        
+        // Nhấn Enter trên bàn phím → Chuyển sang màn hình tìm kiếm
+        binding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
+                String query = binding.etSearch.getText().toString();
+                if (!query.trim().isEmpty()) {
+                    movieViewModel.searchMovies(query);
+                }
+                // Clear focus và ẩn bàn phím
+                binding.etSearch.clearFocus();
+                // Ẩn bàn phím
+                android.view.inputmethod.InputMethodManager imm = 
+                    (android.view.inputmethod.InputMethodManager) requireActivity()
+                        .getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
+                return true;
+            }
+            return false;
         });
     }
 }

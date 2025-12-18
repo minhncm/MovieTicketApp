@@ -51,7 +51,6 @@ public class MovieViewModel extends ViewModel {
         _selectedMovie.setValue(movie);
     }
     
-    // Tìm kiếm phim theo tên, đạo diễn, thể loại
     public void searchMovies(String query) {
         if (query == null || query.trim().isEmpty()) {
             _searchResults.setValue(new ArrayList<>());
@@ -62,23 +61,47 @@ public class MovieViewModel extends ViewModel {
         List<Movie> results = new ArrayList<>();
         
         for (Movie movie : allMovies) {
-            // Tìm theo tên phim
-            if (movie.getTitle() != null && movie.getTitle().toLowerCase().contains(searchQuery)) {
-                results.add(movie);
-                continue;
+            boolean found = false;
+            
+            // Tìm theo tên phim (có dấu và không dấu)
+            if (movie.getTitle() != null) {
+                String title = movie.getTitle().toLowerCase();
+                // Tìm kiếm thông thường
+                if (title.contains(searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
+                // Tìm kiếm không dấu (tiếng Việt)
+                if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getTitle(), searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
             }
             
-            // Tìm theo đạo diễn
-            if (movie.getDirector() != null && movie.getDirector().toLowerCase().contains(searchQuery)) {
-                results.add(movie);
-                continue;
+            // Tìm theo đạo diễn (có dấu và không dấu)
+            if (movie.getDirector() != null) {
+                String director = movie.getDirector().toLowerCase();
+                if (director.contains(searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
+                if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getDirector(), searchQuery)) {
+                    results.add(movie);
+                    continue;
+                }
             }
             
-            // Tìm theo thể loại
+            // Tìm theo thể loại (có dấu và không dấu)
             if (movie.getGenres() != null) {
                 for (String genre : movie.getGenres()) {
                     if (genre.toLowerCase().contains(searchQuery)) {
                         results.add(movie);
+                        found = true;
+                        break;
+                    }
+                    if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(genre, searchQuery)) {
+                        results.add(movie);
+                        found = true;
                         break;
                     }
                 }
