@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_nav_discovery_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_movieListFullFragment"
+            app:destination="@id/movieListFullFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_bookmark"
@@ -168,5 +171,17 @@
         android:name="com.example.ticketapp.view.CinemaDetailFragment"
         android:label="@string/txt_cinema_label"
         tools:layout="@layout/fragment_cinema_detail" />
+    <fragment
+        android:id="@+id/movieListFullFragment"
+        android:name="com.example.ticketapp.view.MovieListFullFragment"
+        android:label="Danh Sách Phim"
+        tools:layout="@layout/fragment_movie_list_full" >
+        <argument
+            android:name="movieType"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_movieListFullFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>

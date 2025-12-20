@@ -98,11 +98,27 @@ public class ExploreFragment extends Fragment {
         upComingList = binding.rvTopMovies;
         nowShowingList.setAdapter(nowShowingAdapter);
         upComingList.setAdapter(upComingAdapter);
+        
+        // Setup click listeners cho "Xem thêm"
+        binding.tvRecommendedSeeMore.setOnClickListener(v -> {
+            navigateToFullList("NOW_SHOWING");
+        });
+        
+        binding.tvTopMoviesSeeMore.setOnClickListener(v -> {
+            navigateToFullList("COMING_SOON");
+        });
     }
   private  void handleClick(Movie movie)
   {
       movieViewModel.setSelectMovie(movie);
       NavController navController = NavHostFragment.findNavController(ExploreFragment.this);
       navController.navigate(ExploreFragmentDirections.actionNavDiscoveryToDetailsFragment());
+  }
+  
+  private void navigateToFullList(String movieType) {
+      NavController navController = NavHostFragment.findNavController(ExploreFragment.this);
+      navController.navigate(
+          ExploreFragmentDirections.actionExploreFragmentToMovieListFullFragment(movieType)
+      );
   }
 }
