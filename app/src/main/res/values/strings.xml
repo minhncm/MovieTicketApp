@@ -68,6 +68,10 @@
     <string name="txt_plan_deleted">Plan deleted</string>
     <string name="txt_plan_saved">Plan saved successfully</string>
     <string name="txt_save_plan">Save Plan</string>
+    <string name="txt_select_movie_first">Please select a movie first</string>
+    <string name="txt_select_cinema_first">Please select a cinema first</string>
+    <string name="txt_select_showtime_first">Please select a showtime first</string>
+    <string name="txt_select_seats_first">Please select at least one seat</string>
     <!-- Dialog Messages -->
     <string name="msg_loading">Loading, please wait...</string>
     <string name="msg_loading_data">Loading data...</string>
