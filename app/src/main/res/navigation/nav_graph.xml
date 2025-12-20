@@ -98,6 +98,9 @@
         <action
             android:id="@+id/action_selectSeatFragment_to_paymentMethod"
             app:destination="@id/paymentMethod" />
+        <action
+            android:id="@+id/action_selectSeatFragment_to_nav_bookmark"
+            app:destination="@id/nav_bookmark" />
     </fragment>
     <fragment
         android:id="@+id/paymentMethod"

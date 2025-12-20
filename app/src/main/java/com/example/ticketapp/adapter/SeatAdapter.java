@@ -50,6 +50,16 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         notifyDataSetChanged();
     }
 
+    // Hàm để clear selection
+    public void clearSelection() {
+        for (Seat seat : seatList) {
+            if ("available".equals(seat.getStatus().toString())) {
+                // Reset trạng thái nếu cần
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     // Lớp ViewHolder
     class SeatViewHolder extends RecyclerView.ViewHolder {
         CheckBox seatCheckBox;
