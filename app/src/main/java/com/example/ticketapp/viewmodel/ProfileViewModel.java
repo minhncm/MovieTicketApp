@@ -48,7 +48,7 @@ public class ProfileViewModel extends ViewModel {
         userData.setValue(user.getValue());
     }
     public LiveData<Resource<Account>> geUserById(){
-         return accountRepository.getUserData();
+        return accountRepository.getUserData();
     }
     public  void logout(){
         accountRepository.logout();
@@ -57,8 +57,8 @@ public class ProfileViewModel extends ViewModel {
         return accountRepository.isUserLoggedIn();
     }
     public LiveData<Boolean> observerAuthState(){
-    return accountRepository.observeAuthState();}
-} 
+        return accountRepository.observeAuthState();}
+
     public LiveData<Resource<Account>> getUserProfileDetails(String uid) {
         return accountRepository.getUserProfileFromApi(uid);
     }
