@@ -63,8 +63,4 @@ public class ProfileViewModel extends ViewModel {
         return accountRepository.getUserProfileFromApi(uid);
     }
 
-    public LiveData<Resource<Account>> updateUserProfile(Account account) {
-        return accountRepository.updateUserProfile(account);
-    }
-
 }
