@@ -29,6 +29,7 @@ public class SearchResultFragment extends Fragment {
     private MovieViewModel movieViewModel;
     private ExploreMovieAdapter movieAdapter;
     private NavController navController;
+    private TextWatcher searchTextWatcher;
     
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -60,18 +61,8 @@ public class SearchResultFragment extends Fragment {
     }
     
     private void setupSearchInput() {
-        binding.etSearchInput.requestFocus();
-        
-        binding.etSearchInput.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                String query = binding.etSearchInput.getText().toString();
-                movieViewModel.searchMovies(query);
-                return true;
-            }
-            return false;
-        });
-        
-        binding.etSearchInput.addTextChangedListener(new TextWatcher() {
+        // Tạo TextWatcher
+        searchTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -89,7 +80,41 @@ public class SearchResultFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
             }
+        };
+        
+        // Observe query từ ViewModel và hiển thị trong EditText
+        movieViewModel.searchQuery.observe(getViewLifecycleOwner(), query -> {
+            if (query != null && !query.isEmpty()) {
+                // Remove listener tạm thời để tránh trigger search lại
+                binding.etSearchInput.removeTextChangedListener(searchTextWatcher);
+                binding.etSearchInput.setText(query);
+                // Đặt cursor ở cuối text
+                binding.etSearchInput.setSelection(query.length());
+                // Add listener lại
+                binding.etSearchInput.addTextChangedListener(searchTextWatcher);
+            }
         });
+        
+        binding.etSearchInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                String query = binding.etSearchInput.getText().toString();
+                movieViewModel.searchMovies(query);
+                // Ẩn bàn phím
+                android.view.inputmethod.InputMethodManager imm = 
+                    (android.view.inputmethod.InputMethodManager) requireActivity()
+                        .getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return true;
+            }
+            return false;
+        });
+        
+        // Add TextWatcher
+        binding.etSearchInput.addTextChangedListener(searchTextWatcher);
+        
+        binding.etSearchInput.requestFocus();
     }
     
     private void observeSearchResults() {
