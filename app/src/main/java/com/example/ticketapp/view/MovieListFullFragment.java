@@ -79,8 +79,9 @@ public class MovieListFullFragment extends Fragment {
                     
                 case SUCCESS:
                     binding.progressBar.setVisibility(View.GONE);
+//                    Ẩn ProgressBar
                     binding.rvMovieList.setVisibility(View.VISIBLE);
-                    
+//                    Hiển thị RecyclerView
                     List<Movie> filteredMovies = filterMoviesByType(resource.getData());
                     movieAdapter.updateListMovie(filteredMovies);
                     
