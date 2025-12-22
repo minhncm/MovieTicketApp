@@ -23,6 +23,7 @@ public class SavedPlanEntity {
 
     private String cinemaId;
     private String cinemaName;
+    private String showtimeId;
 
     private String date;
     private String time;
@@ -66,6 +67,9 @@ public class SavedPlanEntity {
 
     public String getCinemaName() { return cinemaName; }
     public void setCinemaName(String cinemaName) { this.cinemaName = cinemaName; }
+
+    public String getShowtimeId() { return showtimeId; }
+    public void setShowtimeId(String showtimeId) { this.showtimeId = showtimeId; }
 
     public String getDate() { return date; }
     public void setDate(String date) { this.date = date; }
