@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1E2A"
-  >
+    android:background="#1C1E2A">
 
     <LinearLayout
         android:id="@+id/layout_date_city"
@@ -23,9 +22,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginEnd="8dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,39 +42,36 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                app:drawableEndCompat="@drawable/ic_calendar"
-               />
+                app:drawableEndCompat="@drawable/ic_calendar" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="8dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:dropDownHeight="40dp"
                 android:text="@string/txt_city"
                 android:textColor="#AEAEAE"
-                android:dropDownHeight="40dp"
                 android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinner_city"
                 android:layout_width="match_parent"
-
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_background"
-                android:paddingStart="16dp"
-                android:spinnerMode="dropdown"
                 android:dropDownHeight="40dp"
-                android:paddingEnd="16dp"/>
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
     </LinearLayout>
 
@@ -92,9 +88,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginEnd="8dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,15 +106,15 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_background"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"/>
+                android:paddingEnd="16dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="8dp">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -134,69 +130,105 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_background"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"/>
+                android:paddingEnd="16dp" />
         </LinearLayout>
     </LinearLayout>
-
 
     <View
         android:id="@+id/view_screen"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:layout_marginTop="32dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/screen_indicator"
-        app:layout_constraintTop_toBottomOf="@id/layout_cinema_showtime"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/layout_cinema_showtime" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_seats"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/button_checkout"
+        app:layout_constraintBottom_toTopOf="@id/layout_legend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_screen"
         tools:listitem="@layout/item_seat" />
+
     <LinearLayout
         android:id="@+id/layout_legend"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/layout_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recycler_view_seats">
 
-        <include layout="@layout/legend_item" android:id="@+id/legend_selected" />
-        <include layout="@layout/legend_item" android:id="@+id/legend_reserved" />
-        <include layout="@layout/legend_item" android:id="@+id/legend_available" />
+        <include
+            android:id="@+id/legend_selected"
+            layout="@layout/legend_item" />
+
+        <include
+            android:id="@+id/legend_reserved"
+            layout="@layout/legend_item" />
+
+        <include
+            android:id="@+id/legend_available"
+            layout="@layout/legend_item" />
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_checkout"
+    <LinearLayout
+        android:id="@+id/layout_buttons"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:text="@string/txt_checkout"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="#4A80F0"
-        app:cornerRadius="12dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_save_plan"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="@string/txt_save_plan"
+            android:textAllCaps="false"
+            android:textColor="#4A80F0"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:strokeColor="#4A80F0"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_checkout"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/txt_checkout"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#4A80F0"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
