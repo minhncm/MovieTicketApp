@@ -72,6 +72,7 @@
     <string name="txt_select_cinema_first">Please select a cinema first</string>
     <string name="txt_select_showtime_first">Please select a showtime first</string>
     <string name="txt_select_seats_first">Please select at least one seat</string>
+    <string name="txt_login_required">Please login first</string>
     <!-- Dialog Messages -->
     <string name="msg_loading">Loading, please wait...</string>
     <string name="msg_loading_data">Loading data...</string>

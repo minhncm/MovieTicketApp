@@ -4,21 +4,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.ticketapp.R; // Thay bằng package của bạn
-import com.example.ticketapp.domain.model.Seat; // Thay bằng package của bạn
+
+import com.example.ticketapp.R;
+import com.example.ticketapp.domain.model.Seat;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder> {
 
     private List<Seat> seatList = new ArrayList<>();
+    private Set<String> selectedSeatIds = new HashSet<>();
     private OnSeatClickListener seatClickListener;
 
-    // Interface để gửi sự kiện click về Fragment
     public interface OnSeatClickListener {
-        void onSeatClick(Seat seat, int position);
+        void onSeatClick(Seat seat, int position, boolean isSelected);
     }
 
     public SeatAdapter(OnSeatClickListener listener) {
@@ -43,24 +48,22 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         return seatList.size();
     }
 
-    // Hàm để cập nhật danh sách ghế
     public void setSeats(List<Seat> newSeats) {
         this.seatList.clear();
         this.seatList.addAll(newSeats);
+        this.selectedSeatIds.clear();
         notifyDataSetChanged();
     }
 
-    // Hàm để clear selection
     public void clearSelection() {
-        for (Seat seat : seatList) {
-            if ("available".equals(seat.getStatus().toString())) {
-                // Reset trạng thái nếu cần
-            }
-        }
+        selectedSeatIds.clear();
         notifyDataSetChanged();
     }
 
-    // Lớp ViewHolder
+    public List<String> getSelectedSeatIds() {
+        return new ArrayList<>(selectedSeatIds);
+    }
+
     class SeatViewHolder extends RecyclerView.ViewHolder {
         CheckBox seatCheckBox;
 
@@ -70,21 +73,27 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewHolder
         }
 
         public void bind(Seat seat, int position) {
-            // Hiển thị tên ghế (A1, A2...)
             seatCheckBox.setText(seat.getSeatId());
 
-            // Tự động đổi màu dựa trên trạng thái
-            if ("available".equals(seat.getStatus().toString())) {
-                seatCheckBox.setEnabled(true); // Cho phép bấm
-                seatCheckBox.setChecked(false); // Bỏ chọn (nếu đang được tái sử dụng)
-            } else {
-                seatCheckBox.setEnabled(false); // Vô hiệu hóa (màu đỏ)
-            }
+            boolean isAvailable = "available".equals(seat.getStatus().toString());
+            boolean isSelected = selectedSeatIds.contains(seat.getSeatId());
 
-            // Xử lý sự kiện click
-            seatCheckBox.setOnClickListener(v -> {
+            seatCheckBox.setEnabled(isAvailable);
+            
+            // Tạm thời remove listener để tránh trigger khi setChecked
+            seatCheckBox.setOnCheckedChangeListener(null);
+            seatCheckBox.setChecked(isSelected);
+
+            // Set listener sau khi đã set checked state
+            seatCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    selectedSeatIds.add(seat.getSeatId());
+                } else {
+                    selectedSeatIds.remove(seat.getSeatId());
+                }
+                
                 if (seatClickListener != null) {
-                    seatClickListener.onSeatClick(seat, position);
+                    seatClickListener.onSeatClick(seat, position, isChecked);
                 }
             });
         }

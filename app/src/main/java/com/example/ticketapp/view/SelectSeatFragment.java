@@ -35,6 +35,7 @@ import com.example.ticketapp.viewmodel.ProfileViewModel;
 import com.example.ticketapp.viewmodel.SavedPlanViewModel;
 import com.example.ticketapp.domain.model.SavedPlanEntity;
 import com.example.ticketapp.domain.model.Movie;
+
 import android.widget.Toast;
 import android.util.Log;
 
@@ -61,7 +62,6 @@ public class SelectSeatFragment extends Fragment {
     private List<Showtimes> currentShowtimeList = new ArrayList<>();
     private String date;
     private String selectedCity;
-    private List<String> selectdSeats = new ArrayList<>();
     private BookingData bookingData = new BookingData();
 
     @Override
@@ -82,36 +82,48 @@ public class SelectSeatFragment extends Fragment {
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         bookingViewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
         savedPlanViewModel = new ViewModelProvider(this).get(SavedPlanViewModel.class);
-        seatAdapter = new SeatAdapter((seat, position) -> {
-            selectdSeats.add(seat.getSeatId());
+        seatAdapter = new SeatAdapter((seat, position, isSelected) -> {
         });
         recyclerViewSeats = binding.recyclerViewSeats;
-        // Set default LayoutManager trước khi set adapter
         recyclerViewSeats.setLayoutManager(new GridLayoutManager(requireContext(), 10));
         recyclerViewSeats.setAdapter(seatAdapter);
-        binding.buttonCheckout.setOnClickListener(view1 -> {
-            bookingData.setShowTimeId(selectedShowtime.getUid());
-            if (!selectdSeats.isEmpty() && bookingData.getUserId() != null && selectedShowtime != null) {
-                bookingData.setSelectedSeats(selectdSeats);
-                bookingData.setShowTimeId(selectedShowtime.getUid());
-                bookingViewModel.setBookingData(bookingData);
-                selectdSeats.clear();
-                navController.navigate(R.id.action_selectSeatFragment_to_paymentMethod);
-            }
-        });
-
-        binding.buttonSavePlan.setOnClickListener(view1 -> {
-            savePlanForLater();
-            navController.navigate(R.id.action_selectSeatFragment_to_nav_bookmark);
-
-        });
-        // Setup các Observers
+        setUpBtn(navController);
         setUpViewModelObservers();
-        // Setup các Views
         setUpDatePicker();
         setupCitySpinner();
         setUpCinemaChoice();
         setUpShowtimeChoice();
+    }
+
+    private void setUpBtn(NavController navController) {
+        binding.buttonCheckout.setOnClickListener(view1 -> {
+            List<String> selectedSeats = seatAdapter.getSelectedSeatIds();
+            
+            if (selectedShowtime == null) {
+                Toast.makeText(requireContext(), R.string.txt_select_showtime_first, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            if (selectedSeats.isEmpty()) {
+                Toast.makeText(requireContext(), R.string.txt_select_seats_first, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            if (bookingData.getUserId() == null) {
+                Toast.makeText(requireContext(), R.string.txt_login_required, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            bookingData.setSelectedSeats(selectedSeats);
+            bookingData.setShowTimeId(selectedShowtime.getUid());
+            bookingViewModel.setBookingData(bookingData);
+            seatAdapter.clearSelection();
+            navController.navigate(R.id.action_selectSeatFragment_to_paymentMethod);
+        });
+        
+        binding.buttonSavePlan.setOnClickListener(view1 -> {
+            savePlanForLater();
+        });
     }
 
     private void setUpViewModelObservers() {
@@ -218,6 +230,7 @@ public class SelectSeatFragment extends Fragment {
 
         updateLabel();
     }
+
     private void updateLabel() {
         seatAdapter.setSeats(new ArrayList<>());
         // Sửa 2: Lỗi định dạng 'DD'
@@ -375,7 +388,8 @@ public class SelectSeatFragment extends Fragment {
             return;
         }
 
-        if (selectdSeats.isEmpty()) {
+        List<String> selectedSeats = seatAdapter.getSelectedSeatIds();
+        if (selectedSeats.isEmpty()) {
             Toast.makeText(requireContext(), R.string.txt_select_seats_first, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -393,19 +407,28 @@ public class SelectSeatFragment extends Fragment {
         Cinema selectedCinema = currentCinemaList.get(selectedCinemaPosition);
         plan.setCinemaId(selectedCinema.getUid());
         plan.setCinemaName(selectedCinema.getName());
+
+        // Showtime ID - quan trọng để checkout sau
+        plan.setShowtimeId(selectedShowtime.getUid());
+
         // Date & Time
         plan.setDate(date);
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.US);
         plan.setTime(timeFormatter.format(selectedShowtime.getStartTime()));
+        
         // Seats
-        plan.setSelectedSeats(String.join(",", selectdSeats));
-        plan.setPersonCount(selectdSeats.size());
+        plan.setSelectedSeats(String.join(",", selectedSeats));
+        plan.setPersonCount(selectedSeats.size());
+        
         // Lưu vào database
         savedPlanViewModel.insert(plan);
         Toast.makeText(requireContext(), R.string.txt_plan_saved, Toast.LENGTH_SHORT).show();
+        
         // Clear selected seats
-        selectdSeats.clear();
         seatAdapter.clearSelection();
-
+        
+        // Navigate to saved plans
+        NavController navController = NavHostFragment.findNavController(SelectSeatFragment.this);
+        navController.navigate(R.id.action_selectSeatFragment_to_nav_bookmark);
     }
 }

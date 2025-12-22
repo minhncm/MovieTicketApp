@@ -39,7 +39,11 @@
         android:id="@+id/nav_bookmark"
         android:name="com.example.ticketapp.view.SavedPlanFragment"
         android:label="@string/nav_saved_plans"
-        tools:layout="@layout/fragment_saved_plan" />
+        tools:layout="@layout/fragment_saved_plan" >
+        <action
+            android:id="@+id/action_nav_bookmark_to_paymentMethod"
+            app:destination="@id/paymentMethod" />
+    </fragment>
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.example.ticketapp.view.ProfileFragment"
