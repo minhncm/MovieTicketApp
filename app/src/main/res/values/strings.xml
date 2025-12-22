@@ -249,6 +249,8 @@
     <string name="content_instruction">Come to the cinema, show and scan the barcode to the space provided. Continue to comply with health protocols.</string>
     <string name="txt_download_e_ticket">Download E-Ticket</string>
     <string name="txt_content_welcome">Your Cinema Experience</string>
+    <string name="txt_no_search_results">No movies found</string>
+    <string name="txt_search_movies">Search Movies</string>
     <!-- Cities Array -->
     <string-array name="cities_array">
         <item>An Giang</item>

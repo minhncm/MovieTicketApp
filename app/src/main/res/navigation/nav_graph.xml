@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_settings"
             app:destination="@id/nav_settings" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchResult"
+            app:destination="@id/searchResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_discovery"
@@ -83,7 +86,31 @@
         <action
             android:id="@+id/action_personalDataFragment_to_editProfile"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_personalDataFragment_to_changePassword"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_personalDataFragment_to_updatePhone"
+            app:destination="@id/updatePhoneFragment" />
+        <action
+            android:id="@+id/action_personalDataFragment_to_updateAddress"
+            app:destination="@id/updateAddressFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.ticketapp.view.ChangePasswordFragment"
+        android:label="Đổi Mật Khẩu"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/updatePhoneFragment"
+        android:name="com.example.ticketapp.view.UpdatePhoneFragment"
+        android:label="Cập Nhật Số Điện Thoại"
+        tools:layout="@layout/fragment_update_phone" />
+    <fragment
+        android:id="@+id/updateAddressFragment"
+        android:name="com.example.ticketapp.view.UpdateAddressFragment"
+        android:label="Cập Nhật Địa Chỉ"
+        tools:layout="@layout/fragment_update_address" />
     <fragment
         android:id="@+id/detailsFragment"
 
@@ -143,5 +170,14 @@
         android:id="@+id/watchedTicketsFragment"
         android:name="com.example.ticketapp.view.Ticket.WatchedTicketsFragment"
         android:label="@string/nav_watched_tickets" />
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.ticketapp.view.SearchResultFragment"
+        android:label="@string/txt_search_movies"
+        tools:layout="@layout/fragment_search_result" >
+        <action
+            android:id="@+id/action_searchResult_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>
