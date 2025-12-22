@@ -119,6 +119,7 @@
     <string name="txt_select_cinema_first">Vui lòng chọn rạp chiếu trước</string>
     <string name="txt_select_showtime_first">Vui lòng chọn suất chiếu trước</string>
     <string name="txt_select_seats_first">Vui lòng chọn ít nhất một ghế</string>
+    <string name="txt_login_required">Vui lòng đăng nhập trước</string>
 
     <!-- Thông Báo Dialog -->
     <string name="msg_loading">Đang tải, vui lòng đợi...</string>

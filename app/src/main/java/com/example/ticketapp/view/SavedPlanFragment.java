@@ -10,20 +10,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.ticketapp.R;
 import com.example.ticketapp.adapter.SavedPlanAdapter;
 import com.example.ticketapp.domain.model.SavedPlanEntity;
+import com.example.ticketapp.domain.model.Res.BookingData;
 import com.example.ticketapp.databinding.FragmentSavedPlanBinding;
 import com.example.ticketapp.utils.DialogHelper;
+import com.example.ticketapp.viewmodel.BookingViewModel;
+import com.example.ticketapp.viewmodel.ProfileViewModel;
 import com.example.ticketapp.viewmodel.SavedPlanViewModel;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPlanActionListener {
 
     private FragmentSavedPlanBinding binding;
     private SavedPlanViewModel viewModel;
     private SavedPlanAdapter adapter;
+    private BookingViewModel bookingViewModel;
+    private ProfileViewModel profileViewModel;
+    private String userId;
 
     @Nullable
     @Override
@@ -38,6 +49,15 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(SavedPlanViewModel.class);
+        bookingViewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+
+        // Lấy userId
+        profileViewModel.getUserProfile().observe(getViewLifecycleOwner(), account -> {
+            if (account != null && account.getUid() != null) {
+                userId = account.getUid();
+            }
+        });
 
         setupRecyclerView();
         observeData();
@@ -74,9 +94,32 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
             return;
         }
 
-        // Navigate to payment or booking confirmation
-        Toast.makeText(requireContext(), R.string.txt_proceeding_checkout, Toast.LENGTH_SHORT).show();
-        // TODO: Navigate to payment screen with plan data
+        // Kiểm tra userId
+        if (userId == null) {
+            Toast.makeText(requireContext(), R.string.txt_login_required, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Tạo BookingData từ SavedPlanEntity
+        BookingData bookingData = new BookingData();
+        bookingData.setUserId(userId);
+        
+        // Set showtime ID
+        if (plan.getShowtimeId() != null) {
+            bookingData.setShowTimeId(plan.getShowtimeId());
+        }
+        
+        // Convert seats string "A1,A2,A3" thành List
+        String seatsStr = plan.getSelectedSeats();
+        List<String> seatsList = Arrays.asList(seatsStr.split(","));
+        bookingData.setSelectedSeats(seatsList);
+        
+        // Set booking data vào ViewModel
+        bookingViewModel.setBookingData(bookingData);
+
+        // Navigate to payment
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(R.id.action_nav_bookmark_to_paymentMethod);
     }
 
     @Override
