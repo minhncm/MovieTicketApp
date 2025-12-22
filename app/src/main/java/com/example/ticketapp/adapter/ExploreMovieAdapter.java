@@ -14,23 +14,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExploreMovieAdapter extends RecyclerView.Adapter<ExploreMovieAdapter.MovieViewHolder> {
-    private List<Movie> movieList  ;
+    private List<Movie> movieList;
     private ItemMovieHorizontalBinding binding;
+    private OnMovieClickListener onMovieClickListener;
     private MovieAdapter.OnItemClickListener onItemClickListener;
-    public  ExploreMovieAdapter( ){
+    
+    public ExploreMovieAdapter() {
         movieList = new ArrayList<>();
-
     }
+    
+    public ExploreMovieAdapter(OnMovieClickListener listener) {
+        movieList = new ArrayList<>();
+        this.onMovieClickListener = listener;
+    }
+    
+    // Method để tương thích với code cũ
     public void setOnItemClickListener(MovieAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
-    public void updateListMovie(List<Movie> _movieList){
+    
+    public void updateListMovie(List<Movie> _movieList) {
         if (_movieList != null) {
             this.movieList = _movieList;
         } else {
             this.movieList = new ArrayList<>();
         }
         notifyDataSetChanged();
+    }
+    
+    public void updateMovies(List<Movie> _movieList) {
+        updateListMovie(_movieList);
     }
     @NonNull
     @Override
@@ -46,11 +59,15 @@ public class ExploreMovieAdapter extends RecyclerView.Adapter<ExploreMovieAdapte
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         holder.bind(movieList.get(position));
         holder.itemView.setOnClickListener(v -> {
-            if (onItemClickListener != null) {
+            // Ưu tiên listener mới
+            if (onMovieClickListener != null) {
+                onMovieClickListener.onClick(movieList.get(position));
+            }
+            // Fallback cho listener cũ
+            else if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(movieList.get(position));
             }
         });
-
     }
 
     @Override
@@ -76,8 +93,9 @@ public class ExploreMovieAdapter extends RecyclerView.Adapter<ExploreMovieAdapte
         }
 
     }
-    public interface  OnItemClickListener {
-        void onItemClick(Movie movie);
+    
+    public interface OnMovieClickListener {
+        void onClick(Movie movie);
     }
 }
 

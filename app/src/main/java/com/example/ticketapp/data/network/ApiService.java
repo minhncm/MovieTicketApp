@@ -8,6 +8,7 @@ import com.example.ticketapp.domain.model.Res.CinemaRes;
 import com.example.ticketapp.domain.model.Res.TicketRes;
 import com.example.ticketapp.domain.model.Showtimes;
 import com.example.ticketapp.domain.model.Ticket;
+import com.example.ticketapp.domain.model.Account;
 
 import java.util.List;
 
@@ -34,6 +35,9 @@ public interface ApiService {
     Call<BookingRes> bookTicket(@Body BookingData body);
     @GET("getBookingsByUserId")
     Call<TicketRes> fetchTickets(@Query("filter") String type, @Query("userId") String userId);
+
+    @GET("getUserProfile")
+    Call<Account> getUserProfile(@Query("uid") String uid);
 
 }
 
