@@ -308,10 +308,5 @@
     <string name="txt_payment_failed">Thanh toán thất bại</string>
     <string name="txt_momo_payment_error">Lỗi kết nối MoMo. Vui lòng thử lại.</string>
     <string name="txt_zalopay_coming_soon">ZaloPay sẽ sớm được hỗ trợ</string>
-    <string name="txt_momo_qr_payment">Thanh Toán MoMo QR</string>
-    <string name="txt_scan_qr_instruction">Mở ứng dụng MoMo và quét mã QR để thanh toán</string>
-    <string name="txt_qr_code">Mã QR</string>
-    <string name="txt_waiting_payment">Đang chờ thanh toán...</string>
-    <string name="txt_cancel_payment">Hủy Thanh Toán</string>
 
 </resources>
