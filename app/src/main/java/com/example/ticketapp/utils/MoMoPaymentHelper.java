@@ -28,8 +28,8 @@ public class MoMoPaymentHelper {
     private static final String SECRET_KEY = "at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa";
     private static final String ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
     
-    // Redirect URLs
-    private static final String REDIRECT_URL = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
+    // Deep Link - App sẽ nhận callback qua deep link này
+    private static final String REDIRECT_URL = "ticketapp://payment/callback";
     private static final String IPN_URL = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
     
     public interface MoMoPaymentCallback {
