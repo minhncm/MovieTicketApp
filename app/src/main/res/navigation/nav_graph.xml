@@ -50,8 +50,8 @@
         android:label="@string/nav_saved_plans"
         tools:layout="@layout/fragment_saved_plan" >
         <action
-            android:id="@+id/action_nav_bookmark_to_paymentMethod"
-            app:destination="@id/paymentMethod" />
+            android:id="@+id/action_nav_bookmark_to_paymentMethodSelection"
+            app:destination="@id/paymentMethodSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
@@ -125,11 +125,22 @@
         android:name="com.example.ticketapp.view.SelectSeatFragment"
         android:label="@string/nav_select_seat" >
         <action
-            android:id="@+id/action_selectSeatFragment_to_paymentMethod"
-            app:destination="@id/paymentMethod" />
+            android:id="@+id/action_selectSeatFragment_to_paymentMethodSelection"
+            app:destination="@id/paymentMethodSelectionFragment" />
         <action
             android:id="@+id/action_selectSeatFragment_to_nav_bookmark"
             app:destination="@id/nav_bookmark" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentMethodSelectionFragment"
+        android:name="com.example.ticketapp.view.PaymentMethodSelectionFragment"
+        android:label="@string/txt_select_payment_method" >
+        <action
+            android:id="@+id/action_paymentMethodSelectionFragment_to_paymentMethod"
+            app:destination="@id/paymentMethod" />
+        <action
+            android:id="@+id/action_paymentMethodSelectionFragment_to_paymentSuccessDialog"
+            app:destination="@id/paymentSuccessDialog" />
     </fragment>
     <fragment
         android:id="@+id/paymentMethod"

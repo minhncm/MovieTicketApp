@@ -1,9 +1,11 @@
-    package com.example.ticketapp;
+package com.example.ticketapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
     private AppBarConfiguration appBarConfiguration;
     
@@ -38,8 +41,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setUpToolBar();
         setUpNavigation();
-
-
+        
+        // Xử lý Deep Link từ MoMo
+        handleDeepLink(getIntent());
+    }
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleDeepLink(intent);
+    }
+    
+    private void handleDeepLink(Intent intent) {
+        Uri data = intent.getData();
+        if (data != null && "ticketapp".equals(data.getScheme()) && "payment".equals(data.getHost())) {
+            Log.d(TAG, "Deep link received: " + data.toString());
+            
+            // Lấy các tham số từ MoMo callback
+            String resultCode = data.getQueryParameter("resultCode");
+            String orderId = data.getQueryParameter("orderId");
+            String message = data.getQueryParameter("message");
+            
+            Log.d(TAG, "ResultCode: " + resultCode + ", OrderId: " + orderId + ", Message: " + message);
+            
+            // Lưu vào SharedPreferences để Fragment xử lý
+            getSharedPreferences("momo_payment", MODE_PRIVATE)
+                    .edit()
+                    .putString("resultCode", resultCode)
+                    .putString("orderId", orderId)
+                    .putString("message", message)
+                    .putLong("timestamp", System.currentTimeMillis())
+                    .apply();
+            
+            // Broadcast payment result để PaymentMethodSelectionFragment xử lý
+            Intent broadcastIntent = new Intent("com.example.ticketapp.MOMO_PAYMENT_RESULT");
+            broadcastIntent.putExtra("resultCode", resultCode);
+            broadcastIntent.putExtra("orderId", orderId);
+            broadcastIntent.putExtra("message", message);
+            sendBroadcast(broadcastIntent);
+        }
     }
     private void setUpNavigation() {
         NavHostFragment navHostFragment =binding.fragmentContainerView.getFragment();
