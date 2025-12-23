@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_cinemaDetailFragment"
             app:destination="@id/cinemaDetailFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_discovery"
@@ -52,18 +55,16 @@
     </fragment>
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.ticketapp.view.ProfileFragment"
+        android:name="com.example.ticketapp.view.SettingsFragment"
         android:label="@string/txt_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_nav_profile_to_myTicket"
             app:destination="@id/myTicket" />
         <action
             android:id="@+id/action_nav_profile_to_nav_settings"
             app:destination="@id/nav_settings" />
-        <action
-            android:id="@+id/action_nav_profile_to_editProfile"
-            app:destination="@id/editProfileFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/nav_settings"
@@ -76,19 +77,13 @@
             android:id="@+id/action_nav_settings_to_personalData"
             app:destination="@id/personalDataFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.example.ticketapp.view.EditProfileFragment"
-        android:label="Chỉnh sửa hồ sơ"
-        tools:layout="@layout/fragment_edit_profile" />
+
     <fragment
         android:id="@+id/personalDataFragment"
         android:name="com.example.ticketapp.view.PersonalDataFragment"
         android:label="@string/txt_personal_data"
         tools:layout="@layout/fragment_personal_data" >
-        <action
-            android:id="@+id/action_personalDataFragment_to_editProfile"
-            app:destination="@id/editProfileFragment" />
+
         <action
             android:id="@+id/action_personalDataFragment_to_changePassword"
             app:destination="@id/changePasswordFragment" />
@@ -189,6 +184,14 @@
         <action
             android:id="@+id/action_movieListFullFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.ticketapp.view.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_nav_discovery"
+            app:destination="@id/nav_discovery" />
     </fragment>
 
 </navigation>
