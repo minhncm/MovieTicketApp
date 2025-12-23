@@ -73,6 +73,13 @@ public class PaymentMethod extends Fragment {
                             case SUCCESS:
                                 // 2. Xử lý thành công
 //                        hideLoadingIndicator();
+                                // Lấy totalPrice từ backend, nếu = 0 thì tính theo số ghế
+                                double totalPrice = resource.getData().getTotalPrice();
+                                if (totalPrice == 0 && resource.getData().getSeatNames() != null) {
+                                    // Tính giá: mỗi ghế 100,000 VND
+                                    totalPrice = resource.getData().getSeatNames().size() * 100000.0;
+                                }
+                                
                                 Ticket ticket = new Ticket(
                                         resource.getData().getMovieName(),
                                         resource.getData().getCinemaName(),
@@ -80,8 +87,7 @@ public class PaymentMethod extends Fragment {
                                         resource.getData().getShowStartTime(),
                                         resource.getData().getStatus(),
                                         resource.getData().getId(),
-                                        resource.getData().getTotalPrice())
-                                        ;
+                                        totalPrice);
                                 bookingViewModel.setCurrentTicket(ticket);
                                 NavController navController = NavHostFragment.findNavController(this);
                                 navController.navigate(PaymentMethodDirections.actionPaymentMethodToPaymentSuccessDialog2());

@@ -139,15 +139,7 @@
             android:id="@+id/action_paymentMethodSelectionFragment_to_paymentMethod"
             app:destination="@id/paymentMethod" />
         <action
-            android:id="@+id/action_paymentMethodSelectionFragment_to_momoQrPaymentFragment"
-            app:destination="@id/momoQrPaymentFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/momoQrPaymentFragment"
-        android:name="com.example.ticketapp.view.MoMoQrPaymentFragment"
-        android:label="@string/txt_momo_qr_payment" >
-        <action
-            android:id="@+id/action_momoQrPaymentFragment_to_paymentSuccessDialog"
+            android:id="@+id/action_paymentMethodSelectionFragment_to_paymentSuccessDialog"
             app:destination="@id/paymentSuccessDialog" />
     </fragment>
     <fragment
