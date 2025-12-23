@@ -10,6 +10,8 @@ import com.example.ticketapp.utils.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -27,8 +29,15 @@ public class MovieViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> _searchResults = new MutableLiveData<>();
     public LiveData<List<Movie>> searchResults = _searchResults;
     
+    // LiveData cho query tìm kiếm (để giữ text trong SearchResultFragment)
+    private final MutableLiveData<String> _searchQuery = new MutableLiveData<>();
+    public LiveData<String> searchQuery = _searchQuery;
+    
     // Lưu danh sách phim gốc để search
     private List<Movie> allMovies = new ArrayList<>();
+    
+    // ExecutorService để chạy tìm kiếm trên background thread
+    private final ExecutorService searchExecutor = Executors.newSingleThreadExecutor();
     
     @Inject
     public MovieViewModel(MovieRepository repository) {
@@ -52,67 +61,81 @@ public class MovieViewModel extends ViewModel {
     }
     
     public void searchMovies(String query) {
+        // Lưu query để hiển thị trong SearchResultFragment
+        _searchQuery.setValue(query);
+        
         if (query == null || query.trim().isEmpty()) {
             _searchResults.setValue(new ArrayList<>());
             return;
         }
         
-        String searchQuery = query.toLowerCase().trim();
-        List<Movie> results = new ArrayList<>();
-        
-        for (Movie movie : allMovies) {
-            boolean found = false;
+        // Chạy tìm kiếm trên background thread để tránh block UI
+        searchExecutor.execute(() -> {
+            String searchQuery = query.toLowerCase().trim();
+            List<Movie> results = new ArrayList<>();
             
-            // Tìm theo tên phim (có dấu và không dấu)
-            if (movie.getTitle() != null) {
-                String title = movie.getTitle().toLowerCase();
-                // Tìm kiếm thông thường
-                if (title.contains(searchQuery)) {
-                    results.add(movie);
-                    continue;
-                }
-                // Tìm kiếm không dấu (tiếng Việt)
-                if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getTitle(), searchQuery)) {
-                    results.add(movie);
-                    continue;
-                }
-            }
-            
-            // Tìm theo đạo diễn (có dấu và không dấu)
-            if (movie.getDirector() != null) {
-                String director = movie.getDirector().toLowerCase();
-                if (director.contains(searchQuery)) {
-                    results.add(movie);
-                    continue;
-                }
-                if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getDirector(), searchQuery)) {
-                    results.add(movie);
-                    continue;
-                }
-            }
-            
-            // Tìm theo thể loại (có dấu và không dấu)
-            if (movie.getGenres() != null) {
-                for (String genre : movie.getGenres()) {
-                    if (genre.toLowerCase().contains(searchQuery)) {
+            for (Movie movie : allMovies) {
+                boolean found = false;
+                
+                // Tìm theo tên phim (có dấu và không dấu)
+                if (movie.getTitle() != null) {
+                    String title = movie.getTitle().toLowerCase();
+                    // Tìm kiếm thông thường
+                    if (title.contains(searchQuery)) {
                         results.add(movie);
-                        found = true;
-                        break;
+                        continue;
                     }
-                    if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(genre, searchQuery)) {
+                    // Tìm kiếm không dấu (tiếng Việt)
+                    if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getTitle(), searchQuery)) {
                         results.add(movie);
-                        found = true;
-                        break;
+                        continue;
                     }
                 }
+                
+                // Tìm theo đạo diễn (có dấu và không dấu)
+                if (movie.getDirector() != null) {
+                    String director = movie.getDirector().toLowerCase();
+                    if (director.contains(searchQuery)) {
+                        results.add(movie);
+                        continue;
+                    }
+                    if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(movie.getDirector(), searchQuery)) {
+                        results.add(movie);
+                        continue;
+                    }
+                }
+                
+                // Tìm theo thể loại (có dấu và không dấu)
+                if (movie.getGenres() != null) {
+                    for (String genre : movie.getGenres()) {
+                        if (genre.toLowerCase().contains(searchQuery)) {
+                            results.add(movie);
+                            found = true;
+                            break;
+                        }
+                        if (com.example.ticketapp.utils.VietnameseUtils.containsIgnoreAccents(genre, searchQuery)) {
+                            results.add(movie);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
             }
-        }
-        
-        _searchResults.setValue(results);
+            
+            // Post kết quả về UI thread
+            _searchResults.postValue(results);
+        });
     }
     
     // Clear kết quả tìm kiếm
     public void clearSearch() {
         _searchResults.setValue(new ArrayList<>());
+    }
+    
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        // Shutdown executor khi ViewModel bị destroy
+        searchExecutor.shutdown();
     }
 }

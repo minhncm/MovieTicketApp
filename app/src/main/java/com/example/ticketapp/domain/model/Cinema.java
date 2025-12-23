@@ -53,4 +53,12 @@ public class Cinema {
     public String getInfo() {
         return info;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
 }
