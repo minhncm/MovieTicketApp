@@ -78,7 +78,8 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
         cinemaAdapter = new CinemaAdapter(this::onCinemaClick);
         cinemaRecyclerView = binding.rvCinemas;
         cinemaRecyclerView.setAdapter(cinemaAdapter);
-        setupMovieTabsViewPager(); // Hợp nhất logic setup vào đây
+        setupMovieTabsViewPager();
+        setupSearchFeature();
     }
 
     private void initView( Account user) {
@@ -175,6 +176,26 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        // Remove listener khi Fragment bị pause để tránh conflict
+        if (binding != null && binding.etSearch != null) {
+            binding.etSearch.setOnEditorActionListener(null);
+            // KHÔNG xóa text nữa - để giữ lại cho SearchResultFragment
+        }
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Xóa text khi quay lại HomeFragment
+        if (binding != null && binding.etSearch != null) {
+            binding.etSearch.setText("");
+            setupSearchFeature();
+        }
+    }
+    
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         showToolbar();
@@ -203,7 +224,6 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
     public void onMovieSelect(Movie movie) {
         if (movie != null) {
             movieViewModel.setSelectMovie(movie);
-
             navController.navigate(HomeFragmentDirections.actionNavHomeToDetailsFragment());
         }
     }
@@ -213,6 +233,45 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
             cinemaViewModel.setSelectedCinema(cinema);
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToCinemaDetailFragment());
         }
+    }
+    private void setupSearchFeature() {
+        // Click vào search box → Chuyển sang màn hình tìm kiếm
+        binding.etSearch.setOnClickListener(v -> {
+            String query = binding.etSearch.getText().toString();
+            if (!query.trim().isEmpty()) {
+                movieViewModel.searchMovies(query);
+            }
+            // Clear focus và ẩn bàn phím
+            binding.etSearch.clearFocus();
+            navController.navigate(HomeFragmentDirections.actionNavHomeToSearchResultFragment());
+        });
+
+        // Nhấn Enter trên bàn phím → Chuyển sang màn hình tìm kiếm
+        binding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
+                String query = binding.etSearch.getText().toString();
+                if (!query.trim().isEmpty()) {
+                    movieViewModel.searchMovies(query);
+                }
+                // Clear focus và ẩn bàn phím
+                binding.etSearch.clearFocus();
+                // Ẩn bàn phím
+                android.view.inputmethod.InputMethodManager imm =
+                        (android.view.inputmethod.InputMethodManager) requireActivity()
+                                .getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                // Navigate với try-catch để tránh crash khi đã ở SearchResultFragment
+                try {
+                    navController.navigate(HomeFragmentDirections.actionNavHomeToSearchResultFragment());
+                } catch (Exception e) {
+                    // Đã ở SearchResultFragment rồi, không làm gì
+                }
+                return true;
+            }
+            return false;
+        });
     }
 }
 
