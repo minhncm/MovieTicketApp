@@ -53,7 +53,7 @@ public class SearchResultFragment extends Fragment {
     private void setupRecyclerView() {
         movieAdapter = new ExploreMovieAdapter(movie -> {
             movieViewModel.setSelectMovie(movie);
-            navController.navigate(SearchResultFragmentDirections.actionSearchResultToDetailsFragment());
+            navController.navigate(SearchResultFragmentDirections.actionSearchResultFragmentToNavDiscovery());
         });
         
         binding.rvSearchResults.setLayoutManager(new GridLayoutManager(requireContext(), 2));
