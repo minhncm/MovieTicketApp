@@ -20,11 +20,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class ProfileViewModel extends ViewModel {
     private final AccountRepository accountRepository;
     private MutableLiveData<Account> userData = new MutableLiveData<>();
-    public  LiveData<Account> _userData = userData;
 
     @Inject
     public ProfileViewModel(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
+        userData.setValue(accountRepository.getCurrentUser().getValue());
     }
     public  LiveData<AuthResult> login(String email, String password){
         return accountRepository.login(email,password);
@@ -33,20 +33,16 @@ public class ProfileViewModel extends ViewModel {
         return accountRepository.register(name, email, password);
     }
     public LiveData<Account> getUserProfile() {
-        loadUserProfile();
         return userData;
     }
     public void setUserProfile(Account userProfile) {
         accountRepository.setCurrentUser(userProfile);
-        loadUserProfile();
+        userData.setValue(userProfile);
     }
 
-    public void loadUserProfile() {
-        LiveData<Account> user = accountRepository.getCurrentUser();
-        userData.setValue(user.getValue());
-    }
+
     public LiveData<Resource<Account>> geUserById(){
-         return accountRepository.getUserData();
+        return accountRepository.getUserData();
     }
     public  void logout(){
         accountRepository.logout();
@@ -55,7 +51,7 @@ public class ProfileViewModel extends ViewModel {
         return accountRepository.isUserLoggedIn();
     }
     public LiveData<Boolean> observerAuthState(){
-    return accountRepository.observeAuthState();}
+        return accountRepository.observeAuthState();}
 
     public LiveData<Resource<Account>> getUserProfileDetails(String uid) {
         return accountRepository.getUserProfileFromApi(uid);

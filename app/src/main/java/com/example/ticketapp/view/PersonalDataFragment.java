@@ -158,12 +158,6 @@ public class PersonalDataFragment extends Fragment {
     }
 
     private void setupClickListeners() {
-        // Edit Profile Button
-        binding.btnEditProfile.setOnClickListener(v -> {
-            NavController navController = NavHostFragment.findNavController(PersonalDataFragment.this);
-            navController.navigate(R.id.action_personalDataFragment_to_editProfile);
-        });
-
         // Change Password
         binding.layoutChangePassword.setOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(PersonalDataFragment.this);
