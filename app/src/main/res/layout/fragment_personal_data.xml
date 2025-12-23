@@ -75,15 +75,6 @@
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnEditProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chỉnh sửa hồ sơ"
-                    android:textColor="@android:color/white"
-                    app:backgroundTint="@color/light_blue"
-                    app:cornerRadius="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

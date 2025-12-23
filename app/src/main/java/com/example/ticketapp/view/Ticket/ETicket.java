@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ticketapp.R;
 import com.example.ticketapp.databinding.FragmentETicketBinding;
 import com.example.ticketapp.domain.model.Ticket;
 import com.example.ticketapp.viewmodel.BookingViewModel;
@@ -44,11 +45,24 @@ public class ETicket extends Fragment {
     }
 
     private void initView(Ticket ticket) {
+        // Set film title
         binding.textFilmTitle.setText(ticket.getMovieName());
+        
+        // Set labels
+        binding.detailDate.labelDetail.setText(R.string.txt_date);
+        binding.detailLocation.labelDetail.setText(R.string.txt_cinema_label);
+        binding.detailPayment.labelDetail.setText(R.string.txt_total);
+        binding.detailSeats.labelDetail.setText(R.string.txt_seats);
+        binding.detailTime.labelDetail.setText(R.string.txt_time);
+        binding.detailOrder.labelDetail.setText(R.string.txt_ticket_id);
+        
+        // Set values
+        binding.detailDate.textDetailValue.setText(ticket.getTime() != null ? ticket.getTime().split(" ")[0] : "");
         binding.detailLocation.textDetailValue.setText(ticket.getCinemaName());
+        binding.detailPayment.textDetailValue.setText(String.format("%,.0f đ", ticket.getTotalPrice()));
+        binding.detailSeats.textDetailValue.setText(String.join(", ", ticket.getSeatNames()));
+        binding.detailTime.textDetailValue.setText(ticket.getTime() != null && ticket.getTime().contains(" ") 
+                ? ticket.getTime().split(" ")[1] : ticket.getTime());
         binding.detailOrder.textDetailValue.setText(ticket.getId());
-        binding.detailDate.textDetailValue.setText(ticket.getTime());
-        binding.detailPayment.textDetailValue.setText(ticket.getStatus());
-        binding.detailSeats.textDetailValue.setText(ticket.getSeatNames().toString());
     }
 }
