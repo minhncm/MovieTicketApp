@@ -124,10 +124,20 @@ private  void setUpNavigation(Movie movie){
         if (allMovies == null || type == null) {
             return new ArrayList<>();
         }
-        return allMovies.stream()
+        
+        // Debug log để kiểm tra status của phim
+        Log.d("MovieListFragment", "Filtering for type: " + type);
+        for (Movie movie : allMovies) {
+            Log.d("MovieListFragment", "Movie: " + movie.getTitle() + " - Status: " + movie.getStatus());
+        }
+        
+        List<Movie> filtered = allMovies.stream()
                 .filter(movie -> Objects.equals(movie.getStatus(), type))
                 .collect(Collectors.toList());
-
+        
+        Log.d("MovieListFragment", "Filtered count: " + filtered.size() + " out of " + allMovies.size());
+        
+        return filtered;
     }
 
 

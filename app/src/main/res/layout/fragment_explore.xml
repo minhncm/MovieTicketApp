@@ -13,10 +13,10 @@
         android:id="@+id/llFilterTabs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#32363D"
+        android:background="@drawable/bg_filter_tabs"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,28 +25,28 @@
             android:id="@+id/btnNowShowing"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="4dp"
             android:backgroundTint="#2196F3"
-            android:paddingHorizontal="16dp"
+            android:paddingHorizontal="20dp"
             android:stateListAnimator="@null"
             android:text="@string/txt_now_showing"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            app:cornerRadius="8dp" />
+            app:cornerRadius="12dp" />
 
         <Button
             android:id="@+id/btnUpcoming"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="@color/transparent"
-            android:paddingHorizontal="16dp"
+            android:paddingHorizontal="20dp"
             android:stateListAnimator="@null"
             android:text="@string/txt_upcoming"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            app:cornerRadius="8dp" />
+            app:cornerRadius="12dp" />
     </LinearLayout>
 
     <TextView
