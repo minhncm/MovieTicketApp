@@ -1,4 +1,4 @@
-<resources>
+﻿<resources>
     <!-- App Name -->
     <string name="app_name">TicketApp</string>
     
@@ -160,7 +160,7 @@
     <string name="txt_discount">Discount</string>
     
     <!-- Payment Success -->
-    <string name="txt_payment_success">Payment Successful!</string>
+
     <string name="txt_payment_success_message">Your ticket has been booked successfully</string>
     <string name="txt_view_ticket">View Ticket</string>
     <string name="txt_back_to_home">Back to Home</string>
@@ -292,5 +292,26 @@
         <item>Khánh Hòa</item>
         <item>Kiên Giang</item>
     </string-array>
+
+    <!-- Payment Method Selection -->
+    <string name="txt_select_payment_method">Chọn Phương Thức Thanh Toán</string>
+    <string name="txt_choose_payment_method">Vui lòng chọn phương thức thanh toán phù hợp</string>
+    <string name="txt_momo">Ví MoMo</string>
+    <string name="txt_momo_desc">Thanh toán qua ví điện tử MoMo</string>
+    <string name="txt_bank_card">Thẻ Ngân Hàng</string>
+    <string name="txt_bank_card_desc">Thanh toán bằng thẻ ATM/Visa/Mastercard</string>
+    <string name="txt_zalopay">ZaloPay</string>
+    <string name="txt_zalopay_desc">Thanh toán qua ví ZaloPay</string>
+    <string name="txt_select">Chọn</string>
+    <string name="txt_processing_payment">Đang xử lý thanh toán...</string>
+    <string name="txt_payment_success">Thanh toán thành công!</string>
+    <string name="txt_payment_failed">Thanh toán thất bại</string>
+    <string name="txt_momo_payment_error">Lỗi kết nối MoMo. Vui lòng thử lại.</string>
+    <string name="txt_zalopay_coming_soon">ZaloPay sẽ sớm được hỗ trợ</string>
+    <string name="txt_momo_qr_payment">Thanh Toán MoMo QR</string>
+    <string name="txt_scan_qr_instruction">Mở ứng dụng MoMo và quét mã QR để thanh toán</string>
+    <string name="txt_qr_code">Mã QR</string>
+    <string name="txt_waiting_payment">Đang chờ thanh toán...</string>
+    <string name="txt_cancel_payment">Hủy Thanh Toán</string>
 
 </resources>
