@@ -57,9 +57,12 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.lifecycle.runtime)
-    // Hilt core
-    implementation("com.google.dagger:hilt-android:2.44")
-    annotationProcessor("com.google.dagger:hilt-compiler:2.44")
+    
+    // Hilt - Match with plugin version 2.51.1
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    annotationProcessor("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Explicit Dagger dependency
+    implementation("com.google.dagger:dagger:2.51.1")
 
 
     //glide
@@ -74,7 +77,9 @@ dependencies {
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
+    // OkHttp - Dùng cùng version
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     // SwipeRefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
