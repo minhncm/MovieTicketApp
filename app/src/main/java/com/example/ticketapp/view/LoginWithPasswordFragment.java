@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.ticketapp.MainActivity;
 import com.example.ticketapp.databinding.FragmentLoginWithPasswordBinding;
+import com.example.ticketapp.utils.Resource;
 import com.example.ticketapp.viewmodel.ProfileViewModel;
 
 import java.util.Objects;
@@ -50,12 +51,20 @@ setUpViewModel();
             profileViewModel.login(email,
                     password).observe(getViewLifecycleOwner(),
                     result -> {
-                        Log.d("LoginResult", "Login result: " + result.getMessage());
                         if (result.isSuccess()) {
-                            profileViewModel.setUserProfile(result.getUser());
-                            startActivity(new Intent(getActivity(), MainActivity.class));
+                            profileViewModel.geUserById().observe(getViewLifecycleOwner(), resource -> {;
+                                if (resource == null) {
+                                    return;
+                                }
+                                if (resource.getStatus() == Resource.Status.SUCCESS && resource.getData() != null) {
+                                    profileViewModel.setUserProfile(resource.getData());
+                                    startActivity(new Intent(getActivity(), MainActivity.class));
+                                    getActivity().finish();
+                                } else
+                                    if (resource.getStatus() == Resource.Status.ERROR) {
+                                }
+                            });
 
-                            getActivity().finish(); // Optional: finish the current activity
                         } else {
                             binding.edtPassword.setError("Email or Password is incorrect");
                             binding.edtPassword.requestFocus();

@@ -31,6 +31,7 @@ public class CinemaViewModel extends ViewModel {
     private MutableLiveData<String> cinemaLiveDate = new MutableLiveData<>();
     private MediatorLiveData<Resource<List<Showtimes>>> showTimes = new MediatorLiveData<>();
     private MutableLiveData<String> movieSelected = new MutableLiveData<>();
+    private MutableLiveData<Cinema> selectedCinema = new MutableLiveData<>();
     private CinemaRepository repository;
     public void setListCinema(List<Cinema> _list) {
         listCinema.postValue(_list);
@@ -117,5 +118,13 @@ public class CinemaViewModel extends ViewModel {
        );
         return  listAllCinema;
 
+    }
+
+    public void setSelectedCinema(Cinema cinema) {
+        selectedCinema.setValue(cinema);
+    }
+
+    public LiveData<Cinema> getSelectedCinema() {
+        return selectedCinema;
     }
 }
