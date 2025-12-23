@@ -22,6 +22,7 @@ import com.example.ticketapp.adapter.CinemaAdapter;
 import com.example.ticketapp.adapter.MovieTabAdapter; // Adapter mới
 import com.example.ticketapp.databinding.FragmentHomeBinding;
 import com.example.ticketapp.domain.model.Account;
+import com.example.ticketapp.domain.model.Cinema;
 import com.example.ticketapp.domain.model.Movie;
 import com.example.ticketapp.view.Movie.MovieListFragment;
 import com.example.ticketapp.viewmodel.CinemaViewModel;
@@ -74,7 +75,7 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
                     navController.navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment());
                 }
         );
-        cinemaAdapter = new CinemaAdapter();
+        cinemaAdapter = new CinemaAdapter(this::onCinemaClick);
         cinemaRecyclerView = binding.rvCinemas;
         cinemaRecyclerView.setAdapter(cinemaAdapter);
         setupMovieTabsViewPager();
@@ -226,45 +227,12 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
             navController.navigate(HomeFragmentDirections.actionNavHomeToDetailsFragment());
         }
     }
-    
-    private void setupSearchFeature() {
-        // Click vào search box → Chuyển sang màn hình tìm kiếm
-        binding.etSearch.setOnClickListener(v -> {
-            String query = binding.etSearch.getText().toString();
-            if (!query.trim().isEmpty()) {
-                movieViewModel.searchMovies(query);
-            }
-            // Clear focus và ẩn bàn phím
-            binding.etSearch.clearFocus();
-            navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
-        });
-        
-        // Nhấn Enter trên bàn phím → Chuyển sang màn hình tìm kiếm
-        binding.etSearch.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
-                String query = binding.etSearch.getText().toString();
-                if (!query.trim().isEmpty()) {
-                    movieViewModel.searchMovies(query);
-                }
-                // Clear focus và ẩn bàn phím
-                binding.etSearch.clearFocus();
-                // Ẩn bàn phím
-                android.view.inputmethod.InputMethodManager imm = 
-                    (android.view.inputmethod.InputMethodManager) requireActivity()
-                        .getSystemService(android.content.Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-                // Navigate với try-catch để tránh crash khi đã ở SearchResultFragment
-                try {
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchResult());
-                } catch (Exception e) {
-                    // Đã ở SearchResultFragment rồi, không làm gì
-                }
-                return true;
-            }
-            return false;
-        });
+
+    private void onCinemaClick(Cinema cinema) {
+        if (cinema != null) {
+            cinemaViewModel.setSelectedCinema(cinema);
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToCinemaDetailFragment());
+        }
     }
 }
 

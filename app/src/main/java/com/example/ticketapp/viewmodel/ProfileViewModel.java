@@ -26,8 +26,6 @@ public class ProfileViewModel extends ViewModel {
         this.accountRepository = accountRepository;
         userData.setValue(accountRepository.getCurrentUser().getValue());
     }
-
-
     public  LiveData<AuthResult> login(String email, String password){
         return accountRepository.login(email,password);
     }

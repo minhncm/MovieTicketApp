@@ -30,34 +30,34 @@ public class CinemaRepositoryImpl implements CinemaRepository {
     }
 
     @Override
-    public LiveData<Resource<List<Cinema>>> getCinemas(String selectedCity) {
-        MutableLiveData<Resource<List<Cinema>>> data = new MutableLiveData<>();
-        data.setValue(Resource.loading());
+        public LiveData<Resource<List<Cinema>>> getCinemas(String selectedCity) {
+            MutableLiveData<Resource<List<Cinema>>> data = new MutableLiveData<>();
+            data.setValue(Resource.loading());
 
-        apiService.getCinemas(selectedCity).enqueue(new Callback<CinemaRes>() {
-            @Override
-            public void onResponse(@NonNull Call<CinemaRes> call, @NonNull Response<CinemaRes> response) {
-                if (response.isSuccessful()) {
+            apiService.getCinemas(selectedCity).enqueue(new Callback<CinemaRes>() {
+                @Override
+                public void onResponse(@NonNull Call<CinemaRes> call, @NonNull Response<CinemaRes> response) {
+                    if (response.isSuccessful()) {
 
-                    CinemaRes res = response.body();
-                    assert res != null;
-                    data.setValue(Resource.success(res.getCinemas()));
-                } else {
-                    Log.d("CinemaRepositoryImpl", "Response error: " + response.message());
-                    data.setValue(Resource.error("Lỗi: " + response.message()));
+                        CinemaRes res = response.body();
+                        assert res != null;
+                        data.setValue(Resource.success(res.getCinemas()));
+                    } else {
+                        Log.d("CinemaRepositoryImpl", "Response error: " + response.message());
+                        data.setValue(Resource.error("Lỗi: " + response.message()));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<CinemaRes> call, @NonNull Throwable t) {
-                Log.d("CinemaRepositoryImpl", "Response error: " + t.getMessage());
+                @Override
+                public void onFailure(@NonNull Call<CinemaRes> call, @NonNull Throwable t) {
+                    Log.d("CinemaRepositoryImpl", "Response error: " + t.getMessage());
 
-                data.setValue(Resource.error("Thất bại: " + t.getMessage()));
-            }
-        });
+                    data.setValue(Resource.error("Thất bại: " + t.getMessage()));
+                }
+            });
 
-        return data;
-    }
+            return data;
+        }
 
     @Override
     public LiveData<Resource<List<Cinema>>> getAllCinemas(int limit) {
