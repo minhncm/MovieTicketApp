@@ -121,7 +121,7 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
 
         // Navigate to payment
         NavController navController = NavHostFragment.findNavController(this);
-        navController.navigate(R.id.action_nav_bookmark_to_paymentMethod);
+//        navController.navigate(SavedPlanFragmentDirections.actionNavBookmarkToPaymentSelectionFragment());
     }
 
     @Override

@@ -118,7 +118,8 @@ public class SelectSeatFragment extends Fragment {
             bookingData.setShowTimeId(selectedShowtime.getUid());
             bookingViewModel.setBookingData(bookingData);
             seatAdapter.clearSelection();
-            navController.navigate(R.id.action_selectSeatFragment_to_paymentMethod);
+            // Navigate đến màn hình chọn phương thức thanh toán
+            navController.navigate(R.id.action_selectSeatFragment_to_paymentMethodSelection);
         });
         
         binding.buttonSavePlan.setOnClickListener(view1 -> {
