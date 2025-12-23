@@ -81,6 +81,12 @@ public class MovieReviewFragment extends Fragment {
         tvReviewCount = view.findViewById(R.id.tvReviewCount);
         ratingBarAverage = view.findViewById(R.id.ratingBarAverage);
         fabAddReview = view.findViewById(R.id.fabAddReview);
+        
+        // Nút back
+        View btnBack = view.findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> requireActivity().finish());
+        }
     }
     
     private void setupRecyclerView() {
