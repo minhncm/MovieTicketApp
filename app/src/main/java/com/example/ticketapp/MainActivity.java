@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
     private void setUpNavigation() {
         NavHostFragment navHostFragment =binding.fragmentContainerView.getFragment();
         appBarConfiguration =
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
     }
-
     private void setUpToolBar() {
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);

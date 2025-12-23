@@ -55,7 +55,35 @@
     <string name="txt_selected">Selected</string>
     <string name="txt_vip">VIP</string>
     <string name="txt_regular">Regular</string>
-    
+    <string name="txt_ok">OK</string>
+    <!-- Saved Plan -->
+
+    <string name="txt_no_saved_plans">No Saved Plans</string>
+    <string name="txt_no_saved_plans_desc">Save your movie plans to book later</string>
+    <string name="txt_saved_plans">Saved Plans</string>
+    <string name="txt_complete_plan_first">Please complete all plan details first</string>
+    <string name="txt_proceeding_checkout">Proceeding to checkout...</string>
+    <string name="txt_delete_plan">Delete Plan</string>
+    <string name="txt_delete_plan_confirm">Are you sure you want to delete this plan?</string>
+    <string name="txt_plan_deleted">Plan deleted</string>
+    <string name="txt_plan_saved">Plan saved successfully</string>
+    <string name="txt_save_plan">Save Plan</string>
+    <string name="txt_select_movie_first">Please select a movie first</string>
+    <string name="txt_select_cinema_first">Please select a cinema first</string>
+    <string name="txt_select_showtime_first">Please select a showtime first</string>
+    <string name="txt_select_seats_first">Please select at least one seat</string>
+    <string name="txt_login_required">Please login first</string>
+    <!-- Dialog Messages -->
+    <string name="msg_loading">Loading, please wait...</string>
+    <string name="msg_loading_data">Loading data...</string>
+    <string name="msg_processing">Processing...</string>
+    <string name="msg_please_wait">Please wait...</string>
+    <string name="msg_operation_success">Operation completed successfully</string>
+    <string name="msg_operation_failed">Operation failed</string>
+    <string name="msg_network_error">Network error. Please check your connection.</string>
+    <string name="msg_unknown_error">An unknown error occurred</string>
+    <string name="msg_confirm_action">Are you sure you want to proceed?</string>
+
     <!-- Ticket -->
     <string name="txt_label">Label</string>
     <string name="txt_value">Value</string>
@@ -97,6 +125,11 @@
     <string name="txt_cinema_rating_sample">★ 4.9</string>
     <string name="txt_select_cinema">Select Cinema</string>
     <string name="txt_select_showtime">Select Showtime</string>
+    <string name="txt_cinema_info_label">Thông tin</string>
+    <string name="txt_cinema_address_label">Địa chỉ</string>
+    <string name="txt_cinema_address_sample">123 Đường ABC, Quận XYZ</string>
+    <string name="txt_cinema_rooms_label">Phòng chiếu</string>
+    <string name="txt_cinema_rooms_count">%d phòng</string>
     
     <!-- Saved Plan -->
     <string name="saved_plan">Saved Plan</string>
