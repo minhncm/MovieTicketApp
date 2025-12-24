@@ -188,9 +188,11 @@ public class HomeFragment extends Fragment implements MovieListFragment.OnMovieS
     @Override
     public void onResume() {
         super.onResume();
-        // Xóa text khi quay lại HomeFragment
+        // Xóa text và clear search results khi quay lại HomeFragment
         if (binding != null && binding.etSearch != null) {
             binding.etSearch.setText("");
+            // Clear dữ liệu tìm kiếm trong ViewModel
+            movieViewModel.clearSearch();
             setupSearchFeature();
         }
     }
