@@ -4,21 +4,14 @@ import java.util.List;
 
 public class Ticket {
     private String movieName;
+    private String movieId; // Thêm movieId
     private String cinemaName;
     private List<String> seatNames;
     private String time;
     private String status;
     private double totalPrice;
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     private String id;
+    
     public Ticket(String movieName, String cinemaName, List<String> seatNames, String time, String status, String id, double totalPrice) {
         this.movieName = movieName;
         this.cinemaName = cinemaName;
@@ -26,6 +19,35 @@ public class Ticket {
         this.time = time;
         this.status = status;
         this.id = id;
+        this.totalPrice = totalPrice;
+    }
+    
+    // Constructor mới với movieId
+    public Ticket(String movieName, String movieId, String cinemaName, List<String> seatNames, String time, String status, String id, double totalPrice) {
+        this.movieName = movieName;
+        this.movieId = movieId;
+        this.cinemaName = cinemaName;
+        this.seatNames = seatNames;
+        this.time = time;
+        this.status = status;
+        this.id = id;
+        this.totalPrice = totalPrice;
+    }
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
+
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

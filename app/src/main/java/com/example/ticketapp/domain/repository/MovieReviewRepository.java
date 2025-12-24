@@ -18,7 +18,7 @@ public interface MovieReviewRepository {
     /**
      * Thêm review mới
      */
-    boolean addReview(MovieReview review);
+    boolean addReview(MovieReview review, String bookingId);
     
     /**
      * Cập nhật review
@@ -28,7 +28,7 @@ public interface MovieReviewRepository {
     /**
      * Xóa review
      */
-    boolean deleteReview(String reviewId);
+    boolean deleteReview(String reviewId, String userId);
     
     /**
      * Tính điểm trung bình của phim

@@ -48,13 +48,6 @@
                     android:host="payment" />
             </intent-filter>
         </activity>
-        
-        <!-- Movie Review Activity -->
-        <activity
-            android:name=".MovieReviewActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity" />
 
     </application>
 

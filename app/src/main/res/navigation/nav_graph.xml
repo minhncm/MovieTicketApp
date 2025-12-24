@@ -119,6 +119,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_selectSeatFragment"
             app:destination="@id/selectSeatFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_movieReviewFragment"
+            app:destination="@id/movieReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectSeatFragment"
@@ -170,6 +173,9 @@
         <action
             android:id="@+id/action_myTicket_to_ETicket"
             app:destination="@id/ETicket" />
+        <action
+            android:id="@+id/action_myTicket_to_movieReviewFragment"
+            app:destination="@id/movieReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/upcomingTicketsFragment2"
@@ -178,7 +184,15 @@
     <fragment
         android:id="@+id/watchedTicketsFragment"
         android:name="com.example.ticketapp.view.Ticket.WatchedTicketsFragment"
-        android:label="@string/nav_watched_tickets" />
+        android:label="@string/nav_watched_tickets" >
+
+        <action
+            android:id="@+id/action_watchedTicketsFragment_to_cinemaDetailFragment"
+            app:destination="@id/cinemaDetailFragment" />
+        <action
+            android:id="@+id/action_watchedTicketsFragment_to_movieReviewFragment"
+            app:destination="@id/movieReviewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cinemaDetailFragment"
         android:name="com.example.ticketapp.view.CinemaDetailFragment"
@@ -204,5 +218,18 @@
             android:id="@+id/action_searchResultFragment_to_nav_discovery"
             app:destination="@id/nav_discovery" />
     </fragment>
-
+    <fragment
+        android:id="@+id/movieReviewFragment"
+        android:name="com.example.ticketapp.view.Movie.MovieReviewFragment"
+        android:label="Đánh Giá Phim" >
+        <argument
+            android:name="hasWatchedMovie"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="bookingId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
