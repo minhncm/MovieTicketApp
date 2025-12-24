@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.ticketapp.domain.model.Account;
 import com.example.ticketapp.domain.model.Res.AuthResult;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
 import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.utils.Resource;
 
@@ -55,6 +56,10 @@ public class ProfileViewModel extends ViewModel {
 
     public LiveData<Resource<Account>> getUserProfileDetails(String uid) {
         return accountRepository.getUserProfileFromApi(uid);
+    }
+
+    public LiveData<Resource<Boolean>> updateProfile(UpdateProfileRequest request) {
+        return accountRepository.updateUserProfile(request);
     }
 
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.ticketapp.data.network.ApiService;
 import com.example.ticketapp.domain.model.Account;
 import com.example.ticketapp.domain.model.Res.AuthResult;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
+import com.example.ticketapp.domain.model.Res.UpdateProfileResponse;
 import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.utils.Resource;
 import com.google.firebase.auth.FirebaseAuth;
@@ -190,38 +192,79 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
 
         String userId = firebaseUser.getUid();
-        String email = firebaseUser.getEmail();
-        String userName = firebaseUser.getDisplayName();
 
+        // Gọi API để lấy thông tin user
+        apiService.getUserProfile(userId).enqueue(new Callback<Account>() {
+            @Override
+            public void onResponse(Call<Account> call, Response<Account> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Account user = response.body();
+                    // Đảm bảo uid được set
+                    if (user.getUid() == null) {
+                        user.setUid(userId);
+                    }
+                    
+                    // Lấy posterUrl từ Firestore
+                    db.collection("users")
+                            .document(userId)
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    String posterUrl = documentSnapshot.getString("posterUrl");
+                                    user.setPosterUrl(posterUrl);
+                                }
+                                resultLiveData.setValue(Resource.success(user));
+                            })
+                            .addOnFailureListener(e -> {
+                                // Vẫn trả về user dù không lấy được posterUrl
+                                resultLiveData.setValue(Resource.success(user));
+                            });
+                } else {
+                    // Fallback: lấy từ Firestore nếu API fail
+                    fetchUserFromFirestore(userId, firebaseUser, resultLiveData);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Account> call, Throwable t) {
+                // Fallback: lấy từ Firestore nếu API fail
+                fetchUserFromFirestore(userId, firebaseUser, resultLiveData);
+            }
+        });
+
+        return resultLiveData;
+    }
+
+    private void fetchUserFromFirestore(String userId, FirebaseUser firebaseUser, 
+                                        MutableLiveData<Resource<Account>> resultLiveData) {
         db.collection("users")
                 .document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
+                    Account user = new Account();
+                    user.setUid(userId);
+                    user.setEmail(firebaseUser.getEmail());
+                    user.setUsername(firebaseUser.getDisplayName());
+                    
                     if (documentSnapshot.exists()) {
                         String posterUrl = documentSnapshot.getString("posterUrl");
                         String phoneNumber = documentSnapshot.getString("phoneNumber");
                         String address = documentSnapshot.getString("address");
-                        Account user = documentSnapshot.toObject(Account.class);
-                        if (user != null) {
-                            user.setUid(userId);
-                            user.setEmail(email);
-                            user.setUsername(userName);
-                            user.setPosterUrl(posterUrl);
-                            user.setPhoneNumber(phoneNumber);
-                            user.setAddress(address);
-                        }
-                        resultLiveData.setValue(Resource.success(user));
-                    } else {
-                        resultLiveData.setValue(Resource.error("Không tìm thấy dữ liệu người dùng."));
+                        
+                        user.setPosterUrl(posterUrl);
+                        user.setPhoneNumber(phoneNumber);
+                        user.setAddress(address);
                     }
+                    resultLiveData.setValue(Resource.success(user));
                 })
                 .addOnFailureListener(e -> {
-                    String errorMessage = e.getLocalizedMessage() != null ? 
-                            e.getLocalizedMessage() : "Lỗi truy vấn dữ liệu.";
-                    resultLiveData.setValue(Resource.error(errorMessage));
+                    // Fallback cuối cùng: chỉ dùng Firebase Auth
+                    Account fallbackUser = new Account();
+                    fallbackUser.setUid(userId);
+                    fallbackUser.setEmail(firebaseUser.getEmail());
+                    fallbackUser.setUsername(firebaseUser.getDisplayName());
+                    resultLiveData.setValue(Resource.success(fallbackUser));
                 });
-
-        return resultLiveData;
     }
 
     @Override
@@ -241,6 +284,41 @@ public class AccountRepositoryImpl implements AccountRepository {
 
             @Override
             public void onFailure(Call<Account> call, Throwable t) {
+                result.setValue(Resource.error("Lỗi kết nối: " + t.getMessage()));
+            }
+        });
+
+        return result;
+    }
+
+    @Override
+    public LiveData<Resource<Boolean>> updateUserProfile(UpdateProfileRequest request) {
+        MutableLiveData<Resource<Boolean>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+
+        apiService.updateUserProfile(request).enqueue(new Callback<UpdateProfileResponse>() {
+            @Override
+            public void onResponse(Call<UpdateProfileResponse> call, Response<UpdateProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UpdateProfileResponse body = response.body();
+                    String message = body.getMessage();
+                    
+                    // Kiểm tra success hoặc message chứa "thành công" (workaround cho API response không nhất quán)
+                    boolean isSuccess = body.isSuccess() || 
+                            (message != null && message.toLowerCase().contains("thành công"));
+                    
+                    if (isSuccess) {
+                        result.setValue(Resource.success(true));
+                    } else {
+                        result.setValue(Resource.error(message != null ? message : "Cập nhật thất bại"));
+                    }
+                } else {
+                    result.setValue(Resource.error("Không thể cập nhật thông tin"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateProfileResponse> call, Throwable t) {
                 result.setValue(Resource.error("Lỗi kết nối: " + t.getMessage()));
             }
         });
