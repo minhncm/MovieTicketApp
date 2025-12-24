@@ -5,21 +5,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.ticketapp.R;
 import com.example.ticketapp.adapter.TicketAdapter;
 import com.example.ticketapp.databinding.FragmentUpcomingTicketsBinding;
 import com.example.ticketapp.databinding.FragmentWatchedTicketsBinding;
+import com.example.ticketapp.domain.model.Movie;
 import com.example.ticketapp.domain.model.Ticket;
+import com.example.ticketapp.view.Movie.MovieReviewFragment;
 import com.example.ticketapp.viewmodel.BookingViewModel;
+import com.example.ticketapp.viewmodel.MovieViewModel;
 import java.util.List;
 public class WatchedTicketsFragment extends Fragment {
     public interface OnTicketClickListener {
         void onTicketClick(Ticket ticket);
     }
     private BookingViewModel bookingViewModel; // Giả sử ViewModel quản lý việc lấy vé
+    private MovieViewModel movieViewModel;
     private TicketAdapter adapter;
     private FragmentWatchedTicketsBinding binding;
     private  OnTicketClickListener listener;
@@ -46,6 +54,7 @@ public class WatchedTicketsFragment extends Fragment {
 
         // Khởi tạo ViewModel và Adapter/RecyclerView
         bookingViewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
+        movieViewModel = new ViewModelProvider(requireActivity()).get(MovieViewModel.class);
 
         RecyclerView recyclerView = binding.recyclerWatchedTickets;
         adapter = new TicketAdapter(false);
@@ -57,7 +66,39 @@ public class WatchedTicketsFragment extends Fragment {
 
             @Override
             public void onRateTicket(Ticket ticket) {
-
+                String movieId = ticket.getMovieId();
+                String bookingId = ticket.getId();
+                
+                if (movieId == null || movieId.isEmpty()) {
+                    android.widget.Toast.makeText(getContext(), "Không tìm thấy thông tin phim", android.widget.Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                // Tạo Movie object tối thiểu với movieId và movieName
+                Movie movie = new Movie(
+                    movieId,
+                    ticket.getMovieName(),
+                    null, // director
+                    0.0, // rating
+                    null, // genres
+                    null, // duration
+                    null, // synopsis
+                    null, // posterUrl
+                    null, // status
+                    null  // releaseDate
+                );
+                
+                // Set selected movie trong MovieViewModel
+                movieViewModel.setSelectMovie(movie);
+                
+                // Tạo Bundle với arguments
+                Bundle args = new Bundle();
+                args.putBoolean("hasWatchedMovie", true);
+                args.putString("bookingId", bookingId);
+                
+                // Mở MovieReviewFragment - sử dụng NavController từ Activity vì fragment này nằm trong ViewPager
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                navController.navigate(R.id.action_myTicket_to_movieReviewFragment, args);
             }
 
             @Override

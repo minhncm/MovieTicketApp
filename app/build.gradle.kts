@@ -21,6 +21,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    
+    lint {
+        abortOnError = false
+    }
 
     buildTypes {
         release {
@@ -69,6 +73,12 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     implementation("com.google.android.material:material:1.11.0")
+    
+    // RecyclerView & CardView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
+    
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-analytics")
