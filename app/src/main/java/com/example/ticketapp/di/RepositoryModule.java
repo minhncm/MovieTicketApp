@@ -4,7 +4,7 @@ import com.example.ticketapp.data.repository.AccountRepositoryImpl;
 import com.example.ticketapp.data.repository.BookingRepositoryImpl;
 import com.example.ticketapp.data.repository.CinemaRepositoryImpl;
 import com.example.ticketapp.data.repository.MovieRepositoryImpl;
-import com.example.ticketapp.data.repository.MovieReviewRepositoryImpl;
+import com.example.ticketapp.data.repository.MovieReviewRepositoryImpl_API;
 import com.example.ticketapp.data.repository.ShowTimeRepositoryImpl;
 import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.domain.repository.BookingRepository;
@@ -43,6 +43,6 @@ public abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    public abstract MovieReviewRepository bindMovieReviewRepository(MovieReviewRepositoryImpl impl);
+    public abstract MovieReviewRepository bindMovieReviewRepository(MovieReviewRepositoryImpl_API impl);
 
 }

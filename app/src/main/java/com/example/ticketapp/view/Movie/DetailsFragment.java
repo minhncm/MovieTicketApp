@@ -101,17 +101,9 @@ public class DetailsFragment extends Fragment {
             btnViewReviews.setOnClickListener(v -> {
                 try {
                     if (movieViewModel.selectedMovie.getValue() != null) {
-                        String movieId = movieViewModel.selectedMovie.getValue().getId();
-                        
-                        if (movieId == null || movieId.isEmpty()) {
-                            android.widget.Toast.makeText(getContext(), "Movie ID không hợp lệ", android.widget.Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        
-                        // Mở MovieReviewActivity
-                        android.content.Intent intent = new android.content.Intent(getActivity(), com.example.ticketapp.MovieReviewActivity.class);
-                        intent.putExtra(com.example.ticketapp.MovieReviewActivity.EXTRA_MOVIE_ID, movieId);
-                        startActivity(intent);
+                        // Mở MovieReviewFragment (movieId sẽ lấy từ MovieViewModel)
+                        NavController navController = NavHostFragment.findNavController(this);
+                        navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToMovieReviewFragment());
                     } else {
                         android.widget.Toast.makeText(getContext(), "Vui lòng chọn phim trước", android.widget.Toast.LENGTH_SHORT).show();
                     }

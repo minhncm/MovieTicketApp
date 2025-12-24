@@ -3,6 +3,7 @@ package com.example.ticketapp.data.repository;
 import com.example.ticketapp.data.network.ApiService;
 import com.example.ticketapp.domain.model.MovieReview;
 import com.example.ticketapp.domain.model.Res.ReviewRequest;
+import com.example.ticketapp.domain.model.Res.ReviewRes;
 import com.example.ticketapp.domain.model.Res.UpdateReviewRequest;
 import com.example.ticketapp.domain.repository.MovieReviewRepository;
 
@@ -12,8 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 @Singleton
@@ -29,9 +28,12 @@ public class MovieReviewRepositoryImpl_API implements MovieReviewRepository {
     @Override
     public List<MovieReview> getReviewsByMovie(String movieId) {
         try {
-            Response<List<MovieReview>> response = apiService.getReviewsByMovie(movieId).execute();
+            Response<ReviewRes> response = apiService.getReviewsByMovie(movieId).execute();
             if (response.isSuccessful() && response.body() != null) {
-                return response.body();
+                ReviewRes reviewRes = response.body();
+                if (reviewRes.isSuccess() && reviewRes.getReviews() != null) {
+                    return reviewRes.getReviews();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,11 +44,14 @@ public class MovieReviewRepositoryImpl_API implements MovieReviewRepository {
     @Override
     public MovieReview getUserReviewForMovie(String movieId, String userId) {
         try {
-            Response<List<MovieReview>> response = apiService.getReviewsByUser(userId).execute();
+            Response<ReviewRes> response = apiService.getReviewsByUser(userId).execute();
             if (response.isSuccessful() && response.body() != null) {
-                for (MovieReview review : response.body()) {
-                    if (review.getMovieId().equals(movieId)) {
-                        return review;
+                ReviewRes reviewRes = response.body();
+                if (reviewRes.isSuccess() && reviewRes.getReviews() != null) {
+                    for (MovieReview review : reviewRes.getReviews()) {
+                        if (review.getMovieId().equals(movieId)) {
+                            return review;
+                        }
                     }
                 }
             }
@@ -57,22 +62,24 @@ public class MovieReviewRepositoryImpl_API implements MovieReviewRepository {
     }
 
     @Override
-    public boolean addReview(MovieReview review) {
+    public boolean addReview(MovieReview review, String bookingId) {
         try {
             ReviewRequest request = new ReviewRequest(
                 review.getUserId(),
                 review.getMovieId(),
-                "", // bookingId - cần truyền từ ngoài vào
+                bookingId,
                 (int) review.getRating(),
                 review.getComment()
             );
             
-            Response<MovieReview> response = apiService.createReview(request).execute();
-            return response.isSuccessful();
+            Response<ReviewRes> response = apiService.createReview(request).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                return response.body().isSuccess();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -85,24 +92,27 @@ public class MovieReviewRepositoryImpl_API implements MovieReviewRepository {
                 review.getComment()
             );
             
-            Response<MovieReview> response = apiService.updateReview(review).execute();
-            return response.isSuccessful();
+            Response<ReviewRes> response = apiService.updateReview(review).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                return response.body().isSuccess();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     @Override
-    public boolean deleteReview(String reviewId) {
+    public boolean deleteReview(String reviewId, String userId) {
         try {
-            // Cần userId - có thể lấy từ Firebase Auth
-            Response<Void> response = apiService.deleteReview(reviewId, "").execute();
-            return response.isSuccessful();
+            Response<ReviewRes> response = apiService.deleteReview(reviewId, userId).execute();
+            if (response.isSuccessful() && response.body() != null) {
+                return response.body().isSuccess();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     @Override
