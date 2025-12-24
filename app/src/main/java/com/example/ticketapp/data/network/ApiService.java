@@ -7,6 +7,7 @@ import com.example.ticketapp.domain.model.Res.BookingData;
 import com.example.ticketapp.domain.model.Res.BookingRes;
 import com.example.ticketapp.domain.model.Res.CinemaRes;
 import com.example.ticketapp.domain.model.Res.ReviewRequest;
+import com.example.ticketapp.domain.model.Res.ReviewRes;
 import com.example.ticketapp.domain.model.Res.TicketRes;
 import com.example.ticketapp.domain.model.Showtimes;
 import com.example.ticketapp.domain.model.Ticket;
@@ -45,19 +46,19 @@ public interface ApiService {
 
     // Review APIs
     @POST("createReview")
-    Call<MovieReview> createReview(@Body ReviewRequest request);
+    Call<ReviewRes> createReview(@Body ReviewRequest request);
 
     @PUT("updateReview")
-    Call<MovieReview> updateReview(@Body MovieReview review);
+    Call<ReviewRes> updateReview(@Body MovieReview review);
 
     @DELETE("deleteReview")
-    Call<Void> deleteReview(@Query("reviewId") String reviewId, @Query("userId") String userId);
+    Call<ReviewRes> deleteReview(@Query("reviewId") String reviewId, @Query("userId") String userId);
 
     @GET("getReviewsByMovie")
-    Call<List<MovieReview>> getReviewsByMovie(@Query("movieId") String movieId);
+    Call<ReviewRes> getReviewsByMovie(@Query("movieId") String movieId);
 
     @GET("getReviewsByUser")
-    Call<List<MovieReview>> getReviewsByUser(@Query("userId") String userId);
+    Call<ReviewRes> getReviewsByUser(@Query("userId") String userId);
 
 }
 
