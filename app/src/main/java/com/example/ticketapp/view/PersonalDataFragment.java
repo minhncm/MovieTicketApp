@@ -1,9 +1,12 @@
 package com.example.ticketapp.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.ticketapp.R;
 import com.example.ticketapp.databinding.FragmentPersonalDataBinding;
 import com.example.ticketapp.domain.model.Account;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
 import com.example.ticketapp.utils.Resource;
 import com.example.ticketapp.viewmodel.ProfileViewModel;
 
@@ -158,6 +162,9 @@ public class PersonalDataFragment extends Fragment {
     }
 
     private void setupClickListeners() {
+        // Edit Display Name
+        binding.btnEditName.setOnClickListener(v -> showEditNameDialog());
+
         // Change Password
         binding.layoutChangePassword.setOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(PersonalDataFragment.this);
@@ -193,5 +200,71 @@ public class PersonalDataFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void showEditNameDialog() {
+        if (currentUser == null) {
+            Toast.makeText(getContext(), "Không thể chỉnh sửa", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme);
+        builder.setTitle("Chỉnh sửa tên hiển thị");
+
+        // Create EditText
+        final EditText input = new EditText(requireContext());
+        input.setText(currentUser.getUsername());
+        input.setTextColor(getResources().getColor(android.R.color.white, null));
+        input.setHintTextColor(getResources().getColor(android.R.color.darker_gray, null));
+        input.setPadding(48, 32, 48, 32);
+        builder.setView(input);
+
+        builder.setPositiveButton("Lưu", (dialog, which) -> {
+            String newName = input.getText().toString().trim();
+            if (newName.isEmpty()) {
+                Toast.makeText(getContext(), "Tên không được để trống", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            updateDisplayName(newName);
+        });
+
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+    private void updateDisplayName(String newName) {
+        if (currentUser == null || currentUser.getUid() == null) {
+            Toast.makeText(getContext(), "Lỗi: Không tìm thấy thông tin người dùng", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        UpdateProfileRequest request = new UpdateProfileRequest(currentUser.getUid());
+        request.setDisplayName(newName);
+        request.setEmail(currentUser.getEmail());
+        request.setPhoneNumber(currentUser.getPhoneNumber());
+        request.setGender(currentUser.getGender());
+        request.setAddress(currentUser.getAddress());
+
+        profileViewModel.updateProfile(request).observe(getViewLifecycleOwner(), resource -> {
+            if (resource != null) {
+                switch (resource.getStatus()) {
+                    case LOADING:
+                        Toast.makeText(getContext(), "Đang cập nhật...", Toast.LENGTH_SHORT).show();
+                        break;
+                    case SUCCESS:
+                        Toast.makeText(getContext(), "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                        // Update UI
+                        binding.tvUserName.setText(newName);
+                        currentUser.setUsername(newName);
+                        profileViewModel.setUserProfile(currentUser);
+                        break;
+                    case ERROR:
+                        Toast.makeText(getContext(), "Lỗi: " + resource.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("PersonalDataFragment", "Update display name error: " + resource.getMessage());
+                        break;
+                }
+            }
+        });
     }
 }

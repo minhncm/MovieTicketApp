@@ -9,6 +9,8 @@ import com.example.ticketapp.domain.model.Res.CinemaRes;
 import com.example.ticketapp.domain.model.Res.ReviewRequest;
 import com.example.ticketapp.domain.model.Res.ReviewRes;
 import com.example.ticketapp.domain.model.Res.TicketRes;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
+import com.example.ticketapp.domain.model.Res.UpdateProfileResponse;
 import com.example.ticketapp.domain.model.Showtimes;
 import com.example.ticketapp.domain.model.Ticket;
 import com.example.ticketapp.domain.model.Account;
@@ -43,6 +45,9 @@ public interface ApiService {
 
     @GET("getUserProfile")
     Call<Account> getUserProfile(@Query("uid") String uid);
+
+    @PUT("updateUserProfile")
+    Call<UpdateProfileResponse> updateUserProfile(@Body UpdateProfileRequest request);
 
     // Review APIs
     @POST("createReview")

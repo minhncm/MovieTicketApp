@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.ticketapp.domain.model.Account;
 import com.example.ticketapp.domain.model.Res.AuthResult;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
 import com.example.ticketapp.utils.Resource;
 
 public interface AccountRepository {
@@ -22,6 +23,8 @@ public interface AccountRepository {
     LiveData<Resource<Account>> getUserData();
     
     LiveData<Resource<Account>> getUserProfileFromApi(String uid);
+    
+    LiveData<Resource<Boolean>> updateUserProfile(UpdateProfileRequest request);
     
     LiveData<Account> getCurrentUser();
     
