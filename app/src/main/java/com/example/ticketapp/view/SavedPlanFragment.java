@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,15 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.ticketapp.R;
 import com.example.ticketapp.adapter.SavedPlanAdapter;
+import com.example.ticketapp.domain.model.Movie;
 import com.example.ticketapp.domain.model.SavedPlanEntity;
-import com.example.ticketapp.domain.model.Res.BookingData;
 import com.example.ticketapp.databinding.FragmentSavedPlanBinding;
 import com.example.ticketapp.utils.DialogHelper;
-import com.example.ticketapp.viewmodel.BookingViewModel;
-import com.example.ticketapp.viewmodel.ProfileViewModel;
+import com.example.ticketapp.viewmodel.MovieViewModel;
 import com.example.ticketapp.viewmodel.SavedPlanViewModel;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPlanActionListener {
@@ -34,9 +31,7 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
     private FragmentSavedPlanBinding binding;
     private SavedPlanViewModel viewModel;
     private SavedPlanAdapter adapter;
-    private BookingViewModel bookingViewModel;
-    private ProfileViewModel profileViewModel;
-    private String userId;
+    private MovieViewModel movieViewModel;
 
     @Nullable
     @Override
@@ -51,15 +46,7 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(SavedPlanViewModel.class);
-        bookingViewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
-        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
-
-        // Lấy userId
-        profileViewModel.getUserProfile().observe(getViewLifecycleOwner(), account -> {
-            if (account != null && account.getUid() != null) {
-                userId = account.getUid();
-            }
-        });
+        movieViewModel = new ViewModelProvider(requireActivity()).get(MovieViewModel.class);
 
         setupRecyclerView();
         observeData();
@@ -77,51 +64,39 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
                 adapter.submitList(plans);
                 binding.emptyState.setVisibility(View.GONE);
                 binding.recyclerViewPlans.setVisibility(View.VISIBLE);
-                binding.tvPlanCount.setText(plans.size() + " plans");
+                binding.tvPlanCount.setText(plans.size() + " " + getString(R.string.txt_favorite_movies).toLowerCase());
             } else {
                 adapter.submitList(null);
                 binding.emptyState.setVisibility(View.VISIBLE);
                 binding.recyclerViewPlans.setVisibility(View.GONE);
-                binding.tvPlanCount.setText("0 plans");
+                binding.tvPlanCount.setText("0 " + getString(R.string.txt_favorite_movies).toLowerCase());
             }
         });
     }
 
     @Override
-    public void onCheckout(SavedPlanEntity plan) {
-        // Validate plan has required data
-        if (plan.getCinemaName() == null || plan.getDate() == null ||
-                plan.getTime() == null || plan.getSelectedSeats() == null) {
-            Toast.makeText(requireContext(), R.string.txt_complete_plan_first, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Kiểm tra userId
-        if (userId == null) {
-            Toast.makeText(requireContext(), R.string.txt_login_required, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Tạo BookingData từ SavedPlanEntity
-        BookingData bookingData = new BookingData();
-        bookingData.setUserId(userId);
+    public void onBookNow(SavedPlanEntity plan) {
+        // Tạo Movie object từ SavedPlanEntity để set vào MovieViewModel
+        Movie movie = new Movie();
+        movie.setId(plan.getMovieId());
+        movie.setTitle(plan.getMovieTitle());
+        movie.setPosterUrl(plan.getMoviePoster());
+        movie.setRating(plan.getRating());
+        movie.setDuration(plan.getDuration());
         
-        // Set showtime ID
-        if (plan.getShowtimeId() != null) {
-            bookingData.setShowTimeId(plan.getShowtimeId());
+        // Parse genre string thành list
+        if (plan.getGenre() != null && !plan.getGenre().isEmpty()) {
+            List<String> genres = new ArrayList<>();
+            genres.add(plan.getGenre());
+            movie.setGenres(genres);
         }
         
-        // Convert seats string "A1,A2,A3" thành List
-        String seatsStr = plan.getSelectedSeats();
-        List<String> seatsList = Arrays.asList(seatsStr.split(","));
-        bookingData.setSelectedSeats(seatsList);
+        // Set selected movie
+        movieViewModel.setSelectMovie(movie);
         
-        // Set booking data vào ViewModel
-        bookingViewModel.setBookingData(bookingData);
-
-        // Navigate to payment
+        // Navigate to select seat
         NavController navController = NavHostFragment.findNavController(this);
-//        navController.navigate(SavedPlanFragmentDirections.actionNavBookmarkToPaymentSelectionFragment());
+        navController.navigate(R.id.action_nav_bookmark_to_selectSeatFragment);
     }
 
     @Override
@@ -137,12 +112,6 @@ public class SavedPlanFragment extends Fragment implements SavedPlanAdapter.OnPl
                     Toast.makeText(requireContext(), R.string.txt_plan_deleted, Toast.LENGTH_SHORT).show();
                 }
         );
-    }
-
-    @Override
-    public void onItemClick(SavedPlanEntity plan) {
-        // Navigate to edit plan or movie detail
-        Toast.makeText(requireContext(), plan.getMovieTitle(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

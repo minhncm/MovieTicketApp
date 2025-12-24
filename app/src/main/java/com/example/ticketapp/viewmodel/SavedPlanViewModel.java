@@ -39,6 +39,10 @@ public class SavedPlanViewModel extends AndroidViewModel {
         repository.delete(plan);
     }
 
+    public void deleteByMovieId(String movieId) {
+        repository.deleteByMovieId(movieId);
+    }
+
     public LiveData<List<SavedPlanEntity>> getAllPlans() {
         return allPlans;
     }

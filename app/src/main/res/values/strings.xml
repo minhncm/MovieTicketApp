@@ -68,6 +68,12 @@
     <string name="txt_plan_deleted">Plan deleted</string>
     <string name="txt_plan_saved">Plan saved successfully</string>
     <string name="txt_save_plan">Save Plan</string>
+    <string name="txt_save_favorite">Save to Favorites</string>
+    <string name="txt_added_to_favorites">Added to favorites</string>
+    <string name="txt_removed_from_favorites">Removed from favorites</string>
+    <string name="txt_favorite_movies">Favorite Movies</string>
+    <string name="txt_no_favorite_movies">No favorite movies yet</string>
+    <string name="txt_no_favorite_movies_desc">Save your favorite movies to watch later</string>
     <string name="txt_select_movie_first">Please select a movie first</string>
     <string name="txt_select_cinema_first">Please select a cinema first</string>
     <string name="txt_select_showtime_first">Please select a showtime first</string>

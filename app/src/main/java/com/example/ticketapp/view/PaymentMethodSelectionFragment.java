@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -99,7 +100,9 @@ public class PaymentMethodSelectionFragment extends Fragment {
         };
         
         IntentFilter filter = new IntentFilter("com.example.ticketapp.MOMO_PAYMENT_RESULT");
-        requireActivity().registerReceiver(momoPaymentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            requireActivity().registerReceiver(momoPaymentReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
+        }
     }
     
     private void handleMoMoPayment() {
