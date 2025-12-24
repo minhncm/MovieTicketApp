@@ -82,6 +82,7 @@ public class PaymentMethod extends Fragment {
                                 
                                 Ticket ticket = new Ticket(
                                         resource.getData().getMovieName(),
+                                        resource.getData().getMovieId(), // Thêm movieId
                                         resource.getData().getCinemaName(),
                                         resource.getData().getSeatNames(),
                                         resource.getData().getShowStartTime(),
