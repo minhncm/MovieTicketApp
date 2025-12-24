@@ -38,7 +38,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/momo"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/txt_momo" />
 
             <LinearLayout
@@ -94,7 +95,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/creditcard"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/txt_bank_card" />
 
             <LinearLayout
@@ -150,7 +152,8 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_launcher_foreground"
+                android:src="@drawable/zalopay"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/txt_zalopay" />
 
             <LinearLayout
