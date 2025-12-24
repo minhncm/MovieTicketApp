@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.ticketapp.data.network.ApiService;
 import com.example.ticketapp.domain.model.Account;
 import com.example.ticketapp.domain.model.Res.AuthResult;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
+import com.example.ticketapp.domain.model.Res.UpdateProfileResponse;
 import com.example.ticketapp.domain.repository.AccountRepository;
 import com.example.ticketapp.utils.Resource;
 import com.google.firebase.auth.FirebaseAuth;
@@ -282,6 +284,41 @@ public class AccountRepositoryImpl implements AccountRepository {
 
             @Override
             public void onFailure(Call<Account> call, Throwable t) {
+                result.setValue(Resource.error("Lỗi kết nối: " + t.getMessage()));
+            }
+        });
+
+        return result;
+    }
+
+    @Override
+    public LiveData<Resource<Boolean>> updateUserProfile(UpdateProfileRequest request) {
+        MutableLiveData<Resource<Boolean>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+
+        apiService.updateUserProfile(request).enqueue(new Callback<UpdateProfileResponse>() {
+            @Override
+            public void onResponse(Call<UpdateProfileResponse> call, Response<UpdateProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UpdateProfileResponse body = response.body();
+                    String message = body.getMessage();
+                    
+                    // Kiểm tra success hoặc message chứa "thành công" (workaround cho API response không nhất quán)
+                    boolean isSuccess = body.isSuccess() || 
+                            (message != null && message.toLowerCase().contains("thành công"));
+                    
+                    if (isSuccess) {
+                        result.setValue(Resource.success(true));
+                    } else {
+                        result.setValue(Resource.error(message != null ? message : "Cập nhật thất bại"));
+                    }
+                } else {
+                    result.setValue(Resource.error("Không thể cập nhật thông tin"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateProfileResponse> call, Throwable t) {
                 result.setValue(Resource.error("Lỗi kết nối: " + t.getMessage()));
             }
         });
