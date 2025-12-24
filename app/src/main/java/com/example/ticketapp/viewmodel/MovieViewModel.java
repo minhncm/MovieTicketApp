@@ -130,7 +130,6 @@ public class MovieViewModel extends ViewModel {
     // Clear kết quả tìm kiếm
     public void clearSearch() {
         _searchResults.setValue(new ArrayList<>());
-        _searchQuery.setValue(""); // Clear query text luôn
     }
     
     @Override

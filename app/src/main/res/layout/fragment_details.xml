@@ -27,6 +27,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Nút Favorite -->
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/circle_button_bg"
+        android:src="@drawable/ic_favorite_border"
+        android:scaleType="centerInside"
+        android:padding="12dp"
+        android:contentDescription="@string/txt_save_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/red" />
+
     <!-- Tiêu đề và thông tin phim -->
     <LinearLayout
         android:id="@+id/infoSection"

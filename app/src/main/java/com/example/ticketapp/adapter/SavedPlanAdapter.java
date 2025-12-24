@@ -1,6 +1,5 @@
 package com.example.ticketapp.adapter;
 
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,18 +12,15 @@ import com.bumptech.glide.Glide;
 import com.example.ticketapp.R;
 import com.example.ticketapp.databinding.ItemSavedPlanBinding;
 import com.example.ticketapp.domain.model.SavedPlanEntity;
+import com.example.ticketapp.utils.Format;
 
-/**
- * Adapter for displaying saved plans in RecyclerView
- */
 public class SavedPlanAdapter extends ListAdapter<SavedPlanEntity, SavedPlanAdapter.PlanViewHolder> {
 
     private final OnPlanActionListener listener;
 
     public interface OnPlanActionListener {
-        void onCheckout(SavedPlanEntity plan);
+        void onBookNow(SavedPlanEntity plan);
         void onDelete(SavedPlanEntity plan);
-        void onItemClick(SavedPlanEntity plan);
     }
 
     public SavedPlanAdapter(OnPlanActionListener listener) {
@@ -44,9 +40,7 @@ public class SavedPlanAdapter extends ListAdapter<SavedPlanEntity, SavedPlanAdap
                 public boolean areContentsTheSame(@NonNull SavedPlanEntity oldItem,
                                                   @NonNull SavedPlanEntity newItem) {
                     return oldItem.getMovieTitle().equals(newItem.getMovieTitle()) &&
-                            oldItem.getPersonCount() == newItem.getPersonCount() &&
-                            (oldItem.getSelectedSeats() == null ? newItem.getSelectedSeats() == null
-                                    : oldItem.getSelectedSeats().equals(newItem.getSelectedSeats()));
+                            oldItem.getMovieId().equals(newItem.getMovieId());
                 }
             };
 
@@ -72,56 +66,47 @@ public class SavedPlanAdapter extends ListAdapter<SavedPlanEntity, SavedPlanAdap
         }
 
         void bind(SavedPlanEntity plan) {
-            int position = getAdapterPosition() + 1;
-            binding.tvIndex.setText(position + ". " + (plan.getDate() != null ? plan.getDate() : "No date"));
-
-            binding.tvGenre.setText(plan.getGenre() != null ? plan.getGenre() : "Unknown");
+            // Title
             binding.tvTitle.setText(plan.getMovieTitle() != null ? plan.getMovieTitle() : "Unknown Movie");
-            binding.tvDuration.setText(plan.getDuration() != null ? plan.getDuration() : "N/A");
+            
+            // Genre
+            binding.tvGenre.setText(plan.getGenre() != null ? plan.getGenre() : "Unknown");
+            
+            // Rating
             binding.tvRating.setText(String.valueOf(plan.getRating()));
-            binding.tvCinema.setText(plan.getCinemaName() != null ? plan.getCinemaName() : "Select cinema");
-            binding.tvDate.setText(plan.getDate() != null ? plan.getDate() : "Select date");
-            binding.tvTime.setText(plan.getTime() != null ? plan.getTime() : "Select time");
-            binding.tvSeats.setText(plan.getSelectedSeats() != null ? plan.getSelectedSeats() : "Select seats");
-            binding.tvPersonCount.setText(String.valueOf(plan.getPersonCount()));
-
-            // Load poster
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                if (plan.getMoviePoster() != null && !plan.getMoviePoster().isEmpty()) {
-                    Glide.with(itemView.getContext())
-                            .load(plan.getMoviePoster())
-                            .placeholder(R.drawable.sample_movie)
-                            .error(R.drawable.sample_movie)
-                            .into(binding.imgPoster);
-                } else {
-                    binding.imgPoster.setImageResource(R.drawable.sample_movie);
+            
+            // Duration - format nếu là số
+            String duration = plan.getDuration();
+            if (duration != null) {
+                try {
+                    int minutes = Integer.parseInt(duration);
+                    binding.tvDuration.setText(Format.formatDuration(minutes));
+                } catch (NumberFormatException e) {
+                    binding.tvDuration.setText(duration);
                 }
+            } else {
+                binding.tvDuration.setText("N/A");
             }
 
-            // Person count buttons
-            binding.btnMinus.setOnClickListener(v -> {
-                if (plan.getPersonCount() > 1) {
-                    plan.setPersonCount(plan.getPersonCount() - 1);
-                    binding.tvPersonCount.setText(String.valueOf(plan.getPersonCount()));
-                }
+            // Load poster
+            if (plan.getMoviePoster() != null && !plan.getMoviePoster().isEmpty()) {
+                Glide.with(itemView.getContext())
+                        .load(plan.getMoviePoster())
+                        .placeholder(R.drawable.sample_movie)
+                        .error(R.drawable.sample_movie)
+                        .into(binding.imgPoster);
+            } else {
+                binding.imgPoster.setImageResource(R.drawable.sample_movie);
+            }
+
+            // Book Now button
+            binding.btnBookNow.setOnClickListener(v -> {
+                if (listener != null) listener.onBookNow(plan);
             });
 
-            binding.btnPlus.setOnClickListener(v -> {
-                plan.setPersonCount(plan.getPersonCount() + 1);
-                binding.tvPersonCount.setText(String.valueOf(plan.getPersonCount()));
-            });
-
-            // Action buttons
-            binding.btnCheckout.setOnClickListener(v -> {
-                if (listener != null) listener.onCheckout(plan);
-            });
-
+            // Delete button
             binding.btnDelete.setOnClickListener(v -> {
                 if (listener != null) listener.onDelete(plan);
-            });
-
-            binding.getRoot().setOnClickListener(v -> {
-                if (listener != null) listener.onItemClick(plan);
             });
         }
     }
