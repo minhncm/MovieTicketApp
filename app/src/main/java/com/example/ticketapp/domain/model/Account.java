@@ -6,7 +6,7 @@ public class Account {
         @SerializedName("uid")
         private String uid;
         
-        @SerializedName("username")
+        @SerializedName(value = "username", alternate = {"displayName"})
         private String username;
         
         @SerializedName("email")
