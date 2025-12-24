@@ -143,6 +143,23 @@
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
+    <!-- Nút Xem đánh giá -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnViewReviews"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Xem đánh giá"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:backgroundTint="#FF6B6B"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/btnBookTicket"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingVertical="12dp" />
+
     <!-- Nút Book Ticket -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBookTicket"

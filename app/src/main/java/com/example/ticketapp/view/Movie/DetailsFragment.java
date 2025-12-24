@@ -94,6 +94,25 @@ public class DetailsFragment extends Fragment {
             NavController navController = NavHostFragment.findNavController(this);
             navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToSelectSeatFragment());
         });
+        
+        // Tìm nút View Reviews bằng findViewById
+        View btnViewReviews = view.findViewById(R.id.btnViewReviews);
+        if (btnViewReviews != null) {
+            btnViewReviews.setOnClickListener(v -> {
+                try {
+                    if (movieViewModel.selectedMovie.getValue() != null) {
+                        // Mở MovieReviewFragment (movieId sẽ lấy từ MovieViewModel)
+                        NavController navController = NavHostFragment.findNavController(this);
+                        navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToMovieReviewFragment());
+                    } else {
+                        android.widget.Toast.makeText(getContext(), "Vui lòng chọn phim trước", android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 
 }
