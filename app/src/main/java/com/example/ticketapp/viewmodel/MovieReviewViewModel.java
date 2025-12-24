@@ -70,10 +70,10 @@ public class MovieReviewViewModel extends ViewModel {
         });
     }
     
-    public void addReview(MovieReview review) {
+    public void addReview(MovieReview review, String bookingId) {
         executorService.execute(() -> {
             try {
-                boolean success = repository.addReview(review);
+                boolean success = repository.addReview(review, bookingId);
                 operationSuccessLiveData.postValue(success);
                 if (success) {
                     loadReviewsByMovie(review.getMovieId());
@@ -100,10 +100,10 @@ public class MovieReviewViewModel extends ViewModel {
         });
     }
     
-    public void deleteReview(String reviewId, String movieId) {
+    public void deleteReview(String reviewId, String userId, String movieId) {
         executorService.execute(() -> {
             try {
-                boolean success = repository.deleteReview(reviewId);
+                boolean success = repository.deleteReview(reviewId, userId);
                 operationSuccessLiveData.postValue(success);
                 if (success) {
                     loadReviewsByMovie(movieId);

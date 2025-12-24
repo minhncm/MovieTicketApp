@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,17 +91,14 @@ public class WatchedTicketsFragment extends Fragment {
                 // Set selected movie trong MovieViewModel
                 movieViewModel.setSelectMovie(movie);
                 
-                // Mở MovieReviewFragment với quyền đánh giá
-                MovieReviewFragment reviewFragment = MovieReviewFragment.newInstance(true);
-                android.os.Bundle args = reviewFragment.getArguments();
-                if (args != null) {
-                    args.putString("bookingId", bookingId);
-                }
+                // Tạo Bundle với arguments
+                Bundle args = new Bundle();
+                args.putBoolean("hasWatchedMovie", true);
+                args.putString("bookingId", bookingId);
                 
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView, reviewFragment)
-                        .addToBackStack(null)
-                        .commit();
+                // Mở MovieReviewFragment - sử dụng NavController từ Activity vì fragment này nằm trong ViewPager
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                navController.navigate(R.id.action_myTicket_to_movieReviewFragment, args);
             }
 
             @Override

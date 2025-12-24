@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import com.example.ticketapp.R;
 import com.example.ticketapp.adapter.MovieReviewAdapter;
 import com.example.ticketapp.domain.model.MovieReview;
 import com.example.ticketapp.viewmodel.MovieReviewViewModel;
+import com.example.ticketapp.viewmodel.MovieViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,7 +33,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MovieReviewFragment extends Fragment {
     
-    private MovieReviewViewModel viewModel;
+    private MovieReviewViewModel reviewViewModel;
+    private MovieViewModel movieViewModel;
     private MovieReviewAdapter adapter;
     private RecyclerView recyclerView;
     private TextView tvAverageRating;
@@ -39,21 +43,19 @@ public class MovieReviewFragment extends Fragment {
     private FloatingActionButton fabAddReview;
     
     private String movieId;
+    private String bookingId;
     private String currentUserId;
-    
-    public static MovieReviewFragment newInstance(String movieId) {
-        MovieReviewFragment fragment = new MovieReviewFragment();
-        Bundle args = new Bundle();
-        args.putString("movieId", movieId);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private boolean hasWatchedMovie = false;
     
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Lấy arguments từ SafeArgs
         if (getArguments() != null) {
-            movieId = getArguments().getString("movieId");
+            MovieReviewFragmentArgs args = MovieReviewFragmentArgs.fromBundle(getArguments());
+            hasWatchedMovie = args.getHasWatchedMovie();
+            bookingId = args.getBookingId();
         }
         
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -75,6 +77,47 @@ public class MovieReviewFragment extends Fragment {
         return view;
     }
     
+    private void setupViewModel() {
+        reviewViewModel = new ViewModelProvider(this).get(MovieReviewViewModel.class);
+        movieViewModel = new ViewModelProvider(requireActivity()).get(MovieViewModel.class);
+        
+        // Lấy movieId từ MovieViewModel
+        movieViewModel.selectedMovie.observe(getViewLifecycleOwner(), movie -> {
+            if (movie != null && movieId == null) {
+                movieId = movie.getId();
+                // Load reviews khi có movieId
+                if (movieId != null) {
+                    reviewViewModel.loadReviewsByMovie(movieId);
+                }
+            }
+        });
+        
+        reviewViewModel.getReviewsLiveData().observe(getViewLifecycleOwner(), reviews -> {
+            adapter.setReviews(reviews);
+        });
+        
+        reviewViewModel.getAverageRatingLiveData().observe(getViewLifecycleOwner(), avgRating -> {
+            tvAverageRating.setText(String.format("%.1f", avgRating));
+            ratingBarAverage.setRating(avgRating);
+        });
+        
+        reviewViewModel.getReviewCountLiveData().observe(getViewLifecycleOwner(), count -> {
+            tvReviewCount.setText(count + " đánh giá");
+        });
+        
+        reviewViewModel.getOperationSuccessLiveData().observe(getViewLifecycleOwner(), success -> {
+            if (success) {
+                Toast.makeText(getContext(), "Thành công!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Có lỗi xảy ra!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        reviewViewModel.getErrorLiveData().observe(getViewLifecycleOwner(), error -> {
+            Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+        });
+    }
+    
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerViewReviews);
         tvAverageRating = view.findViewById(R.id.tvAverageRating);
@@ -85,7 +128,10 @@ public class MovieReviewFragment extends Fragment {
         // Nút back
         View btnBack = view.findViewById(R.id.btnBack);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> requireActivity().finish());
+            btnBack.setOnClickListener(v -> {
+                NavController navController = NavHostFragment.findNavController(this);
+                navController.navigateUp();
+            });
         }
     }
     
@@ -110,40 +156,14 @@ public class MovieReviewFragment extends Fragment {
         });
     }
     
-    private void setupViewModel() {
-        viewModel = new ViewModelProvider(this).get(MovieReviewViewModel.class);
-        
-        viewModel.getReviewsLiveData().observe(getViewLifecycleOwner(), reviews -> {
-            adapter.setReviews(reviews);
-        });
-        
-        viewModel.getAverageRatingLiveData().observe(getViewLifecycleOwner(), avgRating -> {
-            tvAverageRating.setText(String.format("%.1f", avgRating));
-            ratingBarAverage.setRating(avgRating);
-        });
-        
-        viewModel.getReviewCountLiveData().observe(getViewLifecycleOwner(), count -> {
-            tvReviewCount.setText(count + " đánh giá");
-        });
-        
-        viewModel.getOperationSuccessLiveData().observe(getViewLifecycleOwner(), success -> {
-            if (success) {
-                Toast.makeText(getContext(), "Thành công!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Có lỗi xảy ra!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        
-        viewModel.getErrorLiveData().observe(getViewLifecycleOwner(), error -> {
-            Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-        });
-        
-        // Load reviews
-        viewModel.loadReviewsByMovie(movieId);
-    }
-    
     private void setupListeners() {
-        fabAddReview.setOnClickListener(v -> showAddReviewDialog());
+        // Chỉ cho phép đánh giá nếu đã xem phim
+        if (hasWatchedMovie) {
+            fabAddReview.setVisibility(View.VISIBLE);
+            fabAddReview.setOnClickListener(v -> showAddReviewDialog());
+        } else {
+            fabAddReview.setVisibility(View.GONE);
+        }
     }
     
     private void showAddReviewDialog() {
@@ -180,7 +200,7 @@ public class MovieReviewFragment extends Fragment {
                     System.currentTimeMillis()
             );
             
-            viewModel.addReview(review);
+            reviewViewModel.addReview(review, bookingId != null ? bookingId : "");
             dialog.dismiss();
         });
         
@@ -223,7 +243,7 @@ public class MovieReviewFragment extends Fragment {
             review.setRating(ratingBar.getRating());
             review.setComment(etComment.getText().toString().trim());
             
-            viewModel.updateReview(review);
+            reviewViewModel.updateReview(review);
             dialog.dismiss();
         });
         
@@ -235,7 +255,7 @@ public class MovieReviewFragment extends Fragment {
                 .setTitle("Xác nhận xóa")
                 .setMessage("Bạn có chắc muốn xóa đánh giá này?")
                 .setPositiveButton("Xóa", (dialog, which) -> {
-                    viewModel.deleteReview(review.getId(), movieId);
+                    reviewViewModel.deleteReview(review.getId(), currentUserId, movieId);
                 })
                 .setNegativeButton("Hủy", null)
                 .show();
