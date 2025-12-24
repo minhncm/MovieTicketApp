@@ -15,18 +15,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ticketapp.R;
 import com.example.ticketapp.databinding.FragmentDetailsBinding;
 import com.example.ticketapp.domain.model.Movie;
+import com.example.ticketapp.domain.model.SavedPlanEntity;
 import com.example.ticketapp.utils.Format;
 import com.example.ticketapp.viewmodel.MovieViewModel;
+import com.example.ticketapp.viewmodel.SavedPlanViewModel;
 
 
 public class DetailsFragment extends Fragment {
     private FragmentDetailsBinding binding;
     private MovieViewModel movieViewModel;
+    private SavedPlanViewModel savedPlanViewModel;
+    private boolean isFavorite = false;
+    private Movie currentMovie;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +40,7 @@ public class DetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentDetailsBinding.inflate(inflater, container, false);
         movieViewModel = new ViewModelProvider(requireActivity()).get(MovieViewModel.class);
+        savedPlanViewModel = new ViewModelProvider(this).get(SavedPlanViewModel.class);
 
         return binding.getRoot();
     }
@@ -86,10 +93,14 @@ public class DetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         movieViewModel.selectedMovie.observe(getViewLifecycleOwner(), movie -> {
             if (movie != null) {
+                currentMovie = movie;
                 initView(movie);
-
+                checkIfFavorite(movie.getId());
             }
         });
+        
+        binding.btnFavorite.setOnClickListener(v -> toggleFavorite());
+        
         binding.btnBookTicket.setOnClickListener(v->{
             NavController navController = NavHostFragment.findNavController(this);
             navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToSelectSeatFragment());
@@ -105,14 +116,63 @@ public class DetailsFragment extends Fragment {
                         NavController navController = NavHostFragment.findNavController(this);
                         navController.navigate(DetailsFragmentDirections.actionDetailsFragmentToMovieReviewFragment());
                     } else {
-                        android.widget.Toast.makeText(getContext(), "Vui lòng chọn phim trước", android.widget.Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Vui lòng chọn phim trước", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    android.widget.Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             });
         }
+    }
+
+    private void checkIfFavorite(String movieId) {
+        savedPlanViewModel.getAllPlans().observe(getViewLifecycleOwner(), plans -> {
+            if (plans != null) {
+                isFavorite = false;
+                for (SavedPlanEntity plan : plans) {
+                    if (plan.getMovieId() != null && plan.getMovieId().equals(movieId)) {
+                        isFavorite = true;
+                        break;
+                    }
+                }
+                updateFavoriteIcon();
+            }
+        });
+    }
+
+    private void updateFavoriteIcon() {
+        if (isFavorite) {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_filled);
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_border);
+        }
+    }
+
+    private void toggleFavorite() {
+        if (currentMovie == null) return;
+
+        if (isFavorite) {
+            // Xóa khỏi favorites
+            savedPlanViewModel.deleteByMovieId(currentMovie.getId());
+            isFavorite = false;
+            Toast.makeText(requireContext(), R.string.txt_removed_from_favorites, Toast.LENGTH_SHORT).show();
+        } else {
+            // Thêm vào favorites
+            SavedPlanEntity plan = new SavedPlanEntity();
+            plan.setMovieId(currentMovie.getId());
+            plan.setMovieTitle(currentMovie.getTitle());
+            plan.setMoviePoster(currentMovie.getPosterUrl());
+            plan.setGenre(currentMovie.getGenres() != null ? String.join(", ", currentMovie.getGenres()) : "");
+            plan.setRating(currentMovie.getRating());
+            plan.setDuration(currentMovie.getDuration());
+            plan.setPersonCount(1);
+            
+            savedPlanViewModel.insert(plan);
+            isFavorite = true;
+            Toast.makeText(requireContext(), R.string.txt_added_to_favorites, Toast.LENGTH_SHORT).show();
+        }
+        updateFavoriteIcon();
     }
 
 }

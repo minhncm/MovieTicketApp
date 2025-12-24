@@ -21,6 +21,10 @@ public interface SavedPlanDao  {
 
     @Delete
     void delete(SavedPlanEntity plan);
+
+    @Query("DELETE FROM saved_plans WHERE movieId = :movieId")
+    void deleteByMovieId(String movieId);
+
     @Query("SELECT * FROM saved_plans ORDER BY createdAt DESC")
     LiveData<List<SavedPlanEntity>> getAllPlans();
 
