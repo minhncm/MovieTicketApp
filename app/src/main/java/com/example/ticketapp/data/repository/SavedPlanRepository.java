@@ -38,6 +38,11 @@ public class SavedPlanRepository {
     public void delete(SavedPlanEntity plan) {
         executorService.execute(() -> savedPlanDao.delete(plan));
     }
+
+    public void deleteByMovieId(String movieId) {
+        executorService.execute(() -> savedPlanDao.deleteByMovieId(movieId));
+    }
+
     public LiveData<List<SavedPlanEntity>> getAllPlans() {
         return savedPlanDao.getAllPlans();
     }

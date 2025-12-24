@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHost;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,15 +25,12 @@ import com.example.ticketapp.domain.model.Cinema;
 import com.example.ticketapp.domain.model.Res.BookingData;
 import com.example.ticketapp.domain.model.Room;
 import com.example.ticketapp.domain.model.Seat;
-import com.example.ticketapp.domain.model.Showtimes; // Đảm bảo bạn đã import Showtimes
+import com.example.ticketapp.domain.model.Showtimes;
 import com.example.ticketapp.utils.Resource;
 import com.example.ticketapp.viewmodel.BookingViewModel;
 import com.example.ticketapp.viewmodel.CinemaViewModel;
 import com.example.ticketapp.viewmodel.MovieViewModel;
 import com.example.ticketapp.viewmodel.ProfileViewModel;
-import com.example.ticketapp.viewmodel.SavedPlanViewModel;
-import com.example.ticketapp.domain.model.SavedPlanEntity;
-import com.example.ticketapp.domain.model.Movie;
 
 import android.widget.Toast;
 import android.util.Log;
@@ -54,8 +50,6 @@ public class SelectSeatFragment extends Fragment {
     private RecyclerView recyclerViewSeats;
     private ProfileViewModel profileViewModel;
     private BookingViewModel bookingViewModel;
-    private SavedPlanViewModel savedPlanViewModel;
-    private Movie currentMovie;
     private Showtimes selectedShowtime;
     private int selectedCinemaPosition = AdapterView.INVALID_POSITION;
     private List<Cinema> currentCinemaList = new ArrayList<>();
@@ -81,7 +75,6 @@ public class SelectSeatFragment extends Fragment {
         movieViewModel = new ViewModelProvider(requireActivity()).get(MovieViewModel.class);
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         bookingViewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
-        savedPlanViewModel = new ViewModelProvider(this).get(SavedPlanViewModel.class);
         seatAdapter = new SeatAdapter((seat, position, isSelected) -> {
         });
         recyclerViewSeats = binding.recyclerViewSeats;
@@ -93,6 +86,21 @@ public class SelectSeatFragment extends Fragment {
         setupCitySpinner();
         setUpCinemaChoice();
         setUpShowtimeChoice();
+        setupLegend();
+    }
+
+    private void setupLegend() {
+        // Legend Selected (màu xanh dương)
+        binding.legendSelected.legendColor.setBackgroundResource(R.drawable.seat_selected);
+        binding.legendSelected.legendText.setText(R.string.txt_selected);
+
+        // Legend Reserved (màu đỏ/xám)
+        binding.legendReserved.legendColor.setBackgroundResource(R.drawable.seat_reserved);
+        binding.legendReserved.legendText.setText(R.string.txt_reserved);
+
+        // Legend Available (màu xanh lá/trắng)
+        binding.legendAvailable.legendColor.setBackgroundResource(R.drawable.seat_available);
+        binding.legendAvailable.legendText.setText(R.string.txt_available);
     }
 
     private void setUpBtn(NavController navController) {
@@ -118,12 +126,7 @@ public class SelectSeatFragment extends Fragment {
             bookingData.setShowTimeId(selectedShowtime.getUid());
             bookingViewModel.setBookingData(bookingData);
             seatAdapter.clearSelection();
-            // Navigate đến màn hình chọn phương thức thanh toán
             navController.navigate(R.id.action_selectSeatFragment_to_paymentMethodSelection);
-        });
-        
-        binding.buttonSavePlan.setOnClickListener(view1 -> {
-            savePlanForLater();
         });
     }
 
@@ -139,7 +142,6 @@ public class SelectSeatFragment extends Fragment {
         // Lấy phim đã chọn (từ màn hình trước)
         movieViewModel.selectedMovie.observe(getViewLifecycleOwner(), movie -> {
             if (movie != null) {
-                currentMovie = movie;
                 cinemaViewModel.setMovieSelected(movie.getId());
             }
         });
@@ -371,65 +373,5 @@ public class SelectSeatFragment extends Fragment {
         showtimeAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         binding.spinnerShowtime.setAdapter(showtimeAdapter);
     }
-
-    private void savePlanForLater() {
-        // Validate dữ liệu
-        if (currentMovie == null) {
-            Toast.makeText(requireContext(), R.string.txt_select_movie_first, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (selectedCinemaPosition == AdapterView.INVALID_POSITION || currentCinemaList.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.txt_select_cinema_first, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (selectedShowtime == null) {
-            Toast.makeText(requireContext(), R.string.txt_select_showtime_first, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        List<String> selectedSeats = seatAdapter.getSelectedSeatIds();
-        if (selectedSeats.isEmpty()) {
-            Toast.makeText(requireContext(), R.string.txt_select_seats_first, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Tạo SavedPlanEntity
-        SavedPlanEntity plan = new SavedPlanEntity();
-        plan.setMovieId(currentMovie.getId());
-        plan.setMovieTitle(currentMovie.getTitle());
-        plan.setMoviePoster(currentMovie.getPosterUrl());
-        plan.setGenre(currentMovie.getGenres().toString());
-        plan.setRating(currentMovie.getRating());
-        plan.setDuration(currentMovie.getDuration());
-
-        // Cinema info
-        Cinema selectedCinema = currentCinemaList.get(selectedCinemaPosition);
-        plan.setCinemaId(selectedCinema.getUid());
-        plan.setCinemaName(selectedCinema.getName());
-
-        // Showtime ID - quan trọng để checkout sau
-        plan.setShowtimeId(selectedShowtime.getUid());
-
-        // Date & Time
-        plan.setDate(date);
-        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.US);
-        plan.setTime(timeFormatter.format(selectedShowtime.getStartTime()));
-        
-        // Seats
-        plan.setSelectedSeats(String.join(",", selectedSeats));
-        plan.setPersonCount(selectedSeats.size());
-        
-        // Lưu vào database
-        savedPlanViewModel.insert(plan);
-        Toast.makeText(requireContext(), R.string.txt_plan_saved, Toast.LENGTH_SHORT).show();
-        
-        // Clear selected seats
-        seatAdapter.clearSelection();
-        
-        // Navigate to saved plans
-        NavController navController = NavHostFragment.findNavController(SelectSeatFragment.this);
-        navController.navigate(R.id.action_selectSeatFragment_to_nav_bookmark);
-    }
 }
+

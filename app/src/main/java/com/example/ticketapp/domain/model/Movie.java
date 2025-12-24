@@ -25,9 +25,13 @@ public class Movie {
     private String status;
     private FirestoreTimestamp releaseDate;
 
-    public Movie(String id,String title, String director, double rating,
+    public Movie() {
+
+    }
+
+    public Movie(String id, String title, String director, double rating,
                  List<String> genres, String duration,
-                 String synopsis, String posterUrl,String status,FirestoreTimestamp releaseDate) {
+                 String synopsis, String posterUrl, String status, FirestoreTimestamp releaseDate) {
         this.title = title;
         this.director = director;
         this.rating = rating;
