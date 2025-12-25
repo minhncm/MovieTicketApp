@@ -15,13 +15,8 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.ticketapp.databinding.FragmentUpdateAddressBinding;
 import com.example.ticketapp.domain.model.Account;
+import com.example.ticketapp.domain.model.Res.UpdateProfileRequest;
 import com.example.ticketapp.viewmodel.ProfileViewModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -29,8 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class UpdateAddressFragment extends Fragment {
     private FragmentUpdateAddressBinding binding;
     private ProfileViewModel profileViewModel;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firestore;
     private Account currentUser;
     private String currentAddress = "";
 
@@ -45,8 +38,6 @@ public class UpdateAddressFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         
-        firebaseAuth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         
         setupObservers();
@@ -150,49 +141,49 @@ public class UpdateAddressFragment extends Fragment {
     }
 
     private void updateAddressInFirestore(String newAddress) {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        
-        if (user == null) {
+        if (currentUser == null || currentUser.getUid() == null) {
             Toast.makeText(getContext(), "Không tìm thấy thông tin người dùng", Toast.LENGTH_SHORT).show();
             enableButtons();
             return;
         }
 
-        String userId = user.getUid();
-        
-        // Tạo map để cập nhật
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("address", newAddress);
-        updates.put("updatedAt", System.currentTimeMillis());
+        // Tạo request để gọi API
+        UpdateProfileRequest request = new UpdateProfileRequest(currentUser.getUid());
+        request.setAddress(newAddress);
+        request.setEmail(currentUser.getEmail());
+        request.setDisplayName(currentUser.getUsername());
+        request.setPhoneNumber(currentUser.getPhoneNumber());
+        request.setGender(currentUser.getGender());
 
-        // Cập nhật vào Firestore collection "users"
-        firestore.collection("users")
-                .document(userId)
-                .update(updates)
-                .addOnSuccessListener(aVoid -> {
-                    // Cập nhật thành công
-                    Toast.makeText(getContext(), 
-                        "Cập nhật địa chỉ thành công!", 
-                        Toast.LENGTH_SHORT).show();
-                    
-                    // Reload user profile từ Firestore để cập nhật UI
-                    profileViewModel.geUserById().observe(getViewLifecycleOwner(), resource -> {
-                        if (resource != null && resource.getData() != null) {
-                            // Data đã được cập nhật, ViewModel sẽ tự động notify observers
-                        }
-                    });
-                    
-                    // Quay lại màn hình trước
-                    NavController navController = NavHostFragment.findNavController(UpdateAddressFragment.this);
-                    navController.navigateUp();
-                })
-                .addOnFailureListener(e -> {
-                    // Cập nhật thất bại
-                    Toast.makeText(getContext(), 
-                        "Lỗi: " + e.getMessage(), 
-                        Toast.LENGTH_SHORT).show();
-                    enableButtons();
-                });
+        // Gọi API update profile
+        profileViewModel.updateProfile(request).observe(getViewLifecycleOwner(), resource -> {
+            if (resource != null) {
+                switch (resource.getStatus()) {
+                    case LOADING:
+                        // Đang xử lý
+                        break;
+                    case SUCCESS:
+                        Toast.makeText(getContext(), 
+                            "Cập nhật địa chỉ thành công!", 
+                            Toast.LENGTH_SHORT).show();
+                        
+                        // Cập nhật currentUser và notify ViewModel
+                        currentUser.setAddress(newAddress);
+                        profileViewModel.setUserProfile(currentUser);
+                        
+                        // Quay lại màn hình trước
+                        NavController navController = NavHostFragment.findNavController(UpdateAddressFragment.this);
+                        navController.navigateUp();
+                        break;
+                    case ERROR:
+                        Toast.makeText(getContext(), 
+                            "Lỗi: " + resource.getMessage(), 
+                            Toast.LENGTH_SHORT).show();
+                        enableButtons();
+                        break;
+                }
+            }
+        });
     }
 
     private void enableButtons() {
